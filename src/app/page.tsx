@@ -9,7 +9,7 @@ export default function Home() {
           <li className='mb-2'>
             Get started by editing <code className='rounded bg-black/[.05] px-1 py-0.5 font-semibold dark:bg-white/[.06]'>src/app/page.tsx</code>.
           </li>
-          <li>test1</li>
+          <li>자동배포 확인</li>
         </ol>
 
         <div className='block'>
