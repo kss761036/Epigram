@@ -16,16 +16,27 @@
       "always",
       [
         "🎉 Init",
+        ":tada: Init",
         "✨ Feat",
+        ":sparkles: Feat",
         "📦️ Chore",
+        ":package: Chore",
         "💄 Design",
-        "🚑️ Fix",
+        ":lipstick: Design",
+        "🐛 Fix",
+        ":bug: Fix",
         "✅ Test",
+        ":white_check_mark: Test",
         "🚀 Deploy",
+        ":rocket: Deploy",
         "🔨 Refactor",
+        ":hammer: Refactor",
         "🚚 Rename",
+        ":truck: Rename", 
         "📚 Docs",
-        "🔥 Remove"
+        ":books: Docs",
+        "🔥 Remove",
+        ":fire: Remove" 
       ]
     ]
   }
