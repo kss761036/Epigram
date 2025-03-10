@@ -1,6 +1,7 @@
-import '@/assets/css/globals.css';
-import QueryClientProvider from '@/context/QueryProvider';
 import localFont from 'next/font/local';
+import QueryClientProvider from '@/context/QueryProvider';
+import { ToastContainer } from 'react-toastify';
+import '@/assets/css/globals.css';
 
 const pretendard = localFont({
   src: '../assets/fonts/PretendardVariable.woff2',
@@ -23,7 +24,10 @@ export default function RootLayout({
   return (
     <html lang='ko'>
       <body className={`${pretendard.className} ${iropke.variable}`}>
-        <QueryClientProvider>{children}</QueryClientProvider>
+        <QueryClientProvider>
+          {children}
+          <ToastContainer />
+        </QueryClientProvider>
       </body>
     </html>
   );
