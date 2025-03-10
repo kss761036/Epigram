@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+:root {
+  --font-iropke: 'Iropke Batang', serif; 
+  --font-pretendard : 'Pretendard', sans-serif
+}
+
+html{
+  font-family: var(--font-pretendard)
+}
+
 @theme {
   --text-3xl: 32px;
   --text-2xl: 24px;
