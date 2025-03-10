@@ -1,4 +1,5 @@
 import '@/assets/css/globals.css';
+import QueryClientProvider from '@/context/QueryProvider';
 import localFont from 'next/font/local';
 
 const pretendard = localFont({
@@ -21,7 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='ko'>
-      <body className={`${pretendard.className} ${iropke.variable}`}>{children}</body>
+      <body className={`${pretendard.className} ${iropke.variable}`}>
+        <QueryClientProvider>{children}</QueryClientProvider>
+      </body>
     </html>
   );
 }
