@@ -11,6 +11,7 @@ interface InputProps {
   placeholder?: string;
   className?: string;
   error?: string;
+  errorClassName?: string;
   type: input;
   label?: string;
   labelClassName?: string;
@@ -24,6 +25,7 @@ export default function Input({
   placeholder = '',
   className,
   error,
+  errorClassName,
   type,
   label,
   labelClassName,
@@ -61,7 +63,7 @@ export default function Input({
   return (
     <div className='flex flex-col'>
       {label && (
-        <label className={'text-md mb-4 text-blue-900 lg:mb-4 lg:text-xl'} htmlFor={id}>
+        <label className={'text-md mb-4 text-blue-900 md:mb-5 md:text-lg lg:text-xl'} htmlFor={id}>
           {label}
         </label>
       )}
@@ -100,7 +102,11 @@ export default function Input({
           />
         )}
       </div>
-      {error && <span className='text-red ml-2'>{error}</span>}
+      {error && (
+        <span className={cn('text-red md:text-md mt-2 ml-2 text-xs lg:text-lg', errorClassName)}>
+          {error}
+        </span>
+      )}
     </div>
   );
 }
