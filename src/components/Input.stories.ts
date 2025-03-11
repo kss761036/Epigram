@@ -27,6 +27,11 @@ const meta: Meta<typeof Input> = {
       control: 'text',
       description: 'error',
     },
+    errorClassName: {
+      control: 'text',
+      description:
+        'error 부분의 className을 추가 합니다.(우선 순위 최우선, 기존 className과 충돌 시 이 부분의 className을 사용합니다)',
+    },
     label: {
       control: 'text',
       description: 'label이 없는 경우 미입력',
