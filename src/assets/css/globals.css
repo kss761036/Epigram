@@ -9,6 +9,10 @@ html{
   font-family: var(--font-pretendard)
 }
 
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
 @theme {
   --text-3xl: 32px;
   --text-2xl: 24px;
