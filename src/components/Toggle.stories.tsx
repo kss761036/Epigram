@@ -21,6 +21,7 @@ export const Default: Story = {
   args: {
     isChecked: false,
     text: '공개',
+    id: 'toggle_1',
   },
   parameters: {
     layout: 'centered',
@@ -31,6 +32,7 @@ export const Checked: Story = {
   args: {
     isChecked: true,
     text: '공개',
+    id: 'toggle_2',
   },
   parameters: {
     layout: 'centered',

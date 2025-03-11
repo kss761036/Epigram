@@ -1,10 +1,12 @@
-import { HTMLAttributes, useId } from 'react';
+import { HTMLAttributes } from 'react';
 
 export interface ToggleProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
   isChecked: boolean;
   onChange: (checked: boolean) => void;
   color?: string;
   text?: string;
+  id: string;
+  name?: string;
 }
 
 export default function Toggle({
@@ -12,9 +14,8 @@ export default function Toggle({
   onChange,
   color = 'text-gray-400',
   text = undefined,
+  id = 'toggle',
 }: ToggleProps) {
-  const id = useId();
-
   return (
     <div>
       <input
