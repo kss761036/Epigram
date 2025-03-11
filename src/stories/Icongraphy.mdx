@@ -1,0 +1,11 @@
+import { Meta, Typeset, IconGallery, IconItem  } from '@storybook/blocks';
+import {iconPaths} from '../components/Icon.path'
+import Icon from '../components/Icon';
+
+<Meta title="Design System/Icongraphy" />
+ 
+# Icongraphy
+<br />
+<IconGallery>
+  {Object.keys(iconPaths).map(name => <IconItem name={name}><Icon name={name}/></IconItem>)} 
+</IconGallery>
