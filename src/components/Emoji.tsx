@@ -2,10 +2,12 @@ import { SVGProps } from 'react';
 import { iconPaths } from './Emoji.path';
 import { cn } from '@/utils/helper';
 
+export type Emotion = keyof typeof iconPaths;
+
 interface IconProps extends SVGProps<SVGSVGElement> {
   size?: number;
   disabled?: boolean;
-  name: keyof typeof iconPaths;
+  name: Emotion;
 }
 
 export default function Emoji({
