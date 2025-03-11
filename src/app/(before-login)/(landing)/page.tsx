@@ -1,3 +1,6 @@
+import Sample from '@/components/Sample';
+import Toggle from '@/components/Toggle';
+
 export default function LandingPage() {
   return (
     <div className='grid justify-center gap-4 p-4 text-center'>
