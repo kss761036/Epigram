@@ -8,8 +8,7 @@ const meta: Meta<typeof Button> = {
   parameters: {
     docs: {
       description: {
-        component:
-          '이 컴포넌트는 SVGProps<SVGSVGElement>를 확장하여 모든 SVG 속성을 지원합니다. \n className에 tailwindcss를 활용하여, 반응형처리를 할 수 있습니다.',
+        component: 'Button 컴포넌트',
       },
     },
   },
