@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import Emoji from './Emoji';
-import { EMOTION } from '@/types/common';
+import { Emotion, EMOTION } from '@/types/common';
 
 const meta: Meta<typeof Emoji> = {
   component: Emoji,
@@ -15,7 +15,11 @@ const meta: Meta<typeof Emoji> = {
     },
   },
   argTypes: {
-    name: { control: 'select', description: 'icon name' },
+    name: {
+      control: 'select',
+      description: Object.values(EMOTION).join(' | '),
+      options: Object.values(EMOTION),
+    },
     size: {
       control: 'number',
       description: 'icon size\n(className에 설정된 tailwindcss width 보다 우선순위 낮음)',
