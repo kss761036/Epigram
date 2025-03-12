@@ -4,6 +4,7 @@ import { HTMLAttributes, useState } from 'react';
 import Image from 'next/image';
 import { cn } from '@/utils/helper';
 import Emoji from './Emoji';
+import { EMOTION } from '@/types/common';
 
 interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
   src?: string;
@@ -42,5 +43,5 @@ function CharacterAvatar({ name }: { name: string }) {
 }
 
 function DefaultAvatar() {
-  return <Emoji name='happy' className='w-full opacity-20 grayscale' data-default-avatar />;
+  return <Emoji name={EMOTION.HAPPY} className='w-full opacity-20 grayscale' data-default-avatar />;
 }

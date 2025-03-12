@@ -1,5 +1,8 @@
-export const iconPaths = {
-  moved: (
+import { ReactElement } from 'react';
+import { EMOTION } from '@/types/common';
+
+export const iconPaths: { [T in keyof typeof EMOTION]: ReactElement } = {
+  MOVED: (
     <>
       <path
         d='M16 32C24.8366 32 32 24.8366 32 16C32 7.16344 24.8366 0 16 0C7.16344 0 0 7.16344 0 16C0 24.8366 7.16344 32 16 32Z'
@@ -19,7 +22,7 @@ export const iconPaths = {
       />
     </>
   ),
-  sad: (
+  SAD: (
     <>
       <path
         d='M16 32C24.84 32 32 24.84 32 16C32 7.16 24.84 0 16 0C7.16 0 0 7.16 0 16C0 24.84 7.16 32 16 32Z'
@@ -43,7 +46,7 @@ export const iconPaths = {
       />
     </>
   ),
-  happy: (
+  HAPPY: (
     <>
       <path
         d='M16 32C24.84 32 32 24.84 32 16C32 7.16 24.84 0 16 0C7.16 0 0 7.16 0 16C0 24.84 7.16 32 16 32Z'
@@ -63,7 +66,7 @@ export const iconPaths = {
       />
     </>
   ),
-  thinking: (
+  WORRIED: (
     <>
       <path
         d='M16 32C24.84 32 32 24.84 32 16C32 7.16 24.84 0 16 0C7.16 0 0 7.16 0 16C0 24.84 7.16 32 16 32Z'
@@ -95,7 +98,7 @@ export const iconPaths = {
       />
     </>
   ),
-  angry: (
+  ANGRY: (
     <>
       <path
         d='M16 32C24.84 32 32 24.84 32 16C32 7.16 24.84 0 16 0C7.16 0 0 7.16 0 16C0 24.84 7.16 32 16 32Z'
