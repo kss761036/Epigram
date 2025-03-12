@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import Emoji from './Emoji';
+import { EMOTION } from '@/types/common';
 
 const meta: Meta<typeof Emoji> = {
   component: Emoji,
@@ -27,7 +28,7 @@ type Story = StoryObj<typeof Emoji>;
 
 export const Default: Story = {
   args: {
-    name: 'happy',
+    name: EMOTION.HAPPY,
   },
   parameters: {
     layout: 'centered',
