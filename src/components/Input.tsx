@@ -3,6 +3,7 @@
 import React, { InputHTMLAttributes, useState, useId } from 'react';
 import { cn } from '@/utils/helper';
 import Icon from './Icon';
+import { cva } from 'class-variance-authority';
 
 type input = 'text' | 'email' | 'password' | 'search';
 
@@ -12,6 +13,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: string;
   errorClassName?: string;
   type: input;
+  variant?: 'filled' | 'outlined' | 'underlined';
   label?: string;
   labelClassName?: string;
   onSearch?: () => void;
@@ -20,12 +22,39 @@ interface PasswordState {
   type: 'password' | 'text';
 }
 
+const inputVariants = cva(
+  'text-black-950 outline-black-600 h-[44px] w-full pl-4 text-lg placeholder:text-blue-400 lg:h-[64px] lg:text-xl',
+  {
+    variants: {
+      variant: {
+        filled: 'bg-blue-200  rounded-[12px]',
+        outlined: 'bg-blue-100 border border-blue-300 rounded-[12px]',
+        underlined: 'bg-blue-100 border-b-2 border-blue-800 p-0 outline-none',
+      },
+      hasError: {
+        true: 'border-red outline-red border',
+        false: '',
+      },
+    },
+    defaultVariants: {
+      variant: 'outlined',
+      hasError: false,
+    },
+  },
+);
+
+interface InputVariantProps {
+  variant?: 'filled' | 'outlined' | 'underlined';
+  hasError?: boolean;
+}
+
 export default function Input({
   placeholder = '',
   className,
   error,
   errorClassName,
   type,
+  variant,
   label,
   labelClassName,
   onSearch,
@@ -45,19 +74,18 @@ export default function Input({
 
   const id = useId();
 
-  const emailClassName = 'bg-blue-200  rounded-[12px]';
-  const passwordClassName = 'bg-blue-200  rounded-[12px]';
-  const textClassName = 'bg-blue-100 border border-blue-300 rounded-[12px]';
-  const searchClassName = 'bg-blue-100 border-b-2 border-blue-800 p-0 outline-none';
+  const styleVariant =
+    variant ??
+    (type === 'email' || type === 'password'
+      ? 'filled'
+      : type === 'search'
+        ? 'underlined'
+        : 'outlined');
 
-  const typeClassName =
-    type === 'email'
-      ? emailClassName
-      : type === 'password'
-        ? passwordClassName
-        : type === 'text'
-          ? textClassName
-          : searchClassName;
+  const variantClassName = inputVariants({
+    variant: styleVariant,
+    hasError: Boolean(error),
+  });
 
   return (
     <div className='flex flex-col'>
@@ -71,12 +99,7 @@ export default function Input({
           id={id}
           type={inputType}
           placeholder={placeholder}
-          className={cn(
-            'text-black-950 outline-black-600 h-[44px] w-full pl-4 text-lg placeholder:text-blue-400 lg:h-[64px] lg:text-xl',
-            typeClassName,
-            error && 'border-red outline-red border',
-            className,
-          )}
+          className={cn(variantClassName, className)}
           onKeyDown={(e) => {
             if (e.key === 'Enter' && type === 'search' && onSearch) {
               onSearch();
