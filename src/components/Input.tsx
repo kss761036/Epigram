@@ -1,13 +1,12 @@
 'use client';
 
-import React from 'react';
-import { useState, useId } from 'react';
+import React, { InputHTMLAttributes, useState, useId } from 'react';
 import { cn } from '@/utils/helper';
 import Icon from './Icon';
 
 type input = 'text' | 'email' | 'password' | 'search';
 
-interface InputProps {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   placeholder?: string;
   className?: string;
   error?: string;
