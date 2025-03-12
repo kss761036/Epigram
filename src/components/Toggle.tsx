@@ -1,34 +1,61 @@
-import { HTMLAttributes } from 'react';
+'use client';
 
-export interface ToggleProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
-  isChecked: boolean;
-  id: string;
-  onChange: (checked: boolean) => void;
-  color?: string;
+import { ChangeEvent, InputHTMLAttributes, useEffect, useId, useState } from 'react';
+import { cn } from '@/utils/helper';
+
+export interface ToggleProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+  type?: 'checkbox' | 'radio';
   label?: string;
-  name?: string;
+  labelColor?: string;
+  className?: string;
+  checked?: boolean;
+  onChange?: (checked: boolean) => void;
 }
 
 export default function Toggle({
-  isChecked = false,
+  type = 'checkbox',
+  checked,
+  labelColor = 'text-gray-400',
+  label,
+  className,
   onChange,
-  color = 'text-gray-400',
-  label = undefined,
-  id = '',
-  name = '',
+  ...props
 }: ToggleProps) {
+  const id = useId();
+  const [isChecked, setIsChecked] = useState(checked ?? false);
+
+  useEffect(() => {
+    if (checked !== undefined) {
+      setIsChecked(checked);
+    }
+  }, [checked]);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(e.target.checked);
+    onChange?.(e.target.checked);
+  };
+
+  const classes = {
+    container: cn(className),
+    input: 'sr-only',
+    label: 'flex cursor-pointer items-center justify-center gap-2',
+    labelText: cn(labelColor, 'text-[12px] md:text-lg'),
+    toggleBorder: cn('transition-colors', isChecked ? 'fill-black-600' : 'fill-gray-300'),
+    toggleCircle: 'fill-white transition-transform duration-300',
+  };
+
   return (
-    <div>
+    <div className={classes.container}>
       <input
-        className='sr-only'
-        type='checkbox'
         id={id}
-        name={name}
+        className={classes.input}
+        type={type}
         checked={isChecked}
-        onChange={() => onChange(!isChecked)}
+        onChange={handleChange}
+        {...props}
       />
-      <label className='flex cursor-pointer items-center justify-center gap-2' htmlFor={id}>
-        {label && <span className={`${color} text-[12px] md:text-lg`}>{label}</span>}
+      <label className={classes.label} htmlFor={id}>
+        {label && <span className={classes.labelText}>{label}</span>}
         <div className='block md:hidden'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -37,17 +64,12 @@ export default function Toggle({
             viewBox='0 0 32 16'
             fill='none'
           >
-            <rect
-              width='32'
-              height='16'
-              rx='8'
-              className={`transition-colors ${isChecked ? 'fill-black-600' : 'fill-gray-300'}`}
-            />
+            <rect width='32' height='16' rx='8' className={classes.toggleBorder} />
             <circle
               cx='8'
               cy='8'
               r='5'
-              className={`fill-white transition-transform duration-300`}
+              className={classes.toggleCircle}
               style={{
                 transform: isChecked ? 'translateX(16px)' : 'translateX(0px)',
               }}
@@ -62,18 +84,13 @@ export default function Toggle({
             viewBox='0 0 42 24'
             fill='none'
           >
-            <rect
-              width='42'
-              height='24'
-              rx='12'
-              className={`transition-colors ${isChecked ? 'fill-black-600' : 'fill-gray-300'}`}
-            />
+            <rect width='42' height='24' rx='12' className={classes.toggleBorder} />
             <circle
               cx='12'
               cy='12'
               r='8'
               fill='white'
-              className={`fill-white transition-transform duration-300`}
+              className={classes.toggleCircle}
               style={{
                 transform: isChecked ? 'translateX(18px)' : 'translateX(0px)',
               }}

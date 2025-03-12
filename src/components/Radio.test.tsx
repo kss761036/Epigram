@@ -1,37 +1,36 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import Radio, { RadioProps } from '@/components/Radio';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import Radio from './Radio';
 
 describe('Radio Component', () => {
-  const defaultProps: RadioProps = {
-    isChecked: false,
-    id: 'test-radio',
-    name: 'test-group',
-    label: '테스트 라디오',
-    onChange: jest.fn(),
-  };
-
-  it('라디오 버튼이 렌더링 되는지 확인', () => {
-    render(<Radio {...defaultProps} />);
-    const radioInput = screen.getByRole('radio', { name: '테스트 라디오' });
-
-    expect(radioInput).toBeInTheDocument();
-    expect(radioInput).not.toBeChecked();
+  test('라벨이 정상적으로 렌더링된다', () => {
+    render(<Radio label='테스트 라디오' />);
+    expect(screen.getByText('테스트 라디오')).toBeInTheDocument();
   });
 
-  it('라벨을 클릭하면 `onChange`가 호출되는지 확인', () => {
+  test('초기 상태가 체크된 상태로 렌더링된다', () => {
+    render(<Radio label='테스트 라디오' checked={true} />);
+    const radio = screen.getByRole('radio');
+    expect(radio).toBeChecked();
+  });
+
+  test('클릭 시 onChange가 호출된다', async () => {
     const onChangeMock = jest.fn();
-    render(<Radio {...defaultProps} onChange={onChangeMock} />);
+    render(<Radio label='테스트 라디오' checked={false} onChange={onChangeMock} />);
 
-    const radioInput = screen.getByRole('radio', { name: '테스트 라디오' });
-    fireEvent.click(radioInput);
+    const radio = screen.getByRole('radio');
+    await userEvent.click(radio);
 
+    expect(onChangeMock).toHaveBeenCalledTimes(1);
     expect(onChangeMock).toHaveBeenCalledWith(true);
   });
 
-  it('isChecked가 true이면 라디오 버튼이 체크 상태인지 확인', () => {
-    render(<Radio {...defaultProps} isChecked={true} />);
-    const radioInput = screen.getByRole('radio', { name: '테스트 라디오' });
+  test('checked prop을 변경하면 상태가 유지된다', async () => {
+    const { rerender } = render(<Radio label='테스트 라디오' checked={false} />);
+    const radio = screen.getByRole('radio');
+    expect(radio).not.toBeChecked();
 
-    expect(radioInput).toBeChecked();
+    rerender(<Radio label='테스트 라디오' checked={true} />);
+    expect(radio).toBeChecked();
   });
 });
