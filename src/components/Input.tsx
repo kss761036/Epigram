@@ -3,24 +3,9 @@
 import React, { InputHTMLAttributes, useState, useId } from 'react';
 import { cn } from '@/utils/helper';
 import Icon from './Icon';
-import { cva } from 'class-variance-authority';
+import { cva, VariantProps } from 'class-variance-authority';
 
 type input = 'text' | 'email' | 'password' | 'search';
-
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  placeholder?: string;
-  className?: string;
-  error?: string;
-  errorClassName?: string;
-  type: input;
-  variant?: 'filled' | 'outlined' | 'underlined';
-  label?: string;
-  labelClassName?: string;
-  onSearch?: () => void;
-}
-interface PasswordState {
-  type: 'password' | 'text';
-}
 
 const inputVariants = cva(
   'text-black-950 outline-black-600 h-[44px] w-full pl-4 text-lg placeholder:text-blue-400 lg:h-[64px] lg:text-xl',
@@ -43,9 +28,21 @@ const inputVariants = cva(
   },
 );
 
-interface InputVariantProps {
+interface InputProps
+  extends InputHTMLAttributes<HTMLInputElement>,
+    VariantProps<typeof inputVariants> {
+  placeholder?: string;
+  className?: string;
+  error?: string;
+  errorClassName?: string;
+  type: input;
   variant?: 'filled' | 'outlined' | 'underlined';
-  hasError?: boolean;
+  label?: string;
+  labelClassName?: string;
+  onSearch?: () => void;
+}
+interface PasswordState {
+  type: 'password' | 'text';
 }
 
 export default function Input({
