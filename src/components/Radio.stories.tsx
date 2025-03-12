@@ -1,27 +1,22 @@
 import { Meta, StoryObj } from '@storybook/react';
-import Toggle from './Toggle';
+import Radio from './Radio';
 
-const meta: Meta<typeof Toggle> = {
-  title: 'Components/Toggle',
-  component: Toggle,
+const meta: Meta<typeof Radio> = {
+  title: 'Components/Radio',
+  component: Radio,
   tags: ['autodocs'],
   argTypes: {
     isChecked: { control: 'boolean' },
-    color: { control: 'text' },
-    label: { control: 'text' },
-    onChange: { action: 'changed' },
   },
 };
 
 export default meta;
 
-type Story = StoryObj<typeof Toggle>;
+type Story = StoryObj<typeof Radio>;
 
 export const Default: Story = {
   args: {
     isChecked: false,
-    label: '공개',
-    id: 'toggle_1',
   },
   parameters: {
     layout: 'centered',
@@ -31,8 +26,6 @@ export const Default: Story = {
 export const Checked: Story = {
   args: {
     isChecked: true,
-    label: '공개',
-    id: 'toggle_2',
   },
   parameters: {
     layout: 'centered',

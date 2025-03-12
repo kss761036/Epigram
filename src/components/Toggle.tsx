@@ -2,10 +2,10 @@ import { HTMLAttributes } from 'react';
 
 export interface ToggleProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
   isChecked: boolean;
+  id: string;
   onChange: (checked: boolean) => void;
   color?: string;
-  text?: string;
-  id: string;
+  label?: string;
   name?: string;
 }
 
@@ -13,8 +13,9 @@ export default function Toggle({
   isChecked = false,
   onChange,
   color = 'text-gray-400',
-  text = undefined,
-  id = 'toggle',
+  label = undefined,
+  id = '',
+  name = '',
 }: ToggleProps) {
   return (
     <div>
@@ -22,11 +23,12 @@ export default function Toggle({
         className='sr-only'
         type='checkbox'
         id={id}
+        name={name}
         checked={isChecked}
         onChange={() => onChange(!isChecked)}
       />
       <label className='flex cursor-pointer items-center justify-center gap-2' htmlFor={id}>
-        {text && <span className={`${color} text-[12px] md:text-lg`}>{text}</span>}
+        {label && <span className={`${color} text-[12px] md:text-lg`}>{label}</span>}
         <div className='block md:hidden'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
