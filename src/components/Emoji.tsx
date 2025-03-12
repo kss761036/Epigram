@@ -1,8 +1,7 @@
 import { SVGProps } from 'react';
-import { iconPaths } from './Emoji.path';
 import { cn } from '@/utils/helper';
-
-export type Emotion = keyof typeof iconPaths;
+import { Emotion } from '@/types/common';
+import { iconPaths } from './Emoji.path';
 
 interface IconProps extends SVGProps<SVGSVGElement> {
   size?: number;
