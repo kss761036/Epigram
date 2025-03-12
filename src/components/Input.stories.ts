@@ -14,6 +14,10 @@ const meta: Meta<typeof Input> = {
   },
   argTypes: {
     type: { control: 'select', description: '타입 설정, text | email | password | search ' },
+    variant: {
+      control: 'select',
+      description: '스타일 variant 설정, 미기입 시 타입에 기본 설정된 스타일 variant가 적용됩니다.',
+    },
     placeholder: {
       control: 'text',
       description: 'placeholder',

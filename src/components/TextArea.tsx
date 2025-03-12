@@ -1,8 +1,7 @@
 import { cn } from '@/utils/helper';
-import React from 'react';
-import { useId } from 'react';
+import React, { TextareaHTMLAttributes, useId } from 'react';
 
-interface TextAreaProps {
+interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   error?: string;
   errorClassName?: string;
   className?: string;
