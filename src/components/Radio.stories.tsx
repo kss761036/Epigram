@@ -17,6 +17,7 @@ type Story = StoryObj<typeof Radio>;
 export const Default: Story = {
   args: {
     isChecked: false,
+    label: '직접입력',
   },
   parameters: {
     layout: 'centered',
@@ -26,6 +27,7 @@ export const Default: Story = {
 export const Checked: Story = {
   args: {
     isChecked: true,
+    label: '직접입력',
   },
   parameters: {
     layout: 'centered',
