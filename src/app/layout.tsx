@@ -1,4 +1,5 @@
 import localFont from 'next/font/local';
+import AuthSession from './AuthSession';
 import QueryClientProvider from '@/context/QueryProvider';
 import { ToastContainer } from 'react-toastify';
 import '@/assets/css/globals.css';
@@ -24,10 +25,12 @@ export default function RootLayout({
   return (
     <html lang='ko'>
       <body className={`${pretendard.className} ${iropke.variable}`}>
-        <QueryClientProvider>
-          {children}
-          <ToastContainer />
-        </QueryClientProvider>
+        <AuthSession>
+          <QueryClientProvider>
+            {children}
+            <ToastContainer />
+          </QueryClientProvider>
+        </AuthSession>
       </body>
     </html>
   );
