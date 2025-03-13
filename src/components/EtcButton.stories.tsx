@@ -55,7 +55,7 @@ const meta: Meta<typeof EtcButton> = {
       },
     },
     href: {
-      description: '링크 주소 (있으면 버튼이 <Link>로 렌더링)',
+      description: '링크 주소 (있으면 버튼이 Link로 렌더링)',
       control: { type: 'text' },
       table: {
         type: { summary: 'text' },
