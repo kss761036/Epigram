@@ -16,7 +16,7 @@ const iconButtonVariants = cva(
       },
     },
     defaultVariants: {
-      variant: 'camera',
+      variant: 'arrowUp',
     },
   },
 );
