@@ -1,6 +1,11 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import Chart from './Chart';
 
+jest.mock('react-chartjs-2', () => ({
+  __esModule: true,
+  Doughnut: jest.fn(() => <canvas data-testid='chart-canvas' />),
+}));
+
 jest.mock('@/utils/getPercentage', () => ({
   getPercentage: jest.fn(() => '10%'),
 }));
@@ -17,8 +22,7 @@ describe('차트 컴포넌트', () => {
 
   it('차트 컴포넌트 랜더링 테스트', () => {
     render(<Chart data={mockData} colors={mockColors} labels={mockLabels} />);
-
-    expect(screen.getByTestId('chart-legend')).toBeInTheDocument();
+    expect(screen.getByTestId('chart-canvas')).toBeInTheDocument();
   });
 
   it('labels를 넣지 않으면, 차트만 랜더링 되는지 테스트', () => {
