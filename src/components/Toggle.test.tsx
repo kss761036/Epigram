@@ -1,63 +1,47 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import Toggle from './Toggle';
 
-describe('Toggle 컴포넌트', () => {
-  it('초기 상태가 체크되지 않은 상태로 렌더링된다', () => {
-    render(<Toggle isChecked={false} onChange={jest.fn()} id='test-toggle' />);
-    const toggleInput = screen.getByRole('checkbox');
-    expect(toggleInput).not.toBeChecked();
+describe('Toggle Component', () => {
+  test('초기 상태가 체크된 상태로 렌더링된다', () => {
+    render(<Toggle type='checkbox' checked={true} label='테스트 토글' />);
+
+    const toggle = screen.getByRole('checkbox');
+    expect(toggle).toBeChecked();
   });
 
-  it('초기 상태가 체크된 상태로 렌더링된다', () => {
-    render(<Toggle isChecked={true} onChange={jest.fn()} id='test-toggle' />);
-    const toggleInput = screen.getByRole('checkbox');
-    expect(toggleInput).toBeChecked();
-  });
-
-  it('클릭 시 onChange가 호출되고 상태가 변경된다', () => {
+  test('클릭 시 onChange가 호출된다', async () => {
     const onChangeMock = jest.fn();
-    render(<Toggle isChecked={false} onChange={onChangeMock} id='test-toggle' />);
-    const toggleInput = screen.getByRole('checkbox');
-    fireEvent.click(toggleInput);
+    render(<Toggle type='checkbox' checked={false} onChange={onChangeMock} />);
+
+    const toggle = screen.getByRole('checkbox');
+    await userEvent.click(toggle);
+
     expect(onChangeMock).toHaveBeenCalledTimes(1);
     expect(onChangeMock).toHaveBeenCalledWith(true);
   });
 
-  it('label이 전달되면 표시된다', () => {
-    render(<Toggle isChecked={false} onChange={jest.fn()} label='공개' id='test-toggle' />);
-    const labelElement = screen.getByText('공개');
-    expect(labelElement).toBeInTheDocument();
+  test('color prop이 적용된다', () => {
+    render(<Toggle type='checkbox' label='테스트 토글' labelColor='text-red-500' />);
+
+    const label = screen.getByText('테스트 토글');
+    expect(label).toHaveClass('text-red-500');
   });
 
-  it('label이 전달되지 않으면 표시되지 않는다', () => {
-    render(<Toggle isChecked={false} onChange={jest.fn()} id='test-toggle' />);
-    const labelElement = screen.queryByText('공개');
-    expect(labelElement).not.toBeInTheDocument();
+  test('checked prop이 없는 경우, 기본값 false로 렌더링된다', () => {
+    render(<Toggle type='checkbox' label='토글 테스트' />);
+
+    const toggle = screen.getByRole('checkbox');
+    expect(toggle).not.toBeChecked();
   });
 
-  it('color prop이 적용된다', () => {
-    render(
-      <Toggle
-        isChecked={false}
-        onChange={jest.fn()}
-        color='text-red-500'
-        label='테스트'
-        id='test-toggle'
-      />,
-    );
-    const labelElement = screen.getByText('테스트');
-    expect(labelElement).toHaveClass('text-red-500');
-  });
+  test('checked prop을 변경하면 상태가 유지된다', async () => {
+    const { rerender } = render(<Toggle type='checkbox' checked={false} label='토글 테스트' />);
 
-  it('name prop이 올바르게 적용된다', () => {
-    render(<Toggle isChecked={false} onChange={jest.fn()} name='toggle-name' id='test-toggle' />);
-    const toggleInput = screen.getByRole('checkbox');
-    expect(toggleInput).toHaveAttribute('name', 'toggle-name');
-  });
+    const toggle = screen.getByRole('checkbox');
+    expect(toggle).not.toBeChecked();
 
-  it('id prop이 올바르게 적용된다', () => {
-    render(<Toggle isChecked={false} onChange={jest.fn()} id='custom-toggle-id' />);
-    const toggleInput = screen.getByRole('checkbox');
-    expect(toggleInput).toHaveAttribute('id', 'custom-toggle-id');
+    rerender(<Toggle type='checkbox' checked={true} label='토글 테스트' />);
+    expect(toggle).toBeChecked();
   });
 });
