@@ -7,7 +7,7 @@ describe('댓글 컴포넌트', () => {
 
   const defaultProps = {
     content: '테스트 댓글',
-    author: {
+    writer: {
       image: 'https://placehold.co/40x40/000000/FFFFFF.png',
       nickname: '테스터',
     },

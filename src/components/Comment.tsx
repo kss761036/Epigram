@@ -6,7 +6,7 @@ import { cn } from '@/utils/helper';
 
 interface CommentProps {
   content: string;
-  author: {
+  writer: {
     image: string;
     nickname: string;
   };
@@ -18,7 +18,7 @@ interface CommentProps {
 
 export default function Comment({
   content,
-  author,
+  writer,
   createdAt,
   className,
   handleEdit,
@@ -40,10 +40,10 @@ export default function Comment({
 
   return (
     <div className={classes.commentWrapper}>
-      <Avatar src={author.image} alt={author.nickname} />
+      <Avatar src={writer.image} alt={writer.nickname} />
       <div className={classes.commentBox}>
         <div className={classes.commentInfo}>
-          <div className={classes.commentInfoText}>{author.nickname}</div>
+          <div className={classes.commentInfoText}>{writer.nickname}</div>
           <div className={cn(classes.commentInfoText, 'ml-2')}>{formatTime(createdAt)}</div>
           <ul className={classes.commentInfoBtns}>
             <li>
