@@ -14,4 +14,12 @@ export const EMOTION_LABEL: Record<Emotion, string> = {
   ANGRY: '분노',
 };
 
+export const EMOTION_BORDER_COLOR: Record<Emotion, string> = {
+  MOVED: 'border-illust-yellow',
+  HAPPY: 'border-illust-green',
+  WORRIED: 'border-illust-purple',
+  SAD: 'border-illust-blue',
+  ANGRY: 'border-illust-red',
+};
+
 export type Emotion = (typeof EMOTION)[keyof typeof EMOTION];
