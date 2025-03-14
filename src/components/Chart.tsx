@@ -3,27 +3,66 @@
 import { PropsWithChildren, ReactNode, useState } from 'react';
 import { Chart as ChartJS, ArcElement } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
-import { getPercentage } from '@/utils/getPercentage';
+import { v4 as uuid } from 'uuid';
 import ChartLegend from './Chart.legend';
 
 ChartJS.register(ArcElement);
 
+const DEFAULT_CHART_COLOR = '#EEEEEE';
+const DEFAULT_LABEL_TEMPLATE = 'label-';
+
+export type Label = string;
+
+export type ChartData = {
+  id: string;
+  index: number;
+  label: Label;
+  color: string;
+  value: number;
+  selected: boolean;
+  customLabel?: ReactNode;
+};
 interface ChartProps {
-  data: number[];
-  colors: string[];
-  labels?: (ReactNode | string)[];
-  customCenter?: (activeIndex: number) => ReactNode;
+  values: number[];
+  colors?: string[];
+  labels?: Label[];
+  showLegend?: boolean;
+  customLabel?: (data: ChartData) => ReactNode;
+  customCenter?: (activeData: ChartData) => ReactNode;
 }
 
-export default function Chart({ data, colors, labels, customCenter }: ChartProps) {
+export default function Chart({
+  values,
+  colors,
+  labels,
+  showLegend = true,
+  customLabel,
+  customCenter,
+}: ChartProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const legendData =
-    labels &&
-    data.map((item, index) => ({
-      label: labels[index],
-      color: colors[index],
-      displayValue: getPercentage(item, data),
-    }));
+  const initialData = values.map((value, index) => ({
+    id: uuid(),
+    index,
+    label: labels?.[index] || `${DEFAULT_LABEL_TEMPLATE}${index + 1}`,
+    color: colors?.[index] || DEFAULT_CHART_COLOR,
+    value,
+    selected: index === currentIndex,
+  }));
+
+  const chartData = customLabel
+    ? initialData.map((item) => ({ ...item, customLabel: customLabel(item) }))
+    : initialData;
+
+  const handleLegendClick = (id: string) => {
+    const targetIndex = chartData.find((item) => item.id === id)?.index || 0;
+    setCurrentIndex(targetIndex);
+  };
+
+  const handleChartClick = (index: number) => {
+    setCurrentIndex(index);
+  };
+
+  const selectedData = chartData.find((item) => item.selected === true) || chartData[0];
 
   return (
     <ChartContainer>
@@ -32,8 +71,8 @@ export default function Chart({ data, colors, labels, customCenter }: ChartProps
           data={{
             datasets: [
               {
-                data,
-                backgroundColor: colors,
+                data: chartData.map((item) => item.value),
+                backgroundColor: chartData.map((item) => item.color),
                 hoverOffset: 4,
                 borderRadius: 3.5,
               },
@@ -51,16 +90,14 @@ export default function Chart({ data, colors, labels, customCenter }: ChartProps
             },
             onClick: (_, active) => {
               if (!active.length || !active[0]) return;
-              setCurrentIndex(active[0].index);
+              handleChartClick(active[0].index);
             },
             plugins: { legend: { display: false } },
           }}
         />
-        <ChartCenter>{customCenter?.(currentIndex)}</ChartCenter>
+        <ChartCenter>{customCenter?.(selectedData)}</ChartCenter>
       </ChartCavnas>
-      {legendData && (
-        <ChartLegend data={legendData} currentIndex={currentIndex} onClick={setCurrentIndex} />
-      )}
+      {showLegend && <ChartLegend data={chartData} onLegendClick={handleLegendClick} />}
     </ChartContainer>
   );
 }

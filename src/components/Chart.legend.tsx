@@ -1,34 +1,23 @@
 import clsx from 'clsx';
-import { ReactNode } from 'react';
+import { ChartData } from './Chart';
 
 interface ChartLegendProps {
-  data: {
-    label: ReactNode | string;
-    color: string;
-    displayValue: string;
-  }[];
-  currentIndex: number;
-  onClick: (index: number) => void;
+  data: ChartData[];
+  onLegendClick: (id: ChartData['id']) => void;
 }
 
-export default function ChartLegend({ data, currentIndex, onClick }: ChartLegendProps) {
+export default function ChartLegend({ data, onLegendClick }: ChartLegendProps) {
   return (
     <ul className='grid gap-2 lg:gap-2'>
-      {data.map(({ label, color, displayValue }, index) => (
+      {data.map(({ id, label, color, customLabel, selected }) => (
         <li
-          key={index}
+          key={id}
           className='flex cursor-pointer items-center gap-2 lg:gap-4'
-          onClick={() => onClick(index)}
+          onClick={() => onLegendClick(id)}
         >
           <span className='h-2 w-2 rounded-xs lg:h-4 lg:w-4' style={{ background: color }} />
-          <span>{label}</span>
-          <span
-            className={clsx(
-              'text-xs font-semibold opacity-35 lg:text-xl',
-              currentIndex === index && 'opacity-100',
-            )}
-          >
-            {displayValue}
+          <span className={clsx('opacity-40', selected && 'opacity-100')}>
+            {customLabel ?? label}
           </span>
         </li>
       ))}

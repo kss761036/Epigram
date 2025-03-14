@@ -3,15 +3,13 @@ import { AnimatePresence, motion } from 'motion/react';
 import Chart from './Chart';
 import Emoji from './Emoji';
 import { Emotion, EMOTION_LABEL } from '@/types/common';
+import { getPercentage } from '@/utils/getPercentage';
 
 const tempData = { MOVED: 10, HAPPY: 8, WORRIED: 6, SAD: 5, ANGRY: 3 };
 const sortedData = (Object.entries(tempData) as [Emotion, number][]).sort(([, a], [, b]) => b - a);
-const chartLabels = sortedData.map(([key]) => key);
-const chartEmojiLabels = chartLabels.map((item) => (
-  <Emoji key={item} name={item} className='w-4 lg:w-6' />
-));
-const chartData = sortedData.map(([, value]) => value);
-const chartColors = ['#48BB98', '#FBC85B', '#C7D1E0', '#E3E9F1', '#EFF3F8'];
+const testLabels = sortedData.map(([key]) => key);
+const testValues = sortedData.map(([, value]) => value);
+const testColors = ['#48BB98', '#FBC85B', '#C7D1E0', '#E3E9F1', '#EFF3F8'];
 
 const meta: Meta<typeof Chart> = {
   component: Chart,
@@ -33,10 +31,22 @@ type Story = StoryObj<typeof Chart>;
 
 export const Default: Story = {
   args: {
-    data: chartData,
-    colors: chartColors,
-    customCenter: (currentIndex) => {
-      const name = chartLabels[currentIndex];
+    values: testValues,
+    colors: testColors,
+    labels: testLabels,
+    customLabel: (data) => {
+      const name = data.label as Emotion;
+      return (
+        <div className='flex items-center gap-3'>
+          <Emoji name={name} className='w-4 lg:w-6' />
+          <span className='text-xs font-semibold lg:text-xl'>
+            {getPercentage(data.value, testValues)}
+          </span>
+        </div>
+      );
+    },
+    customCenter: (currentData) => {
+      const name = currentData.label as Emotion;
       return (
         <AnimatePresence mode='wait'>
           <motion.div
@@ -63,10 +73,11 @@ export const Default: Story = {
 
 export const CustomCenter: Story = {
   args: {
-    data: chartData,
-    colors: chartColors,
-    customCenter: (currentIndex) => {
-      const name = chartLabels[currentIndex];
+    values: testValues,
+    colors: testColors,
+    labels: testLabels,
+    customCenter: (currentData) => {
+      const name = currentData.label as Emotion;
       return (
         <AnimatePresence mode='wait'>
           <motion.div
@@ -90,13 +101,14 @@ export const CustomCenter: Story = {
   ),
 };
 
-export const WithLegend: Story = {
+export const WithNoLegend: Story = {
   args: {
-    data: chartData,
-    colors: chartColors,
-    labels: chartEmojiLabels,
-    customCenter: (currentIndex) => {
-      const name = chartLabels[currentIndex];
+    values: testValues,
+    colors: testColors,
+    labels: testLabels,
+    showLegend: false,
+    customCenter: (currentData) => {
+      const name = currentData.label as Emotion;
       return (
         <AnimatePresence mode='wait'>
           <motion.div
