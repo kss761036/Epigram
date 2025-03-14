@@ -7,7 +7,7 @@ interface SearchCardProps {
   content: string;
   referenceUrl: string;
   author?: string;
-  tags?: { id: number; name: string }[];
+  tags: { id: number; name: string }[];
   className?: string;
   contentClassName?: string;
   keyword?: string;
@@ -54,7 +54,7 @@ export default function SearchCard({
       {author && (
         <div className={classes.cardAuthor} dangerouslySetInnerHTML={{ __html: `- ${author} -` }} />
       )}
-      {tags && (
+      {tags.length > 0 && (
         <ul className={classes.cardTag}>
           {tags.map((tag) => (
             <li key={tag.id} dangerouslySetInnerHTML={{ __html: `#${tag.name}` }} />

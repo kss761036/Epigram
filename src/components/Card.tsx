@@ -7,7 +7,7 @@ interface CardProps {
   content: string;
   referenceUrl: string;
   author?: string;
-  tags?: { id: number; name: string }[];
+  tags: { id: number; name: string }[];
   className?: string;
   contentClassName?: string;
 }
@@ -41,7 +41,7 @@ export default function Card({
         <div className={classes.cardContent}>{content}</div>
         {author && <div className={classes.cardAuthor}>- {author} -</div>}
       </Link>
-      {tags && (
+      {tags.length > 0 && (
         <ul className={classes.cardTag}>
           {tags.map((tag) => (
             <li key={tag.id}>#{tag.name}</li>
