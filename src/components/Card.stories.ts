@@ -75,4 +75,7 @@ export const Default: Story = {
     className: undefined,
     contentClassName: undefined,
   },
+  parameters: {
+    layout: 'centered',
+  },
 };
