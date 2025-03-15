@@ -1,6 +1,10 @@
 ![logo](https://github.com/user-attachments/assets/d82fff32-7de9-4cb3-9c7b-ce14d703e340)
 # Epigram
-![CI](https://github.com/kss761036/Epigram/actions/workflows/ci.yaml/badge.svg) ![Storybook](https://github.com/kss761036/Epigram/actions/workflows/storybook-main.yaml/badge.svg) ![commits](https://badgen.net/github/last-commit/kss761036/Epigram) ![commits](https://badgen.net/github/commits/kss761036/Epigram/main) ![commits](https://badgen.net/github/prs/kss761036/Epigram)
+[![CI](https://github.com/kss761036/Epigram/actions/workflows/ci.yaml/badge.svg)](https://github.com/kss761036/Epigram/actions/workflows/ci.yaml) 
+[![Storybook](https://github.com/kss761036/Epigram/actions/workflows/storybook-main.yaml/badge.svg)](https://github.com/kss761036/Epigram/actions/workflows/storybook-main.yaml) 
+[![commits](https://badgen.net/github/last-commit/kss761036/Epigram)](https://github.com/kss761036/Epigram/commits/) 
+[![commits](https://badgen.net/github/commits/kss761036/Epigram/main)](https://github.com/kss761036/Epigram/commits/) 
+[![commits](https://badgen.net/github/prs/kss761036/Epigram)](https://github.com/kss761036/Epigram/pulls)
 
 **에피그램**   
 에피그램은 명언을 공유하고 사람들과 댓글로 소통하며, 나의 감정을 기록하고 통계로 시각화하여 감정 변화를 한눈에 확인할 수 있는 커뮤니티 플랫폼입니다.
