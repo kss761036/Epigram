@@ -5,10 +5,10 @@
 **에피그램**   
 에피그램은 명언을 공유하고 사람들과 댓글로 소통하며, 나의 감정을 기록하고 통계로 시각화하여 감정 변화를 한눈에 확인할 수 있는 커뮤니티 플랫폼입니다.
 <h4>
-  <a href="https://epigram-gilv.vercel.app" target="_blank">Epigram Site</a> |
-  <a href="https://epigram-storybook.vercel.app/" target="_blank">Storybook</a> |
-  <a href="#" target="_blank">Team Notion</a> |
-  <a href="#" target="_blank">Project Presentation</a>
+  <a href="https://epigram-gilv.vercel.app">Epigram Site</a> |
+  <a href="https://epigram-storybook.vercel.app/">Storybook</a> |
+  <a href="https://honeysuckle-watchmaker-42a.notion.site/4-4-1ac38e8296f280a8a659e481aac6d9aa?pvs=4 ">Team Notion</a> |
+  <a href="#">Project Presentation</a>
 </h4>   
 
 ---
