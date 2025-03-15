@@ -56,6 +56,12 @@ export default function Page() {
     return;
   }
 
+  const handleGoogleLogin = async () => {
+    signIn('google', {
+      callbackUrl: '/',
+    });
+  };
+
   return (
     <div className='mx-auto mt-10 max-w-md'>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -77,6 +83,9 @@ export default function Page() {
         <Button type='submit' className='mt-6' disabled={isSubmitting || !isValid}>
           로그인
         </Button>
+        <button type='button' onClick={handleGoogleLogin}>
+          구글로그인
+        </button>
       </form>
     </div>
   );
