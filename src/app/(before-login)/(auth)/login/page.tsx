@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { loginSchema, LoginFormValues } from '@/utils/validationSchema';
+import { getKakaoAuthURL } from '@/utils/auth';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 
@@ -22,6 +23,10 @@ export default function Page() {
 
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleKakaoLogin = () => {
+    window.location.href = getKakaoAuthURL();
+  };
 
   const onSubmit = async (data: LoginFormValues) => {
     setIsSubmitting(true);
@@ -78,6 +83,9 @@ export default function Page() {
           로그인
         </Button>
       </form>
+      <Button onClick={handleKakaoLogin} className='mt-4'>
+        카카오 로그인
+      </Button>
     </div>
   );
 }
