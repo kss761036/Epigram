@@ -16,6 +16,7 @@ import Icon from './Icon';
 import Emoji from './Emoji';
 import { Emotion } from '@/types/common';
 import { cn } from '@/utils/helper';
+import EmotionFilter from './EmotionFilter';
 
 export interface CalendarProps {
   moodData?: { [dateString: string]: Emotion };
@@ -23,27 +24,19 @@ export interface CalendarProps {
 
 export default function Calendar({ moodData }: CalendarProps) {
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [filterEmotion, setFilterEmotion] = useState<string>('ALL');
+  const [filterEmotion, setFilterEmotion] = useState<Emotion | null>(null);
 
   function renderHeader() {
     return (
-      <div className='mb-[22px] flex items-center justify-between md:mb-[24px] lg:mb-[48px]'>
+      <div className='relative mb-[22px] flex items-center justify-between md:mb-[24px] lg:mb-[48px]'>
         <span className='text-black-600 text-lg font-semibold lg:text-2xl'>
           {format(currentMonth, 'yyyy년 MMMM', { locale: ko })}
         </span>
         <div className='flex gap-4 lg:gap-6'>
-          <select
+          <EmotionFilter
             value={filterEmotion}
-            onChange={(e) => setFilterEmotion(e.target.value)}
-            className='cursor-pointer'
-          >
-            <option value='ALL'>전체</option>
-            <option value='MOVED'>MOVED</option>
-            <option value='HAPPY'>HAPPY</option>
-            <option value='WORRIED'>WORRIED</option>
-            <option value='SAD'>SAD</option>
-            <option value='ANGRY'>ANGRY</option>
-          </select>
+            onChange={(value) => setFilterEmotion(value === filterEmotion ? null : value)}
+          />
           <button
             onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
             className='cursor-pointer rounded-[3px] hover:bg-blue-200'
@@ -101,12 +94,12 @@ export default function Calendar({ moodData }: CalendarProps) {
             key={currentDay.toString()}
             className={cn(
               baseStyle,
-              (filterEmotion === 'ALL' || (mood && filterEmotion === mood)) && mood && moodStyle,
+              (filterEmotion === null || (mood && filterEmotion === mood)) && mood && moodStyle,
               isToday && todayStyle,
             )}
           >
             {formattedDay}
-            {(filterEmotion === 'ALL' || (mood && filterEmotion === mood)) && mood && (
+            {(filterEmotion === null || (mood && filterEmotion === mood)) && mood && (
               <Emoji name={mood} className='w-[24px] lg:w-[36px]' />
             )}
           </div>

@@ -24,7 +24,7 @@ export default function EmotionFilter({
     !value && 'text-gray-200',
   );
   const menuClassName =
-    'absolute left-1/2 flex w-[90vw] max-w-[300px] md:max-w-[560px] -translate-x-1/2 items-center gap-2 rounded-2xl border border-gray-50 bg-white p-4 shadow-[0px_3px_16px_0px_rgba(0,_0,_0,_0.1)] lg:gap-3';
+    'absolute left-1/2 flex w-[90vw] max-w-[300px] md:max-w-[344px] lg:max-w-[560px] -translate-x-1/2 items-center gap-2 rounded-2xl border border-gray-50 bg-white p-4 shadow-[0px_3px_16px_0px_rgba(0,_0,_0,_0.1)] lg:gap-3';
 
   const menuOffeset = { top: `calc(100% + ${offset}px)` };
 
