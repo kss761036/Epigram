@@ -24,7 +24,7 @@ export default function EmojiButton({ name, selected, withLabel = true, ...props
   return (
     <div className='grid gap-2 text-center'>
       <button className={buttonClassName} {...props} data-selected={selected} data-name={name}>
-        <Emoji name={name} className='w-8 md:w-12' />
+        <Emoji name={name} className='w-8 lg:w-12' />
       </button>
       {withLabel && <div className={labelClassName}>{EMOTION_LABEL[name]}</div>}
     </div>
