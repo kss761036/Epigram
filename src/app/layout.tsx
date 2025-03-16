@@ -1,5 +1,5 @@
 import localFont from 'next/font/local';
-import AuthSession from './AuthSession';
+import AuthSession from '../context/AuthSession';
 import QueryClientProvider from '@/context/QueryProvider';
 import { ToastContainer } from 'react-toastify';
 import '@/assets/css/globals.css';
