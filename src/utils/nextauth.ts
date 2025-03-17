@@ -39,8 +39,8 @@ export const authOptions: AuthOptions = {
       },
     }),
     CredentialsProvider({
-      id: 'Kakao',
-      name: 'Kakao',
+      id: 'kakao',
+      name: 'kakao',
       credentials: {
         code: { label: 'code', type: 'text' },
       },
@@ -67,8 +67,8 @@ export const authOptions: AuthOptions = {
       },
     }),
     CredentialsProvider({
-      id: 'Google',
-      name: 'Google',
+      id: 'google',
+      name: 'google',
       credentials: {
         code: { label: 'code', type: 'text' },
       },
