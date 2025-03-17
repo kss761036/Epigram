@@ -5,7 +5,6 @@ import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema, LoginFormValues } from '@/apis/auth/auth.type';
-import { getGoogleAuthURL, getKakaoAuthURL } from '@/utils/auth';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 import FormError from '@/components/FormError';
@@ -25,11 +24,11 @@ export default function Page() {
   const error = searchParams.get('error');
 
   const handleKakaoLogin = async () => {
-    window.location.href = getKakaoAuthURL();
+    window.location.href = '/api/auth/oauth/kakao';
   };
 
   const handleGoogleLogin = async () => {
-    window.location.href = getGoogleAuthURL();
+    window.location.href = '/api/auth/oauth/google';
   };
 
   const onSubmit = async (data: LoginFormValues) => {
