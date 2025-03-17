@@ -1,3 +1,4 @@
+import { User } from 'next-auth';
 import { z } from 'zod';
 
 export const signupSchema = z
@@ -26,3 +27,17 @@ export const loginSchema = z.object({
 });
 
 export type LoginFormValues = z.infer<typeof loginSchema>;
+
+export type AuthResponse = {
+  refreshToken: string;
+  accessToken: string;
+  user: User;
+};
+
+export type RefreshResponse = {
+  accessToken: string;
+};
+
+export type googleTokenRepsone = {
+  id_token: string;
+};
