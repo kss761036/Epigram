@@ -125,7 +125,7 @@ export const authOptions: AuthOptions = {
   },
   session: {
     strategy: 'jwt',
-    maxAge: 10 * 60, // 10분 (테스트용으로 짧게)
+    maxAge: 10 * 24 * 60 * 60,
   },
   secret: process.env.NEXTAUTH_SECRET,
 };
