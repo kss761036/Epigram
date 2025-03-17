@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import useModal from '@/hooks/useModal';
 import { cn } from '@/utils/helper';
 import Button from './Button';
 import Image from 'next/image';
@@ -24,23 +24,10 @@ export default function DeleteModal({
   isSubmitting = false,
   className,
 }: DeleteModalProps) {
-  const [mounted, setMounted] = useState(false);
+  const { mounted } = useModal(isOpen, onClose);
+
   const portalRoot =
     typeof document !== 'undefined' ? document.getElementById('portal-root') : null;
-
-  useEffect(() => {
-    setMounted(true);
-    return () => setMounted(false);
-  }, []);
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    };
-
-    if (isOpen) window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, onClose]);
 
   if (!mounted || !portalRoot) return null;
 
