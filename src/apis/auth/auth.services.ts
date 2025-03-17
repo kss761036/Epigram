@@ -51,7 +51,7 @@ export const googleSignIn = async (code: string) => {
     'https://oauth2.googleapis.com/token',
     {
       client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
-      client_secret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET!,
+      client_secret: process.env.GOOGLE_CLIENT_SECRET!,
       redirect_uri: process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI!,
       grant_type: 'authorization_code',
       code,
