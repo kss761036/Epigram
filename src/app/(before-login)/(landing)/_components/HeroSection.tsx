@@ -19,7 +19,7 @@ export default function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className='text-black-500 mt-[200px] text-2xl leading-10 md:mt-[204px] md:text-3xl lg:mt-[320px] lg:text-4xl'
+            className='text-black-500 mt-[200px] text-2xl leading-10 md:mt-[204px] md:text-3xl md:leading-12 lg:mt-[320px] lg:text-4xl lg:leading-16'
           >
             나만 갖고 있기엔
             <br />
