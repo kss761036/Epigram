@@ -1,68 +1,54 @@
 'use client';
 
-import { useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import { loginSchema, LoginFormValues } from '@/utils/validationSchema';
-import { getKakaoAuthURL } from '@/utils/auth';
+import { loginSchema, LoginFormValues } from '@/apis/auth/auth.type';
+import { getGoogleAuthURL, getKakaoAuthURL } from '@/utils/auth';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
+import FormError from '@/components/FormError';
 
 export default function Page() {
   const {
     register,
     handleSubmit,
-    setError,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitting },
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     mode: 'onBlur',
   });
 
   const router = useRouter();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const searchParams = useSearchParams();
+  const error = searchParams.get('error');
 
-  const handleKakaoLogin = () => {
+  const handleKakaoLogin = async () => {
     window.location.href = getKakaoAuthURL();
   };
 
+  const handleGoogleLogin = async () => {
+    window.location.href = getGoogleAuthURL();
+  };
+
   const onSubmit = async (data: LoginFormValues) => {
-    setIsSubmitting(true);
-    try {
-      const res = await signIn('credentials', {
-        email: data.email,
-        password: data.password,
-        redirect: false,
-      });
+    const res = await signIn('credentials', {
+      email: data.email,
+      password: data.password,
+      redirect: false,
+    });
 
-      if (res?.error) {
-        if (res.error.includes('비밀번호')) {
-          setError('password', { message: res.error });
-        } else if (res.error.includes('로그인')) {
-          setError('password', { message: res.error });
-        } else {
-          setError('root', { message: res.error });
-        }
-        return;
-      }
-
-      router.push('/');
-    } catch (error) {
-      alert('로그인 중 오류가 발생했습니다.');
-    } finally {
-      setIsSubmitting(false);
+    if (res?.ok) {
+      router.replace('/');
+    } else {
+      router.push(`/login?error=${res?.error}`);
     }
   };
 
-  if (errors.root) {
-    alert(errors.root.message);
-    return;
-  }
-
   return (
     <div className='mx-auto mt-10 max-w-md'>
+      {error && <FormError message={error} />}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='flex flex-col gap-4'>
           <Input
@@ -85,6 +71,9 @@ export default function Page() {
       </form>
       <Button onClick={handleKakaoLogin} className='mt-4'>
         카카오 로그인
+      </Button>
+      <Button onClick={handleGoogleLogin} className='mt-4'>
+        구글 로그인
       </Button>
     </div>
   );
