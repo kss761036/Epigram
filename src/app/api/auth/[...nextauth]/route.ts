@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth/next';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { refreshAccessToken } from '@/utils/auth';
 
 const handler = NextAuth({
   providers: [
@@ -102,27 +103,5 @@ const handler = NextAuth({
   },
   secret: process.env.NEXTAUTH_SECRET,
 });
-
-async function refreshAccessToken(refreshToken: string) {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/auth/refresh-token`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ refreshToken }),
-    });
-
-    if (!res.ok) {
-      throw new Error('액세스 토큰 갱신에 실패했습니다.');
-    }
-
-    const { accessToken } = await res.json();
-    return accessToken;
-  } catch (error) {
-    console.error('토큰 갱신 실패:', error);
-    return null;
-  }
-}
 
 export { handler as GET, handler as POST };
