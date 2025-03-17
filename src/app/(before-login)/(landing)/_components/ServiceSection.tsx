@@ -9,7 +9,7 @@ export default function ServiceSection() {
   return (
     <>
       <div className='bg-bg relative h-full'>
-        <div className='flex flex-col items-center justify-center pt-[124px]'>
+        <div className='flex flex-col items-center justify-center pt-[124px] lg:pt-[240px]'>
           {/*Section1*/}
           <div className='flex flex-col gap-[40px] lg:flex-row lg:gap-[80px]'>
             <Image src={SectionImg1} alt='서비스 소개 이미지' width={312} height={210} />
@@ -26,7 +26,7 @@ export default function ServiceSection() {
             </div>
           </div>
           {/*Section2*/}
-          <div className='mt-[196px] flex flex-col gap-[40px] lg:flex-row-reverse lg:gap-[80px]'>
+          <div className='mt-[196px] flex flex-col gap-[40px] md:mt-[220px] lg:mt-[380px] lg:flex-row-reverse lg:gap-[80px]'>
             <Image src={SectionImg2} alt='서비스 소개 이미지' width={312} height={210} />
             <div className='flex flex-col'>
               <span className='text-black-950 text-right text-2xl font-bold lg:text-3xl'>
@@ -40,7 +40,7 @@ export default function ServiceSection() {
             </div>
           </div>
           {/*Section3*/}
-          <div className='mt-[196px] flex flex-col gap-[40px] lg:flex-row lg:gap-[80px]'>
+          <div className='mt-[196px] flex flex-col gap-[40px] md:mt-[220px] lg:mt-[380px] lg:flex-row lg:gap-[80px]'>
             <Image src={SectionImg3} alt='서비스 소개 이미지' width={312} height={210} />
             <div>
               <span className='text-black-950 text-2xl font-bold lg:text-3xl'>
@@ -55,7 +55,7 @@ export default function ServiceSection() {
             </div>
           </div>
           {/*Section4*/}
-          <div className='mt-[280px] mb-[22px] flex flex-col text-center md:mb-[30px] lg:mb-[60px]'>
+          <div className='mt-[280px] mb-[22px] flex flex-col text-center md:mb-[30px] lg:mt-[480px] lg:mb-[60px]'>
             <span className='text-black-950 text-2xl font-bold lg:text-3xl'>
               사용자들이 직접
               <br />
