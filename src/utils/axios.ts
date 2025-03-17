@@ -50,7 +50,7 @@ axiosServerInstance.interceptors.response.use(
               ...session,
               accessToken: accessToken,
             },
-            maxAge: 10 * 60,
+            maxAge: 10 * 24 * 60 * 60,
           });
           const cookieStore = await cookies();
           cookieStore.set('next-auth.session-token', newSession);
