@@ -3,26 +3,27 @@ import axios from 'axios';
 import { axiosServerInstance } from '@/utils/axios';
 
 async function handler(req: NextRequest, method: string) {
-  const apiUrl = `${req.nextUrl.pathname.replace('/api', '')}`;
+  const url = `${req.nextUrl.pathname.replace('/api', '')}${req.nextUrl.search}`;
+  const body = await req.json().catch(() => ({}));
 
   try {
     let response;
 
     switch (method) {
       case 'GET':
-        response = await axiosServerInstance.get(apiUrl);
+        response = await axiosServerInstance.get(url);
         break;
       case 'POST':
-        response = await axiosServerInstance.post(apiUrl, await req.json());
+        response = await axiosServerInstance.post(url, body);
         break;
       case 'PUT':
-        response = await axiosServerInstance.put(apiUrl, await req.json());
+        response = await axiosServerInstance.put(url, body);
         break;
       case 'PATCH':
-        response = await axiosServerInstance.patch(apiUrl, await req.json());
+        response = await axiosServerInstance.patch(url, body);
         break;
       case 'DELETE':
-        response = await axiosServerInstance.delete(apiUrl);
+        response = await axiosServerInstance.delete(url);
         break;
       default:
         return NextResponse.json({ error: 'Method Not Allowed' }, { status: 405 });
