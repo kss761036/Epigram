@@ -38,7 +38,7 @@ export const kakaoSignIn = async (code: string) => {
   const response = await axios.post<AuthResponse>(
     `${process.env.NEXT_PUBLIC_BASE_URL}/auth/signIn/KAKAO`,
     {
-      redirectUri: process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI,
+      redirectUri: process.env.KAKAO_REDIRECT_URI,
       token: code,
     },
   );
@@ -50,9 +50,9 @@ export const googleSignIn = async (code: string) => {
   const tokenResponse = await axios.post<googleTokenRepsone>(
     'https://oauth2.googleapis.com/token',
     {
-      client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
+      client_id: process.env.GOOGLE_CLIENT_ID!,
       client_secret: process.env.GOOGLE_CLIENT_SECRET!,
-      redirect_uri: process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI!,
+      redirect_uri: process.env.GOOGLE_REDIRECT_URI!,
       grant_type: 'authorization_code',
       code,
     },
@@ -63,7 +63,7 @@ export const googleSignIn = async (code: string) => {
   const response = await axios.post<AuthResponse>(
     `${process.env.NEXT_PUBLIC_BASE_URL}/auth/signIn/GOOGLE`,
     {
-      redirectUri: process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI,
+      redirectUri: process.env.GOOGLE_REDIRECT_URI,
       token: id_token,
     },
   );
