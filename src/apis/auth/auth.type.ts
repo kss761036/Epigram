@@ -1,7 +1,7 @@
 import { User } from 'next-auth';
 import { z } from 'zod';
 
-export const signupSchema = z
+export const signupFormSchema = z
   .object({
     email: z.string().min(1, '이메일은 필수 입력입니다.').email('이메일 형식으로 작성해 주세요.'),
     nickname: z
@@ -19,14 +19,14 @@ export const signupSchema = z
     path: ['passwordConfirmation'],
   });
 
-export type SignupFormValues = z.infer<typeof signupSchema>;
+export type SignupFormType = z.infer<typeof signupFormSchema>;
 
-export const loginSchema = z.object({
+export const loginFormSchema = z.object({
   email: z.string().min(1, '이메일은 필수 입력입니다.').email('이메일 형식으로 작성해 주세요.'),
   password: z.string().min(1, '비밀번호는 필수 입력입니다.'),
 });
 
-export type LoginFormValues = z.infer<typeof loginSchema>;
+export type LoginFormType = z.infer<typeof loginFormSchema>;
 
 export type AuthResponse = {
   refreshToken: string;
@@ -34,9 +34,7 @@ export type AuthResponse = {
   user: User;
 };
 
-export type RefreshResponse = {
-  accessToken: string;
-};
+export type RefreshResponse = Pick<AuthResponse, 'accessToken'>;
 
 export type googleTokenRepsone = {
   id_token: string;

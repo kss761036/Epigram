@@ -1,13 +1,13 @@
 import axios from 'axios';
 import {
-  LoginFormValues,
-  SignupFormValues,
   AuthResponse,
   googleTokenRepsone,
+  LoginFormType,
   RefreshResponse,
+  SignupFormType,
 } from './auth.type';
 
-export const signUp = async (data: SignupFormValues) => {
+export const signUp = async (data: SignupFormType) => {
   const response = await axios.post<AuthResponse>(
     `${process.env.NEXT_PUBLIC_BASE_URL}/auth/signUp`,
     data,
@@ -15,7 +15,7 @@ export const signUp = async (data: SignupFormValues) => {
   return response.data;
 };
 
-export const signIn = async (data: LoginFormValues) => {
+export const signIn = async (data: LoginFormType) => {
   const response = await axios.post<AuthResponse>(
     `${process.env.NEXT_PUBLIC_BASE_URL}/auth/signIn`,
     data,
