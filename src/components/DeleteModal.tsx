@@ -34,7 +34,10 @@ export default function DeleteModal({
   return createPortal(
     isOpen ? (
       <div
-        className={cn('fixed inset-0 flex items-center justify-center bg-black/60', className)}
+        className={cn(
+          'fixed inset-0 z-100 flex items-center justify-center bg-black/60',
+          className,
+        )}
         onClick={onClose}
         data-testid='modal-overlay'
       >
