@@ -28,6 +28,7 @@ export default function RootLayout({
         <AuthSession>
           <QueryClientProvider>
             {children}
+            <div id='portal-root' />
             <ToastContainer />
           </QueryClientProvider>
         </AuthSession>
