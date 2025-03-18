@@ -4,20 +4,20 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { isAxiosError } from 'axios';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { SignupFormValues, signupSchema } from '@/apis/auth/auth.type';
+import { SignupFormType, signupFormSchema } from '@/apis/auth/auth.type';
 import { cn } from '@/utils/helper';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 import FormError from '@/components/FormError';
-import { signUp } from '@/apis/auth/auth.services';
+import { signUp } from '@/apis/auth/auth.service';
 
 export default function Page() {
   const {
     register,
     handleSubmit,
     formState: { errors, isValid, isSubmitting },
-  } = useForm<SignupFormValues>({
-    resolver: zodResolver(signupSchema),
+  } = useForm<SignupFormType>({
+    resolver: zodResolver(signupFormSchema),
     mode: 'onBlur',
   });
 
@@ -25,7 +25,7 @@ export default function Page() {
   const searchParams = useSearchParams();
   const error = searchParams.get('error');
 
-  const onSubmit = async (data: SignupFormValues) => {
+  const onSubmit = async (data: SignupFormType) => {
     try {
       await signUp(data);
       router.replace('/login');

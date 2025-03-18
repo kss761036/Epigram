@@ -1,7 +1,7 @@
 import { isAxiosError } from 'axios';
 import { AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { googleSignIn, kakaoSignIn, signIn } from '@/apis/auth/auth.services';
+import { googleSignIn, kakaoSignIn, signIn } from '@/apis/auth/auth.service';
 
 export const authOptions: AuthOptions = {
   providers: [
