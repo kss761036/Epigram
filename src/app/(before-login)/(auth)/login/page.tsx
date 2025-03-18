@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { loginSchema, LoginFormValues } from '@/apis/auth/auth.type';
+import { loginFormSchema, LoginFormType } from '@/apis/auth/auth.type';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 import FormError from '@/components/FormError';
@@ -14,8 +14,8 @@ export default function Page() {
     register,
     handleSubmit,
     formState: { errors, isValid, isSubmitting },
-  } = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema),
+  } = useForm<LoginFormType>({
+    resolver: zodResolver(loginFormSchema),
     mode: 'onBlur',
   });
 
@@ -31,7 +31,7 @@ export default function Page() {
     window.location.href = '/api/auth/oauth/google';
   };
 
-  const onSubmit = async (data: LoginFormValues) => {
+  const onSubmit = async (data: LoginFormType) => {
     const res = await signIn('credentials', {
       email: data.email,
       password: data.password,

@@ -23,3 +23,18 @@ export const EMOTION_BORDER_COLOR: Record<Emotion, string> = {
 };
 
 export type Emotion = (typeof EMOTION)[keyof typeof EMOTION];
+
+export type PaginationQueryParams = {
+  limit?: number;
+  cursor?: number | null;
+};
+
+export type SearchableQueryParams = PaginationQueryParams & {
+  keyword?: string;
+};
+
+export type PaginationResponse<T> = {
+  totalCount: number;
+  nextCursor: number | null;
+  list: T[];
+};
