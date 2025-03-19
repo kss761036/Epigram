@@ -1,5 +1,7 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import type { Meta, StoryObj } from '@storybook/react';
-import { TabList, TabBtn, TabItemsContainer, TabItem } from './Tab';
+import { TabList, TabBtn, TabItemsContainer, TabItem, Tabs } from './Tab';
+import { useState } from 'react';
 
 const meta: Meta = {
   title: 'Components/Tab',
@@ -49,26 +51,51 @@ type Story = StoryObj<{
 }>;
 
 export const Default: Story = {
-  render: (args) => (
-    <>
-      <TabList className={args.TabList}>
-        <TabBtn tabIndex={0} className={args.TabBtn} activeClass={args.TabBtnActive}>
-          내 에피그램(10)
-        </TabBtn>
-        <TabBtn tabIndex={1} className={args.TabBtn} activeClass={args.TabBtnActive}>
-          내 댓글(110)
-        </TabBtn>
-      </TabList>
-      <TabItemsContainer className={args.TabItemsContainer}>
-        <TabItem tabIndex={0} className={args.TabItem} animation={args.TabItemAnimation}>
-          에피그램 리스트
-        </TabItem>
-        <TabItem tabIndex={1} className={args.TabItem} animation={args.TabItemAnimation}>
-          댓글 리스트
-        </TabItem>
-      </TabItemsContainer>
-    </>
-  ),
+  render: (args) => {
+    const [activeTab, setActiveTab] = useState(0);
+    return (
+      <Tabs>
+        <TabList className={args.TabList}>
+          <TabBtn
+            tabIndex={0}
+            className={args.TabBtn}
+            activeClass={args.TabBtnActive}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+          >
+            내 에피그램(10)
+          </TabBtn>
+          <TabBtn
+            tabIndex={1}
+            className={args.TabBtn}
+            activeClass={args.TabBtnActive}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+          >
+            내 댓글(110)
+          </TabBtn>
+        </TabList>
+        <TabItemsContainer className={args.TabItemsContainer}>
+          <TabItem
+            tabIndex={0}
+            className={args.TabItem}
+            animation={args.TabItemAnimation}
+            activeTab={activeTab}
+          >
+            에피그램 리스트
+          </TabItem>
+          <TabItem
+            tabIndex={1}
+            className={args.TabItem}
+            animation={args.TabItemAnimation}
+            activeTab={activeTab}
+          >
+            댓글 리스트
+          </TabItem>
+        </TabItemsContainer>
+      </Tabs>
+    );
+  },
   args: {
     TabList: '',
     TabBtn: '',

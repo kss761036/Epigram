@@ -2,18 +2,7 @@
 
 import { cn } from '@/utils/helper';
 import React, { useEffect, useState } from 'react';
-import { create } from 'zustand';
 import { AnimatePresence, motion } from 'framer-motion';
-
-interface TabStore {
-  activeTab: number;
-  setActiveTab: (tab: number) => void;
-}
-
-export const useTabStore = create<TabStore>((set) => ({
-  activeTab: 0,
-  setActiveTab: (tab) => set({ activeTab: tab }),
-}));
 
 interface TabListProps {
   children: React.ReactNode;
@@ -25,6 +14,8 @@ interface TabBtnProps {
   className?: string;
   activeClass?: string;
   tabIndex: number;
+  activeTab: number;
+  setActiveTab: (tab: number) => void;
 }
 
 interface TabItemsContainerProps {
@@ -36,12 +27,30 @@ interface TabItemProps {
   children: React.ReactNode;
   className?: string;
   tabIndex: number;
+  activeTab: number;
   animation?: {
     enabled?: boolean;
     direction?: 'x' | 'y';
     directionValue?: number;
     duration?: number;
   };
+}
+
+export function Tabs({ children }: { children: React.ReactNode }) {
+  const [activeTab, setActiveTab] = useState(0);
+
+  return (
+    <>
+      {React.Children.map(children, (child) => {
+        if (
+          React.isValidElement<{ activeTab: number; setActiveTab: (tab: number) => void }>(child)
+        ) {
+          return React.cloneElement(child, { activeTab, setActiveTab });
+        }
+        return child;
+      })}
+    </>
+  );
 }
 
 export function TabList({ children, className }: TabListProps) {
@@ -52,29 +61,32 @@ export function TabList({ children, className }: TabListProps) {
   );
 }
 
-export function TabBtn({ children, activeClass, className, tabIndex }: TabBtnProps) {
+export function TabBtn({
+  children,
+  activeClass,
+  className,
+  tabIndex,
+  activeTab,
+  setActiveTab,
+}: TabBtnProps) {
   const active = 'text-black-600 font-semibold';
-
-  const { activeTab, setActiveTab } = useTabStore();
   const isActive = activeTab === tabIndex;
 
   return (
-    <>
-      <li>
-        <button
-          tabIndex={tabIndex}
-          className={cn(
-            'cursor-pointer leading-5 font-medium text-gray-300 transition-all duration-100',
-            isActive && active,
-            isActive && activeClass,
-            className,
-          )}
-          onClick={() => setActiveTab(tabIndex)}
-        >
-          {children}
-        </button>
-      </li>
-    </>
+    <li>
+      <button
+        tabIndex={tabIndex}
+        className={cn(
+          'cursor-pointer leading-5 font-medium text-gray-300 transition-all duration-100',
+          isActive && active,
+          isActive && activeClass,
+          className,
+        )}
+        onClick={() => setActiveTab(tabIndex)}
+      >
+        {children}
+      </button>
+    </li>
   );
 }
 
@@ -82,8 +94,7 @@ export function TabItemsContainer({ children, className }: TabItemsContainerProp
   return <ul className={className}>{children}</ul>;
 }
 
-export function TabItem({ children, className, tabIndex, animation }: TabItemProps) {
-  const activeTab = useTabStore((state) => state.activeTab);
+export function TabItem({ children, className, tabIndex, activeTab, animation }: TabItemProps) {
   const isActive = activeTab === tabIndex;
   const { enabled = true, direction = 'y', directionValue = 20, duration = 0.25 } = animation || {};
 
@@ -102,8 +113,8 @@ export function TabItem({ children, className, tabIndex, animation }: TabItemPro
               isFirstRender ? {} : enabled ? { opacity: 0, [direction]: directionValue } : {}
             }
             animate={enabled ? { opacity: 1, y: 0, x: 0 } : {}}
-            exit={enabled ? { opacity: 0, [direction]: [directionValue] } : {}}
-            transition={{ duration: [duration], ease: 'easeInOut' }}
+            exit={enabled ? { opacity: 0, [direction]: directionValue } : {}}
+            transition={{ duration, ease: 'easeInOut' }}
           >
             {children}
           </motion.li>
