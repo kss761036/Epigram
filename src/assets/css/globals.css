@@ -77,3 +77,9 @@ input[type="search"]::-webkit-search-cancel-button {
 
   --font-iropke : var(--font-iropke);
 }
+
+input[type=password]::-ms-reveal,
+input[type=password]::-ms-clear
+{
+    display: none;
+}
