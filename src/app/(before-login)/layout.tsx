@@ -1,10 +1,10 @@
-import AuthHeader from '@/components/headers/Auth';
+import BeforeLoginHeader from '@/components/headers/BeforeLogin';
 import { PropsWithChildren, Suspense } from 'react';
 
 export default function layout({ children }: PropsWithChildren) {
   return (
     <Suspense>
-      <AuthHeader />
+      <BeforeLoginHeader />
       {children}
     </Suspense>
   );
