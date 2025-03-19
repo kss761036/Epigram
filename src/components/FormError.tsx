@@ -7,7 +7,7 @@ export default function FormError({ message }: FormErrorProps) {
 
   return (
     <div
-      className='mb-4 flex items-center rounded-lg bg-red-50 p-4 text-sm text-red-800'
+      className='mb-4 flex items-center rounded-lg bg-red-50 p-4 text-red-800 lg:text-lg'
       role='alert'
     >
       <svg
