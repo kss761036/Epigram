@@ -1,8 +1,15 @@
 'use client';
 
 import { useEffect } from 'react';
+import Image from 'next/image';
 import { redirect, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
+import OauthWrapper, {
+  OauthIcon,
+  OauthLoading,
+  OauthMessage,
+} from '../../_components/OauthWrapper';
+import IconKakao from '@/assets/img/auth/icon-kakao.svg';
 
 export default function KakaoCallback() {
   const searchParams = useSearchParams();
@@ -23,5 +30,14 @@ export default function KakaoCallback() {
     })();
   }, [code]);
 
-  return <div className='flex h-dvh items-center justify-center'>카카오 로그인 중...</div>;
+  return (
+    <OauthWrapper>
+      <OauthLoading>
+        <OauthIcon>
+          <Image src={IconKakao} alt='카카오 로그인' fill />
+        </OauthIcon>
+        <OauthMessage>카카오 로그인중</OauthMessage>
+      </OauthLoading>
+    </OauthWrapper>
+  );
 }

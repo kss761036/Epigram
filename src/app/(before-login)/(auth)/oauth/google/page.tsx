@@ -1,8 +1,15 @@
 'use client';
 
 import { useEffect } from 'react';
+import Image from 'next/image';
 import { redirect, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
+import OauthWrapper, {
+  OauthIcon,
+  OauthLoading,
+  OauthMessage,
+} from '../../_components/OauthWrapper';
+import IconGoogle from '@/assets/img/auth/icon-google.svg';
 
 export default function GoogleCallback() {
   const searchParams = useSearchParams();
@@ -23,5 +30,14 @@ export default function GoogleCallback() {
     })();
   }, [code]);
 
-  return <div className='flex h-dvh items-center justify-center'>구글 로그인 중...</div>;
+  return (
+    <OauthWrapper>
+      <OauthLoading>
+        <OauthIcon>
+          <Image src={IconGoogle} alt='구글 로그인' fill />
+        </OauthIcon>
+        <OauthMessage>구글 로그인중</OauthMessage>
+      </OauthLoading>
+    </OauthWrapper>
+  );
 }
