@@ -1,6 +1,6 @@
 'use client';
 
-import React, { InputHTMLAttributes, useState, useId } from 'react';
+import React, { InputHTMLAttributes, useState, useId, RefAttributes } from 'react';
 import { cn } from '@/utils/helper';
 import Icon from './Icon';
 import { cva, VariantProps } from 'class-variance-authority';
@@ -30,6 +30,7 @@ const inputVariants = cva(
 
 interface InputProps
   extends InputHTMLAttributes<HTMLInputElement>,
+    RefAttributes<HTMLInputElement>,
     VariantProps<typeof inputVariants> {
   placeholder?: string;
   className?: string;
