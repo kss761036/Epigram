@@ -1,3 +1,5 @@
+'use client';
+
 import localFont from 'next/font/local';
 import AuthSession from '../context/AuthSession';
 import QueryClientProvider from '@/context/QueryProvider';
