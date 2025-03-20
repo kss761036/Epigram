@@ -26,6 +26,7 @@ export const authOptions: AuthOptions = {
             id: user.id,
             email: user.email,
             nickname: user.nickname,
+            image: user.image,
             accessToken: accessToken,
             refreshToken: refreshToken,
           };
@@ -54,6 +55,7 @@ export const authOptions: AuthOptions = {
             id: user.id,
             email: user.email,
             nickname: user.nickname,
+            image: user.image,
             accessToken: accessToken,
             refreshToken: refreshToken,
           };
@@ -82,6 +84,7 @@ export const authOptions: AuthOptions = {
             id: user.id,
             email: user.email,
             nickname: user.nickname,
+            image: user.image,
             accessToken: accessToken,
             refreshToken: refreshToken,
           };
@@ -101,6 +104,7 @@ export const authOptions: AuthOptions = {
         token.id = user.id;
         token.email = user.email;
         token.nickname = user.nickname;
+        token.image = user.image;
         token.accessToken = user.accessToken;
         token.refreshToken = user.refreshToken;
       }
@@ -114,6 +118,7 @@ export const authOptions: AuthOptions = {
           id: token.id,
           email: token.email,
           nickname: token.nickname,
+          image: token.image,
           accessToken: token.accessToken,
           refreshToken: token.refreshToken,
         },
