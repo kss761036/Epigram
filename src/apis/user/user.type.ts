@@ -35,3 +35,11 @@ export const updateUserFormSchema = z.object({
 });
 
 export type UpdateUserForm = z.infer<typeof updateUserFormSchema>;
+
+export type UploadImageForm = {
+  image: File;
+};
+
+export type UploadImageReponse = {
+  url: string;
+};

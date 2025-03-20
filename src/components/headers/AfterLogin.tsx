@@ -1,20 +1,17 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import Logo from '@/assets/img/common/logo.svg';
+import { useSession } from 'next-auth/react';
+import { useMediaQuery } from 'react-responsive';
+import { cn } from '@/utils/helper';
 import Icon from '../Icon';
 import Avatar from '../Avatar';
-import { useMediaQuery } from 'react-responsive';
-import { useEffect, useState } from 'react';
-import { Session } from 'next-auth';
-import { cn } from '@/utils/helper';
+import Logo from '@/assets/img/common/logo.svg';
 
-interface Props {
-  session: Session | null;
-}
-
-const AfterLoginHeader: React.FC<Props> = ({ session }) => {
+const AfterLoginHeader: React.FC = () => {
+  const { data: session } = useSession();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -120,14 +117,18 @@ const AfterLoginHeader: React.FC<Props> = ({ session }) => {
           </>
         )}
         <Link href='/mypage' className='ml-auto flex items-center gap-1.5'>
-          <Avatar
-            src={session?.user?.image ?? undefined}
-            alt={String(session?.user?.nickname)}
-            className='h-6.5 w-auto text-[12px] leading-none lg:h-9 lg:text-[16px]'
-          />
-          <span className='text-[13px] leading-none text-gray-300 lg:text-[16px]'>
-            {String(session?.user?.nickname)}
-          </span>
+          {session && (
+            <>
+              <Avatar
+                src={session?.user?.image ?? undefined}
+                alt={String(session?.user?.nickname)}
+                className='h-6.5 w-auto text-[12px] leading-none lg:h-9 lg:text-[16px]'
+              />
+              <span className='text-[13px] leading-none text-gray-300 lg:text-[16px]'>
+                {String(session?.user?.nickname)}
+              </span>
+            </>
+          )}
         </Link>
       </div>
     </header>
