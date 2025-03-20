@@ -1,4 +1,4 @@
-import { HTMLAttributes, PropsWithChildren } from 'react';
+import { ButtonHTMLAttributes, PropsWithChildren } from 'react';
 import { cn } from '@/utils/helper';
 
 export function SocialList({ children }: PropsWithChildren) {
@@ -16,7 +16,7 @@ export function SocialHeader({ children }: PropsWithChildren) {
 export function SocialButton({
   className,
   ...props
-}: PropsWithChildren<HTMLAttributes<HTMLButtonElement>>) {
+}: PropsWithChildren<ButtonHTMLAttributes<HTMLButtonElement>>) {
   return (
     <button
       className={cn(
