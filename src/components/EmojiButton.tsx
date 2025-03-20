@@ -1,9 +1,9 @@
 import { Emotion, EMOTION_BORDER_COLOR, EMOTION_LABEL } from '@/types/common';
-import { HTMLAttributes } from 'react';
+import { ButtonHTMLAttributes } from 'react';
 import Emoji from './Emoji';
 import { cn } from '@/utils/helper';
 
-interface EmojiButton extends HTMLAttributes<HTMLButtonElement> {
+interface EmojiButton extends ButtonHTMLAttributes<HTMLButtonElement> {
   name: Emotion;
   selected?: boolean;
   withLabel?: boolean;
