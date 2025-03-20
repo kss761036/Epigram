@@ -1,16 +1,14 @@
 'use client';
 
-import { cn } from '@/utils/helper';
 import Link from 'next/link';
+import { cn } from '@/utils/helper';
+import { Epigram } from '@/apis/epigram/epigram.type';
 
-interface SearchCardProps {
-  content: string;
-  referenceUrl: string;
-  author?: string;
-  tags: { id: number; name: string }[];
+interface SearchCardProps extends Epigram {
   className?: string;
   contentClassName?: string;
   keyword?: string;
+  link?: string;
 }
 
 export default function SearchCard({
@@ -18,8 +16,8 @@ export default function SearchCard({
   author,
   tags,
   className,
-  referenceUrl,
   contentClassName,
+  link = '#',
   keyword,
 }: SearchCardProps) {
   // 키워드가 존재하면 공백을 제거하여 정규표현식 생성
@@ -49,7 +47,7 @@ export default function SearchCard({
   };
 
   return (
-    <Link href={referenceUrl} className={classes.cardWrapper}>
+    <Link href={link} className={classes.cardWrapper}>
       <div className={classes.cardContent} dangerouslySetInnerHTML={{ __html: content }} />
       {author && (
         <div className={classes.cardAuthor} dangerouslySetInnerHTML={{ __html: `- ${author} -` }} />
