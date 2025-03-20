@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   format,
   startOfMonth,
@@ -20,11 +20,18 @@ import EmotionFilter from './EmotionFilter';
 
 export interface CalendarProps {
   moodData?: { [dateString: string]: Emotion };
+  onMonthChange?: (newMonth: Date) => void;
 }
 
-export default function Calendar({ moodData }: CalendarProps) {
+export default function Calendar({ moodData, onMonthChange }: CalendarProps) {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [filterEmotion, setFilterEmotion] = useState<Emotion | null>(null);
+
+  useEffect(() => {
+    if (onMonthChange) {
+      onMonthChange(currentMonth);
+    }
+  }, [currentMonth, onMonthChange]);
 
   function renderHeader() {
     return (
