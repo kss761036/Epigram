@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  ButtonHTMLAttributes,
   createContext,
   Dispatch,
   HTMLAttributes,
@@ -70,7 +71,7 @@ export function DropdownTrigger({
   children,
   className,
   ...props
-}: PropsWithChildren<HTMLAttributes<HTMLButtonElement>>) {
+}: PropsWithChildren<ButtonHTMLAttributes<HTMLButtonElement>>) {
   const { isOpen } = useDropdownState();
   const { setIsOpen } = useDropdownDispatch();
 
