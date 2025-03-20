@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
 import EmojiButton from './EmojiButton';
-import { createEmotionLogToday } from '../apis/emotion/emotion.service';
-import { Emotion } from '@/types/common';
+import { useSession } from 'next-auth/react';
+import { useEmotionLogToday, useCreateEmotionLog } from '@/apis/emotion/emotion.queries';
+import { EMOTION, Emotion } from '@/types/common';
 import { cn } from '@/utils/helper';
 
 interface TodayMoodProps {
@@ -13,21 +13,23 @@ interface TodayMoodProps {
 }
 
 export default function TodayMood({ label, containerClassName, labelClassName }: TodayMoodProps) {
-  const [loading, setLoading] = useState(false);
-  const [selectedEmotion, setSelectedEmotion] = useState<Emotion | null>(null);
+  const { data: session } = useSession();
 
-  const handleClick = async (emotion: Emotion) => {
-    if (loading) return;
-    setLoading(true);
-    try {
-      await createEmotionLogToday({ emotion });
-      setSelectedEmotion(emotion);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
+  const userId = session?.user.id;
+
+  const { data: emotionLog } = useEmotionLogToday(userId);
+
+  const mutation = useCreateEmotionLog(userId);
+
+  const isPending = mutation.status === 'pending';
+
+  const handleClick = (emotion: Emotion) => {
+    if (!isPending) {
+      mutation.mutate({ emotion });
     }
   };
+
+  const selectedEmotion = emotionLog?.emotion || null;
 
   return (
     <>
@@ -41,29 +43,34 @@ export default function TodayMood({ label, containerClassName, labelClassName }:
         )}
       >
         <EmojiButton
-          name='MOVED'
-          onClick={() => handleClick('MOVED')}
-          selected={selectedEmotion === 'MOVED'}
+          name={EMOTION.MOVED}
+          onClick={() => handleClick(EMOTION.MOVED)}
+          selected={selectedEmotion === EMOTION.MOVED}
+          disabled={isPending}
         />
         <EmojiButton
-          name='HAPPY'
-          onClick={() => handleClick('HAPPY')}
-          selected={selectedEmotion === 'HAPPY'}
+          name={EMOTION.HAPPY}
+          onClick={() => handleClick(EMOTION.HAPPY)}
+          selected={selectedEmotion === EMOTION.HAPPY}
+          disabled={isPending}
         />
         <EmojiButton
-          name='WORRIED'
-          onClick={() => handleClick('WORRIED')}
-          selected={selectedEmotion === 'WORRIED'}
+          name={EMOTION.WORRIED}
+          onClick={() => handleClick(EMOTION.WORRIED)}
+          selected={selectedEmotion === EMOTION.WORRIED}
+          disabled={isPending}
         />
         <EmojiButton
-          name='SAD'
-          onClick={() => handleClick('SAD')}
-          selected={selectedEmotion === 'SAD'}
+          name={EMOTION.SAD}
+          onClick={() => handleClick(EMOTION.SAD)}
+          selected={selectedEmotion === EMOTION.SAD}
+          disabled={isPending}
         />
         <EmojiButton
-          name='ANGRY'
-          onClick={() => handleClick('ANGRY')}
-          selected={selectedEmotion === 'ANGRY'}
+          name={EMOTION.ANGRY}
+          onClick={() => handleClick(EMOTION.ANGRY)}
+          selected={selectedEmotion === EMOTION.ANGRY}
+          disabled={isPending}
         />
       </div>
     </>
