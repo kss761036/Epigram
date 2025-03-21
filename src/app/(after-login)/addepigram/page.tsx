@@ -9,14 +9,11 @@ import { Section } from '@/components/Section';
 import TextArea from '@/components/TextArea';
 import { cn } from '@/utils/helper';
 import { createEpigram } from '@/apis/epigram/epigram.service';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { CreateEpigramFormType } from '@/apis/epigram/epigram.type';
 
 export default function Page() {
-  const LabelClass =
-    'block text-black-600 mb-[9px] text-lg font-semibold md:mb-2.5 md:text-lg lg:mb-[27px] lg:text-xl';
-  const LabelRequiredClass = 'text-red ml-1 text-lg md:text-lg lg:ml-1.5 lg:text-xl';
-
-  // 입력 데이터 상태
   const [content, setContent] = useState('');
   const [author, setAuthor] = useState('');
   const [referenceTitle, setReferenceTitle] = useState('');
@@ -29,19 +26,38 @@ export default function Page() {
   const [contentError, setContentError] = useState<string | null>(null);
   const [authorError, setAuthorError] = useState<string | null>(null);
 
-  // 리액트 쿼리의 useMutation 사용 (에피그램 작성 API 호출)
+  function LoadingText() {
+    const [dotCount, setDotCount] = useState(1);
+
+    useEffect(() => {
+      const interval = setInterval(() => {
+        setDotCount((prev) => (prev % 4) + 1);
+      }, 400);
+
+      return () => clearInterval(interval);
+    }, []);
+
+    return <p>에피그램 저장 중{'.'.repeat(dotCount)}</p>;
+  }
+
   const { mutate, isPending } = useMutation({
     mutationFn: createEpigram,
     onSuccess: () => {
-      alert('에피그램이 성공적으로 작성되었습니다.');
+      toast.success('에피그램이 성공적으로 작성되었습니다.');
+      setContent('');
+      setAuthor('');
+      setSelectedAuthor('');
+      setReferenceTitle('');
+      setReferenceUrl('');
+      setTags([]);
+      setTagInput('');
     },
     onError: (error) => {
       console.error('에피그램 작성 실패:', error);
-      alert('에피그램 작성에 실패했습니다.');
+      toast.error('에피그램 작성에 실패했습니다.');
     },
   });
 
-  // 폼 제출 핸들러
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -61,13 +77,16 @@ export default function Page() {
 
     setContentError(null);
 
-    mutate({
+    const payload: Partial<CreateEpigramFormType> = {
       content,
       author: selectedAuthor === '직접 입력' ? author : selectedAuthor,
       tags,
-      referenceTitle: referenceTitle || null,
-      referenceUrl: referenceUrl || null,
-    });
+    };
+
+    if (referenceTitle) payload.referenceTitle = referenceTitle;
+    if (referenceUrl) payload.referenceUrl = referenceUrl;
+
+    mutate(payload as CreateEpigramFormType);
   };
 
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -81,29 +100,38 @@ export default function Page() {
     }
   };
 
-  // 태그 입력 핸들러
   const handleTagInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTagInput(e.target.value);
   };
 
-  // Enter 키 입력 시 태그 추가
   const handleTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && tagInput.trim()) {
+    const trimmed = tagInput.trim();
+
+    if (e.key === 'Enter' && !e.nativeEvent.isComposing && trimmed) {
       e.preventDefault();
-      if (tags.length < 10 && !tags.includes(tagInput.trim())) {
-        setTags([...tags, tagInput.trim()]);
-        setTagInput('');
+
+      if (tags.length >= 3) return;
+      if (trimmed.length > 10) {
+        toast.error('태그는 10자 이내로 입력해주세요.');
+        return;
       }
+      if (tags.includes(trimmed)) return;
+
+      setTags([...tags, trimmed]);
+      setTagInput('');
     }
   };
 
-  // 태그 삭제 핸들러
   const handleTagRemove = (tagToRemove: string) => {
     setTags(tags.filter((tag) => tag !== tagToRemove));
   };
 
+  const LabelClass =
+    'block text-black-600 mb-[9px] text-lg font-semibold md:mb-2.5 md:text-lg lg:mb-[27px] lg:text-xl';
+  const LabelRequiredClass = 'text-red ml-1 text-lg md:text-lg lg:ml-1.5 lg:text-xl';
+
   return (
-    <div className='mx-auto mt-[56px] w-full max-w-[408px] p-6 lg:max-w-[664px]'>
+    <div className='mx-auto w-full max-w-[408px] p-6 lg:max-w-[664px] lg:py-8'>
       <Section>에피그램 만들기</Section>
       <form onSubmit={handleSubmit}>
         <ul className='flex flex-col gap-y-10'>
@@ -127,25 +155,25 @@ export default function Page() {
             <ul className='flex flex-wrap gap-4'>
               <li>
                 <Radio
-                  id='author-1'
                   name='author'
                   label='직접 입력'
+                  checked={selectedAuthor === '직접 입력'}
                   onChange={() => setSelectedAuthor('직접 입력')}
                 />
               </li>
               <li>
                 <Radio
-                  id='author-2'
                   name='author'
                   label='알 수 없음'
+                  checked={selectedAuthor === '알 수 없음'}
                   onChange={() => setSelectedAuthor('알 수 없음')}
                 />
               </li>
               <li>
                 <Radio
-                  id='author-3'
                   name='author'
                   label='본인'
+                  checked={selectedAuthor === '본인'}
                   onChange={() => setSelectedAuthor('본인')}
                 />
               </li>
@@ -203,8 +231,14 @@ export default function Page() {
           </li>
         </ul>
 
-        <Button className='mt-6 lg:mt-10' disabled={true} type='submit'>
-          작성 완료
+        <Button
+          className='mt-6 lg:mt-10'
+          disabled={
+            !content.trim() || !selectedAuthor || (selectedAuthor === '직접 입력' && !author.trim())
+          }
+          type='submit'
+        >
+          {isPending ? <LoadingText /> : '작성 완료'}
         </Button>
       </form>
     </div>
