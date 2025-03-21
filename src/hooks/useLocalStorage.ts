@@ -15,7 +15,8 @@ export default function useLocalStorage<T>(
         console.error(err);
       }
     }
-  }, [key, initialValue]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const setValue = (value: T | ((prev: T) => T)) => {
     setState((prev) => {
