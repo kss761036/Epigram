@@ -11,13 +11,13 @@ describe('useLocalStorage', () => {
   it('초기 상태에서 localStorage에 저장된 값을 불러오는지 확인', () => {
     localStorage.setItem(key, JSON.stringify([1, 2, 3]));
 
-    const { result } = renderHook(() => useLocalStorage<number>(key));
+    const { result } = renderHook(() => useLocalStorage<number[]>(key, []));
 
     expect(result.current[0]).toEqual([1, 2, 3]);
   });
 
   it('상태 업데이트시 localStorage 값도 동기화 되는지 확인', () => {
-    const { result } = renderHook(() => useLocalStorage<number>(key));
+    const { result } = renderHook(() => useLocalStorage<number[]>(key, []));
 
     act(() => {
       result.current[1]([4, 5, 6]);
@@ -30,7 +30,7 @@ describe('useLocalStorage', () => {
   it('상태 업데이트를 함수로 처리할 때 동작이 정상적인지 확인', () => {
     localStorage.setItem(key, JSON.stringify([1, 2, 3]));
 
-    const { result } = renderHook(() => useLocalStorage<number>(key));
+    const { result } = renderHook(() => useLocalStorage<number[]>(key, []));
 
     act(() => {
       result.current[1]((prev) => [...prev, 4]);
@@ -45,7 +45,7 @@ describe('useLocalStorage', () => {
 
     const consoleErrorMock = jest.spyOn(console, 'error').mockImplementation(() => {});
 
-    const { result } = renderHook(() => useLocalStorage<number>(key));
+    const { result } = renderHook(() => useLocalStorage<number[]>(key, []));
 
     expect(result.current[0]).toEqual([]);
     expect(consoleErrorMock).toHaveBeenCalled();
