@@ -2,6 +2,7 @@ import axios from 'axios';
 import { getServerSession } from 'next-auth';
 import { encode } from 'next-auth/jwt';
 import { cookies } from 'next/headers';
+import { jwtDecode } from 'jwt-decode';
 import { authOptions } from './nextauth';
 import { refreshAccessToken } from '@/apis/auth/auth.service';
 
@@ -49,7 +50,7 @@ axiosServerInstance.interceptors.response.use(
             token: {
               ...session.user,
               accessToken: accessToken,
-              accessTokenExpires: Date.now() + 30 * 60 * 1000,
+              accessTokenExpires: jwtDecode(accessToken).exp || Date.now() + 30 * 60 * 1000,
             },
             maxAge: 10 * 24 * 60 * 60,
           });

@@ -1,5 +1,6 @@
 import { isAxiosError } from 'axios';
 import { AuthOptions } from 'next-auth';
+import { jwtDecode } from 'jwt-decode';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { googleSignIn, kakaoSignIn, refreshAccessToken, signIn } from '@/apis/auth/auth.service';
 
@@ -107,14 +108,14 @@ export const authOptions: AuthOptions = {
         token.image = user.image;
         token.accessToken = user.accessToken;
         token.refreshToken = user.refreshToken;
-        token.accessTokenExpires = Date.now() + 30 * 60 * 1000;
+        token.accessTokenExpires = jwtDecode(user.accessToken).exp || Date.now() + 30 * 60 * 1000;
       }
 
       if (Date.now() > token.accessTokenExpires) {
         try {
-          const refreshedTokens = await refreshAccessToken(token.refreshToken);
-          token.accessToken = refreshedTokens.accessToken;
-          token.accessTokenExpires = Date.now() + 30 * 60 * 1000;
+          const { accessToken } = await refreshAccessToken(token.refreshToken);
+          token.accessToken = accessToken;
+          token.accessTokenExpires = jwtDecode(accessToken).exp || Date.now() + 30 * 60 * 1000;
         } catch (error) {
           console.error('토큰 갱신 실패:', error);
           token.error = 'RefreshTokenError';
@@ -139,6 +140,7 @@ export const authOptions: AuthOptions = {
           accessToken: token.accessToken,
           refreshToken: token.refreshToken,
         };
+        console.log('session', token.accessTokenExpires);
       }
       return session;
     },
