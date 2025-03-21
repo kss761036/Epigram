@@ -20,18 +20,12 @@ import EmotionFilter from './EmotionFilter';
 
 export interface CalendarProps {
   moodData?: { [dateString: string]: Emotion };
-  onMonthChange?: (newMonth: Date) => void;
+  currentMonth: Date;
+  setCurrentMonth: React.Dispatch<React.SetStateAction<Date>>;
 }
 
-export default function Calendar({ moodData, onMonthChange }: CalendarProps) {
-  const [currentMonth, setCurrentMonth] = useState(new Date());
+export default function Calendar({ moodData, currentMonth, setCurrentMonth }: CalendarProps) {
   const [filterEmotion, setFilterEmotion] = useState<Emotion | null>(null);
-
-  useEffect(() => {
-    if (onMonthChange) {
-      onMonthChange(currentMonth);
-    }
-  }, [currentMonth, onMonthChange]);
 
   function renderHeader() {
     return (

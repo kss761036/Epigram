@@ -1,8 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
 import Calendar from './Calendar';
 import { Emotion } from '@/types/common';
 
-const sampleMoodData: { [dateString: string]: Emotion } = {
+const sampleMoodData: Record<string, Emotion> = {
   '2025-02-23': 'MOVED',
   '2025-02-24': 'MOVED',
   '2025-02-25': 'MOVED',
@@ -60,14 +61,17 @@ const meta: Meta<typeof Calendar> = {
 export default meta;
 type Story = StoryObj<typeof Calendar>;
 
+const CalendarWrapper = ({ moodData }: { moodData?: Record<string, Emotion> }) => {
+  const [currentMonth, setCurrentMonth] = useState(new Date());
+  return (
+    <Calendar moodData={moodData} currentMonth={currentMonth} setCurrentMonth={setCurrentMonth} />
+  );
+};
+
 export const Default: Story = {
-  args: {
-    moodData: {},
-  },
+  render: () => <CalendarWrapper />,
 };
 
 export const WithMoodData: Story = {
-  args: {
-    moodData: sampleMoodData,
-  },
+  render: () => <CalendarWrapper moodData={sampleMoodData} />,
 };
