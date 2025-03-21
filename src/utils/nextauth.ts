@@ -1,7 +1,7 @@
 import { isAxiosError } from 'axios';
 import { AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { googleSignIn, kakaoSignIn, signIn } from '@/apis/auth/auth.service';
+import { googleSignIn, kakaoSignIn, refreshAccessToken, signIn } from '@/apis/auth/auth.service';
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -107,6 +107,18 @@ export const authOptions: AuthOptions = {
         token.image = user.image;
         token.accessToken = user.accessToken;
         token.refreshToken = user.refreshToken;
+        token.accessTokenExpires = Date.now() + 30 * 60 * 1000;
+      }
+
+      if (Date.now() > token.accessTokenExpires) {
+        try {
+          const refreshedTokens = await refreshAccessToken(token.refreshToken);
+          token.accessToken = refreshedTokens.accessToken;
+          token.accessTokenExpires = Date.now() + 30 * 60 * 1000;
+        } catch (error) {
+          console.error('토큰 갱신 실패:', error);
+          token.error = 'RefreshTokenError';
+        }
       }
 
       if (trigger === 'update') {
@@ -117,17 +129,18 @@ export const authOptions: AuthOptions = {
       return token;
     },
     async session({ session, token }) {
-      return {
-        ...session,
-        user: {
+      if (token) {
+        session.error = token.error;
+        session.user = {
           id: token.id,
           email: token.email,
           nickname: token.nickname,
           image: token.image,
           accessToken: token.accessToken,
           refreshToken: token.refreshToken,
-        },
-      };
+        };
+      }
+      return session;
     },
   },
   pages: {
