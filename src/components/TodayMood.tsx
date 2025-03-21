@@ -2,6 +2,7 @@
 
 import EmojiButton from './EmojiButton';
 import { useSession } from 'next-auth/react';
+import { useQueryClient } from '@tanstack/react-query';
 import { useEmotionLogToday, useCreateEmotionLog } from '@/apis/emotion/emotion.queries';
 import { EMOTION, Emotion } from '@/types/common';
 import { cn } from '@/utils/helper';
@@ -14,18 +15,22 @@ interface TodayMoodProps {
 
 export default function TodayMood({ label, containerClassName, labelClassName }: TodayMoodProps) {
   const { data: session } = useSession();
-
-  const userId = session?.user.id;
+  const queryClient = useQueryClient();
+  const userId = session?.user?.id;
 
   const { data: emotionLog } = useEmotionLogToday(userId);
-
   const mutation = useCreateEmotionLog(userId);
 
-  const isPending = mutation.status === 'pending';
-
   const handleClick = (emotion: Emotion) => {
-    if (!isPending) {
-      mutation.mutate({ emotion });
+    if (!mutation.isPending) {
+      mutation.mutate(
+        { emotion },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['emotionLogsMonthly', userId] });
+          },
+        },
+      );
     }
   };
 
@@ -42,36 +47,14 @@ export default function TodayMood({ label, containerClassName, labelClassName }:
           containerClassName,
         )}
       >
-        <EmojiButton
-          name={EMOTION.MOVED}
-          onClick={() => handleClick(EMOTION.MOVED)}
-          selected={selectedEmotion === EMOTION.MOVED}
-          disabled={isPending}
-        />
-        <EmojiButton
-          name={EMOTION.HAPPY}
-          onClick={() => handleClick(EMOTION.HAPPY)}
-          selected={selectedEmotion === EMOTION.HAPPY}
-          disabled={isPending}
-        />
-        <EmojiButton
-          name={EMOTION.WORRIED}
-          onClick={() => handleClick(EMOTION.WORRIED)}
-          selected={selectedEmotion === EMOTION.WORRIED}
-          disabled={isPending}
-        />
-        <EmojiButton
-          name={EMOTION.SAD}
-          onClick={() => handleClick(EMOTION.SAD)}
-          selected={selectedEmotion === EMOTION.SAD}
-          disabled={isPending}
-        />
-        <EmojiButton
-          name={EMOTION.ANGRY}
-          onClick={() => handleClick(EMOTION.ANGRY)}
-          selected={selectedEmotion === EMOTION.ANGRY}
-          disabled={isPending}
-        />
+        {Object.values(EMOTION).map((emotion) => (
+          <EmojiButton
+            key={emotion}
+            name={emotion}
+            onClick={() => handleClick(emotion)}
+            selected={selectedEmotion === emotion}
+          />
+        ))}
       </div>
     </>
   );
