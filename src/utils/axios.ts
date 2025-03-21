@@ -47,8 +47,9 @@ axiosServerInstance.interceptors.response.use(
           const newSession = await encode({
             secret: process.env.NEXTAUTH_SECRET!,
             token: {
-              ...session,
+              ...session.user,
               accessToken: accessToken,
+              accessTokenExpires: Date.now() + 30 * 60 * 1000,
             },
             maxAge: 10 * 24 * 60 * 60,
           });
