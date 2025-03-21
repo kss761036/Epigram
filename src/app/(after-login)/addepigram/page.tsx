@@ -12,8 +12,10 @@ import { createEpigram } from '@/apis/epigram/epigram.service';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { CreateEpigramFormType } from '@/apis/epigram/epigram.type';
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
+  const router = useRouter();
   const [content, setContent] = useState('');
   const [author, setAuthor] = useState('');
   const [referenceTitle, setReferenceTitle] = useState('');
@@ -42,15 +44,9 @@ export default function Page() {
 
   const { mutate, isPending } = useMutation({
     mutationFn: createEpigram,
-    onSuccess: () => {
+    onSuccess: (data) => {
       toast.success('에피그램이 성공적으로 작성되었습니다.');
-      setContent('');
-      setAuthor('');
-      setSelectedAuthor('');
-      setReferenceTitle('');
-      setReferenceUrl('');
-      setTags([]);
-      setTagInput('');
+      router.push(`/epigrams/${data.id}`);
     },
     onError: (error) => {
       console.error('에피그램 작성 실패:', error);
