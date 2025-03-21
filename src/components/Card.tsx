@@ -1,23 +1,20 @@
 'use client';
 
+import { Epigram } from '@/apis/epigram/epigram.type';
 import { cn } from '@/utils/helper';
 import Link from 'next/link';
 
-interface CardProps {
-  content: string;
-  referenceUrl: string;
-  author?: string;
-  tags: { id: number; name: string }[];
+interface CardProps extends Epigram {
   className?: string;
   contentClassName?: string;
 }
 
 export default function Card({
+  id,
   content,
   author,
   tags,
   className,
-  referenceUrl,
   contentClassName,
 }: CardProps) {
   const classes = {
@@ -37,7 +34,7 @@ export default function Card({
 
   return (
     <div className={classes.cardWrapper}>
-      <Link href={referenceUrl} className={`${classes.notebookBg} ${classes.cardBox}`}>
+      <Link href={`/epigrams/${id}`} className={`${classes.notebookBg} ${classes.cardBox}`}>
         <div className={classes.cardContent}>{content}</div>
         {author && <div className={classes.cardAuthor}>- {author} -</div>}
       </Link>
