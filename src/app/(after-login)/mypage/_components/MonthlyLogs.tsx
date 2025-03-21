@@ -2,9 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
-import { getEmotionLogsMonthly } from '@/apis/emotion/emotion.service';
+import { useEmotionLogsMonthly } from '@/apis/emotion/emotion.queries';
 import { Emotion, EMOTION_LABEL } from '@/types/common';
-import { format } from 'date-fns';
 import Calendar from '@/components/Calendar';
 import Chart from '@/components/Chart';
 import Emoji from '@/components/Emoji';
@@ -20,35 +19,10 @@ const emotionColors: Record<Emotion, string> = {
 };
 
 export default function MonthlyLogs() {
-  const [moodData, setMoodData] = useState<{ [dateString: string]: Emotion }>({});
-  const [currentMonth, setCurrentMonth] = useState(new Date());
   const { data: session } = useSession();
   const userId = session?.user?.id;
 
-  useEffect(() => {
-    async function fetchEmotionLogs() {
-      if (!userId) return;
-
-      try {
-        const year = currentMonth.getFullYear();
-        const month = currentMonth.getMonth() + 1;
-
-        const data = await getEmotionLogsMonthly({ userId, year, month });
-
-        const formattedData: { [dateString: string]: Emotion } = {};
-        data.forEach((log) => {
-          const dateKey = format(new Date(log.createdAt), 'yyyy-MM-dd');
-          formattedData[dateKey] = log.emotion;
-        });
-
-        setMoodData(formattedData);
-      } catch (error) {
-        console.error('감정 데이터를 불러오는 중 오류 발생:', error);
-      }
-    }
-
-    fetchEmotionLogs();
-  }, [userId, currentMonth]);
+  const { data: moodData = {}, currentMonth, setCurrentMonth } = useEmotionLogsMonthly(userId);
 
   const emotionCounts = Object.values(moodData).reduce(
     (acc, emotion) => {
@@ -63,9 +37,16 @@ export default function MonthlyLogs() {
   const chartColors = chartLabels.map((emotion) => emotionColors[emotion]);
 
   return (
-    <div className='mt-[58px] mb-[58px] md:mt-[62px] md:mb-[62px] lg:mt-[165px] lg:mb-[165px]'>
-      <Calendar moodData={moodData} currentMonth={currentMonth} setCurrentMonth={setCurrentMonth} />
+    <>
+      <div className='my-14 h-[360px] md:my-[60px] md:h-[432px] lg:my-[164px] lg:h-[737px]'>
+        <Calendar
+          moodData={moodData}
+          currentMonth={currentMonth}
+          setCurrentMonth={setCurrentMonth}
+        />
+      </div>
 
+      <p className='text-black-600 mb-6 text-lg font-semibold lg:mb-12 lg:text-2xl'>감정 차트</p>
       <Chart
         values={chartValues}
         labels={chartLabels}
@@ -103,6 +84,6 @@ export default function MonthlyLogs() {
         }}
         showLegend={true}
       />
-    </div>
+    </>
   );
 }
