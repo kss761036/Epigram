@@ -38,7 +38,7 @@ export default function FeedPage() {
         <div className='mb-50 md:mb-14'>
           <ul
             className={cn(
-              'grid grid-cols-2 gap-6 md:grid-cols-2 md:gap-8',
+              'grid grid-cols-2 items-start gap-6 md:grid-cols-2 md:gap-8',
               isListMode && 'grid-cols-1',
             )}
           >
