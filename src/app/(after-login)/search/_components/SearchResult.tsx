@@ -35,7 +35,7 @@ export default function SearchResult({ keyword }: SearchResultProps) {
       <ul>
         {results.map((item) => (
           <li key={item.id}>
-            <SearchCard {...item} keyword={keyword} link={`/epigrams/${item.id}`} />
+            <SearchCard {...item} keyword={keyword} />
           </li>
         ))}
       </ul>

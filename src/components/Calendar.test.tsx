@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { render, screen } from '@testing-library/react';
 import Calendar from './Calendar';
-import { format } from 'date-fns';
+import { format, isValid } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { Emotion } from '@/types/common';
 
@@ -11,15 +11,32 @@ const sampleMoodData: { [dateString: string]: Emotion } = {
   '2025-03-21': 'ANGRY',
 };
 
+function CalendarWrapper() {
+  const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
+  return (
+    <Calendar
+      moodData={sampleMoodData}
+      currentMonth={currentMonth}
+      setCurrentMonth={setCurrentMonth}
+    />
+  );
+}
+
 describe('Calendar Component', () => {
   it('헤더에 현재 월을 표시한다', () => {
-    render(<Calendar moodData={{}} />);
-    const monthText = format(new Date(), 'yyyy년 MMMM', { locale: ko });
+    render(<CalendarWrapper />);
+
+    const today = new Date();
+    if (!isValid(today)) {
+      throw new Error('Invalid date value in test');
+    }
+
+    const monthText = format(today, 'yyyy년 MMMM', { locale: ko });
     expect(screen.getByText(monthText)).toBeInTheDocument();
   });
 
   it('요일이 제대로 렌더링된다', () => {
-    render(<Calendar moodData={{}} />);
+    render(<CalendarWrapper />);
     const days = ['일', '월', '화', '수', '목', '금', '토'];
     days.forEach((day) => {
       expect(screen.getByText(day)).toBeInTheDocument();
@@ -27,13 +44,13 @@ describe('Calendar Component', () => {
   });
 
   it('캘린더 셀(날짜)이 렌더링된다', () => {
-    render(<Calendar moodData={{}} />);
+    render(<CalendarWrapper />);
     const cells = screen.getAllByText(/\d+/);
     expect(cells.length).toBeGreaterThan(0);
   });
 
   it('moodData가 있을 경우 Emoji가 렌더링된다', () => {
-    const { container } = render(<Calendar moodData={sampleMoodData} />);
+    const { container } = render(<CalendarWrapper />);
     const emojiElements = container.querySelectorAll('svg[viewBox="0 0 32 32"]');
     expect(emojiElements.length).toBeGreaterThan(0);
   });
