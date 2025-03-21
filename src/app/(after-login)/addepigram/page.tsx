@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { CreateEpigramFormType } from '@/apis/epigram/epigram.type';
 import { useRouter } from 'next/navigation';
+import Spinner from '@/components/Spinner';
 
 export default function Page() {
   const router = useRouter();
@@ -27,20 +28,6 @@ export default function Page() {
 
   const [contentError, setContentError] = useState<string | null>(null);
   const [authorError, setAuthorError] = useState<string | null>(null);
-
-  function LoadingText() {
-    const [dotCount, setDotCount] = useState(1);
-
-    useEffect(() => {
-      const interval = setInterval(() => {
-        setDotCount((prev) => (prev % 4) + 1);
-      }, 400);
-
-      return () => clearInterval(interval);
-    }, []);
-
-    return <p>에피그램 저장 중{'.'.repeat(dotCount)}</p>;
-  }
 
   const { mutate, isPending } = useMutation({
     mutationFn: createEpigram,
@@ -234,7 +221,7 @@ export default function Page() {
           }
           type='submit'
         >
-          {isPending ? <LoadingText /> : '작성 완료'}
+          {isPending ? <Spinner className='fill-black text-gray-100' /> : '작성 완료'}
         </Button>
       </form>
     </div>
