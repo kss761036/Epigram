@@ -59,6 +59,11 @@ const AfterLoginHeader: React.FC = () => {
             <ul className='ml-6 flex items-center gap-6'>
               <li>
                 <Link className={cn(menuText)} href='/epigrams'>
+                  메인
+                </Link>
+              </li>
+              <li>
+                <Link className={cn(menuText)} href='/feeds'>
                   피드
                 </Link>
               </li>
@@ -102,6 +107,11 @@ const AfterLoginHeader: React.FC = () => {
                   <ul>
                     <li>
                       <Link className={menuBoxText} href='/epigrams'>
+                        메인
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className={menuBoxText} href='/feeds'>
                         피드
                       </Link>
                     </li>

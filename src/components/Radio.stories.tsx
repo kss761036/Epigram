@@ -1,5 +1,4 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 import Radio from './Radio';
 
 const meta: Meta<typeof Radio> = {
@@ -20,35 +19,26 @@ const meta: Meta<typeof Radio> = {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
       },
-    },
-    labelColor: {
-      description: '라벨 색상 ( 테일윈드 className으로 작성 )',
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: "'text-black-600'" },
-      },
-      control: 'text',
+      control: 'boolean',
     },
     label: {
-      description: '라벨 ( 필수값 )',
+      description: '라벨 (필수값)',
       table: {
         type: { summary: 'string' },
-        defaultValue: { summary: 'undefined' },
       },
       control: 'text',
     },
-    className: {
-      description: '추가 className',
+    name: {
+      description: 'radio 그룹 이름 (name 속성)',
       table: {
         type: { summary: 'string' },
-        defaultValue: { summary: 'undefined' },
       },
       control: 'text',
     },
     onChange: {
-      description: '토글 상태가 변경될 때 호출되는 콜백 함수',
+      description: '선택 시 호출되는 콜백 함수',
       table: {
-        type: { summary: '(checked: boolean) => void' },
+        type: { summary: '(value: string) => void' },
         defaultValue: { summary: 'undefined' },
       },
       action: 'changed',
@@ -61,6 +51,7 @@ type Story = StoryObj<typeof Radio>;
 
 export const 체크전: Story = {
   args: {
+    name: 'group1',
     checked: false,
     label: '직접입력',
   },
@@ -71,6 +62,7 @@ export const 체크전: Story = {
 
 export const 체크후: Story = {
   args: {
+    name: 'group1',
     checked: true,
     label: '직접입력',
   },
