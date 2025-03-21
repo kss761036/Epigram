@@ -27,12 +27,11 @@ export default function FeedPage() {
         <Section>
           <SectionTitle>피드</SectionTitle>
           <SectionUtil>
-            <button className='md:hidden' onClick={() => setIsListMode((prev) => !prev)}>
-              {isListMode ? (
-                <Icon name='dashboard' className='text-gray-200' />
-              ) : (
-                <Icon name='filter' className='text-gray-200' />
-              )}
+            <button
+              className='cursor-pointer text-gray-200 transition-colors hover:text-gray-800 md:hidden'
+              onClick={() => setIsListMode((prev) => !prev)}
+            >
+              {isListMode ? <Icon name='dashboard' /> : <Icon name='filter' />}
             </button>
           </SectionUtil>
         </Section>
