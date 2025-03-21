@@ -99,7 +99,7 @@ export const authOptions: AuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
       if (user) {
         token.id = user.id;
         token.email = user.email;
@@ -107,6 +107,11 @@ export const authOptions: AuthOptions = {
         token.image = user.image;
         token.accessToken = user.accessToken;
         token.refreshToken = user.refreshToken;
+      }
+
+      if (trigger === 'update') {
+        if (session.nickname) token.nickname = session.nickname;
+        if (session.image) token.image = session.image;
       }
 
       return token;

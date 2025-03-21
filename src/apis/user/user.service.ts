@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { UpdateUserForm, User } from './user.type';
+import { UpdateUserForm, UploadImageForm, UploadImageReponse, User } from './user.type';
 import { PaginationQueryParams, PaginationResponse } from '@/types/common';
 
 /**
@@ -37,6 +37,19 @@ export const getUserCommentsById = async (userId: User['id'], params: Pagination
   const { limit = 4, cursor } = params;
   const response = await axios.get<PaginationResponse<Comment>>(`/api/users/${userId}/comments`, {
     params: { limit, cursor },
+  });
+  return response.data;
+};
+
+/**
+ * 유저 프로필 이미지 업로드
+ * https://fe-project-epigram-api.vercel.app/docs/#/Image/ImageUpload
+ */
+export const uploadImage = async (data: UploadImageForm) => {
+  const response = await axios.post<UploadImageReponse>('/api/images/upload', data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
   });
   return response.data;
 };

@@ -3,7 +3,7 @@ import { User } from '../user/user.type';
 import { z } from 'zod';
 
 export type EmotionLog = {
-  createAt: string;
+  createdAt: string;
   emotion: Emotion;
   userId: User['id'];
   id: number;
