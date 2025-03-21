@@ -8,16 +8,15 @@ interface SearchCardProps extends Epigram {
   className?: string;
   contentClassName?: string;
   keyword?: string;
-  link?: string;
 }
 
 export default function SearchCard({
+  id,
   content,
   author,
   tags,
   className,
   contentClassName,
-  link = '#',
   keyword,
 }: SearchCardProps) {
   // 키워드가 존재하면 공백을 제거하여 정규표현식 생성
@@ -47,7 +46,7 @@ export default function SearchCard({
   };
 
   return (
-    <Link href={link} className={classes.cardWrapper}>
+    <Link href={`/epigrams/${id}`} className={classes.cardWrapper}>
       <div className={classes.cardContent} dangerouslySetInnerHTML={{ __html: content }} />
       {author && (
         <div className={classes.cardAuthor} dangerouslySetInnerHTML={{ __html: `- ${author} -` }} />
