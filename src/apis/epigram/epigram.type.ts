@@ -18,6 +18,7 @@ export type Epigram = {
 };
 
 export const createEpigramFormSchema = z.object({
+  content: z.string().trim().max(500, { message: '500자 이하로 입력해주세요' }),
   tags: z
     .array(z.string().trim().max(10, { message: '10자 이하로 작성해주세요' }))
     .max(3, { message: '최대 3개까지 등록가능해요' }),

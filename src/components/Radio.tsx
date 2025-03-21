@@ -1,7 +1,8 @@
-import { ChangeEvent, InputHTMLAttributes, useEffect, useId, useState } from 'react';
+import { ChangeEvent, InputHTMLAttributes, useEffect, useState } from 'react';
 import { cn } from '@/utils/helper';
 
 export interface RadioProps extends Omit<InputHTMLAttributes<HTMLDivElement>, 'onChange'> {
+  id: string;
   label: string;
   labelColor?: string;
   checked?: boolean;
@@ -10,6 +11,7 @@ export interface RadioProps extends Omit<InputHTMLAttributes<HTMLDivElement>, 'o
 }
 
 export default function Radio({
+  id,
   label,
   labelColor = 'text-black-600',
   checked,
@@ -17,7 +19,6 @@ export default function Radio({
   className,
   ...props
 }: RadioProps) {
-  const id = useId();
   const [isChecked, setIsChecked] = useState(checked ?? false);
 
   useEffect(() => {
