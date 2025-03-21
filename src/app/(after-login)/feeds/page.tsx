@@ -1,5 +1,6 @@
 'use client';
 
+import { AnimatePresence, motion } from 'motion/react';
 import { cn } from '@/utils/helper';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { useEpigramInfiniteQuery } from '@/apis/epigram/epigram.queries';
@@ -26,27 +27,34 @@ export default function FeedPage() {
         <Section>
           <SectionTitle>피드</SectionTitle>
           <SectionUtil>
-            <button className='md:hidden' onClick={() => setIsListMode((prev) => !prev)}>
-              {isListMode ? (
-                <Icon name='dashboard' className='text-gray-200' />
-              ) : (
-                <Icon name='filter' className='text-gray-200' />
-              )}
+            <button
+              className='cursor-pointer text-gray-200 transition-colors hover:text-gray-800 md:hidden'
+              onClick={() => setIsListMode((prev) => !prev)}
+            >
+              {isListMode ? <Icon name='dashboard' /> : <Icon name='filter' />}
             </button>
           </SectionUtil>
         </Section>
         <div className='mb-50 md:mb-14'>
           <ul
             className={cn(
-              'grid grid-cols-2 gap-6 md:grid-cols-2 md:gap-8',
+              'grid grid-cols-2 items-start gap-6 md:grid-cols-2 md:gap-8',
               isListMode && 'grid-cols-1',
             )}
           >
-            {results.map((feed) => (
-              <li key={feed.id}>
-                <Card {...feed} />
-              </li>
-            ))}
+            <AnimatePresence>
+              {results.map((feed) => (
+                <motion.li
+                  layout
+                  key={feed.id}
+                  animate={{ opacity: 1 }}
+                  initial={{ opacity: 0 }}
+                  exit={{ opacity: 0 }}
+                >
+                  <Card {...feed} />
+                </motion.li>
+              ))}
+            </AnimatePresence>
           </ul>
 
           {isShowEmpty && (
