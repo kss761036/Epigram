@@ -7,7 +7,6 @@ export const useEmotionLogToday = (userId: number | null) => {
     queryKey: ['emotionLogToday', userId],
     queryFn: () => (userId ? getEmotionLogToday({ userId }) : Promise.resolve(null)),
     enabled: userId !== null,
-    initialData: null,
   });
 };
 
