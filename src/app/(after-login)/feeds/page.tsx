@@ -1,5 +1,6 @@
 'use client';
 
+import { AnimatePresence, motion } from 'motion/react';
 import { cn } from '@/utils/helper';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { useEpigramInfiniteQuery } from '@/apis/epigram/epigram.queries';
@@ -42,11 +43,19 @@ export default function FeedPage() {
               isListMode && 'grid-cols-1',
             )}
           >
-            {results.map((feed) => (
-              <li key={feed.id}>
-                <Card {...feed} />
-              </li>
-            ))}
+            <AnimatePresence>
+              {results.map((feed) => (
+                <motion.li
+                  layout
+                  key={feed.id}
+                  animate={{ opacity: 1 }}
+                  initial={{ opacity: 0 }}
+                  exit={{ opacity: 0 }}
+                >
+                  <Card {...feed} />
+                </motion.li>
+              ))}
+            </AnimatePresence>
           </ul>
 
           {isShowEmpty && (
