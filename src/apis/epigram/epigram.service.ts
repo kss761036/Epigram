@@ -1,4 +1,9 @@
-import { PaginationQueryParams, PaginationResponse, SearchableQueryParams } from '@/types/common';
+import {
+  PaginationQueryParams,
+  PaginationResponse,
+  SearchableQueryParams,
+  WriterFilterQueryParams,
+} from '@/types/common';
 import axios from 'axios';
 import {
   CreateEpigramFormType,
@@ -20,6 +25,22 @@ export const getEpigrams = async (params: SearchableQueryParams) => {
       limit,
       cursor,
       keyword,
+    },
+  });
+  return response.data;
+};
+
+/**
+ * 에피그램 목록 조회 by userId
+ * https://fe-project-epigram-api.vercel.app/docs/#/Epigram/ListEpigrams
+ */
+export const getEpigramsByUserId = async (params: WriterFilterQueryParams) => {
+  const { limit = 6, cursor, writerId } = params;
+  const response = await axios.get<PaginationResponse<Epigram>>(`/api/epigrams`, {
+    params: {
+      limit,
+      cursor,
+      writerId,
     },
   });
   return response.data;
