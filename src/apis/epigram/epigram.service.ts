@@ -9,6 +9,7 @@ import {
   CreateEpigramFormType,
   DeleteEpigramResponse,
   Epigram,
+  EpigramDetail,
   LikeEpigramResponse,
   UpdateEpigramFormType,
 } from './epigram.type';
@@ -69,7 +70,7 @@ export const getTodayEpigram = async () => {
  * https://fe-project-epigram-api.vercel.app/docs/#/Epigram/RetrieveEpigram
  */
 export const getEpigramDetails = async (epigramId: number) => {
-  const response = await axios.get<Epigram>(`/api/epigrams/${epigramId}`);
+  const response = await axios.get<EpigramDetail>(`/api/epigrams/${epigramId}`);
   return response.data;
 };
 
