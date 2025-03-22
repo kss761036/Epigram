@@ -4,6 +4,7 @@ import { PropsWithChildren } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import Inner from '@/components/Inner';
 import { SocialButton, SocialHeader, SocialList } from './Social';
 import Logo from '@/assets/img/common/logo.svg';
 import IconGoogle from '@/assets/img/auth/icon-google.svg';
@@ -12,19 +13,11 @@ import IconKakao from '@/assets/img/auth/icon-kakao.svg';
 export default function AuthWrapper({ children }: PropsWithChildren) {
   return (
     <div className='bg-bg'>
-      <AuthInner>
+      <Inner className='flex min-h-dvh flex-col justify-center py-14 lg:py-20'>
         <AuthHeader />
         <AuthBody>{children}</AuthBody>
         <AuthFooter />
-      </AuthInner>
-    </div>
-  );
-}
-
-function AuthInner({ children }: PropsWithChildren) {
-  return (
-    <div className='mx-auto flex min-h-dvh w-full max-w-[432px] flex-col justify-center px-6 py-14 lg:max-w-[688px] lg:py-20'>
-      {children}
+      </Inner>
     </div>
   );
 }
