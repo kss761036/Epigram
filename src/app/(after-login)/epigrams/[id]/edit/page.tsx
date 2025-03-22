@@ -5,12 +5,12 @@ import { useRouter } from 'next/navigation';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { useSession } from 'next-auth/react';
 import { toast } from 'react-toastify';
-import EpigramForm from '@/components/EpigramForm';
 import { getEpigramDetails, updateEpigram } from '@/apis/epigram/epigram.service';
 import { CreateEpigramFormType } from '@/apis/epigram/epigram.type';
 import Spinner from '@/components/Spinner';
 import { Section } from '@/components/Section';
 import ErrorPage from '@/app/error';
+import EpigramForm from '../../_components/EpigramForm';
 
 interface EditEpigramPageProps {
   params: Promise<{ id: string }>;

@@ -3,10 +3,10 @@
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
-import EpigramForm from '@/components/EpigramForm';
 import { createEpigram } from '@/apis/epigram/epigram.service';
 import { CreateEpigramFormType } from '@/apis/epigram/epigram.type';
 import { Section } from '@/components/Section';
+import EpigramForm from '../_components/EpigramForm';
 
 export default function Page() {
   const router = useRouter();

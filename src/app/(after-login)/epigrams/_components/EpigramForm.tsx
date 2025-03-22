@@ -72,7 +72,12 @@ export default function EpigramForm({
     };
 
     if (referenceTitle) payload.referenceTitle = referenceTitle;
-    if (referenceUrl) payload.referenceUrl = referenceUrl;
+
+    if (referenceUrl && !/^https?:\/\//.test(referenceUrl)) {
+      payload.referenceUrl = 'https://' + referenceUrl;
+    } else if (referenceUrl) {
+      payload.referenceUrl = referenceUrl;
+    }
 
     onSubmit(payload as CreateEpigramFormType);
   };
