@@ -1,10 +1,18 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { getEpigrams, getEpigramsByUserId } from './epigram.service';
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  deleteEpigram,
+  getEpigramDetails,
+  getEpigrams,
+  getEpigramsByUserId,
+  likeEpigram,
+  unlikeEpigram,
+} from './epigram.service';
 import {
   PaginationQueryParams,
   SearchableQueryParams,
   WriterFilterQueryParams,
 } from '@/types/common';
+import { Epigram } from './epigram.type';
 
 export const useEpigramSearchInfiniteQuery = (params: Omit<SearchableQueryParams, 'cursor'>) => {
   return useInfiniteQuery({
@@ -42,5 +50,33 @@ export const useEpigramWriterFilterInfiniteQuery = (
       }),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => lastPage.nextCursor || undefined,
+  });
+};
+
+export const useEpigramDetails = (epigramId: Epigram['id']) => {
+  return useQuery({
+    queryKey: ['epigrams', epigramId],
+    queryFn: () => getEpigramDetails(epigramId),
+  });
+};
+
+export const useDeleteEpigram = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (epigramId: Epigram['id']) => deleteEpigram(epigramId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['epigrams'] });
+    },
+  });
+};
+
+export const useLikeEpigram = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ epigramId, flag }: { epigramId: Epigram['id']; flag: boolean }) =>
+      flag ? likeEpigram(epigramId) : unlikeEpigram(epigramId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['epigrams'] });
+    },
   });
 };
