@@ -24,7 +24,7 @@ export default function Page() {
             <MonthlyLogs />
           </div>
         </div>
-        <div className='mx-auto mt-14 w-full max-w-[312px] pb-[114px] md:max-w-[384px] md:pb-[233px] lg:mt-24 lg:max-w-[640px] lg:pb-[336px]'>
+        <div className='mx-auto mt-14 w-full max-w-[312px] pb-[114px] md:max-w-[384px] md:pb-[233px] lg:mt-24 lg:max-w-[640px] lg:pb-72'>
           <MyWritings />
         </div>
       </div>
