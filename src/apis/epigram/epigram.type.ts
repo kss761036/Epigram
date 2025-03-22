@@ -17,6 +17,10 @@ export type Epigram = {
   tags: Tag[];
 };
 
+export type EpigramDetail = Epigram & {
+  isLiked: boolean;
+};
+
 export const createEpigramFormSchema = z.object({
   content: z.string().trim().max(500, { message: '500자 이하로 입력해주세요' }),
   tags: z

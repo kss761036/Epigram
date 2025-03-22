@@ -7,9 +7,8 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
 
   return (
     <div className='bg-bg flex min-h-dvh flex-col gap-8 md:gap-10 lg:gap-12'>
-      <Inner>
-        <EpigramDetail id={id} />
-      </Inner>
+      <EpigramDetail id={id} />
+
       <Inner>
         <EpigramComments id={id} />
       </Inner>
