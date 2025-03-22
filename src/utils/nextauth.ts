@@ -140,7 +140,6 @@ export const authOptions: AuthOptions = {
           accessToken: token.accessToken,
           refreshToken: token.refreshToken,
         };
-        console.log('session', token.accessTokenExpires);
       }
       return session;
     },
