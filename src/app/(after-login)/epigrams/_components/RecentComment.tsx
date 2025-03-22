@@ -14,6 +14,7 @@ export default function CommentsSection() {
     limit: 3,
   });
   const results = data?.pages.flatMap((page) => page.list) ?? [];
+  console.log(results);
 
   const isShowLoader = isFetching;
   const isShowMoreTrigger = !isFetching && hasNextPage;

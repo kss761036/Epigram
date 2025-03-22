@@ -33,6 +33,10 @@ export type SearchableQueryParams = PaginationQueryParams & {
   keyword?: string;
 };
 
+export type WriterFilterQueryParams = PaginationQueryParams & {
+  writerId?: number;
+};
+
 export type PaginationResponse<T> = {
   totalCount: number;
   nextCursor: number | null;
