@@ -9,7 +9,7 @@ import { cn } from '@/utils/helper';
 import { Section } from '@/components/Section';
 import Icon from '@/components/Icon';
 
-export default function CommentsSection() {
+export default function RecentComment() {
   const { data, isFetching, hasNextPage, fetchNextPage } = useCommentsInfiniteQuery({
     limit: 3,
   });
