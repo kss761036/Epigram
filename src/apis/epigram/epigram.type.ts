@@ -21,7 +21,7 @@ export type EpigramDetail = Epigram & {
   isLiked: boolean;
 };
 
-const AUTHOR_RADIO = ['직접 입력', '본인', '알 수 없음'] as const;
+export const AUTHOR_RADIO = ['직접 입력', '본인', '알 수 없음'] as const;
 export const baseEpigramSchema = z.object({
   content: z
     .string()

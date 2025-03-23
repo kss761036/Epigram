@@ -9,6 +9,7 @@ import Button from '@/components/Button';
 import Spinner from '@/components/Spinner';
 import { cn } from '@/utils/helper';
 import {
+  AUTHOR_RADIO,
   baseEpigramSchema,
   createEpigramFormSchema,
   CreateEpigramFormType,
@@ -146,30 +147,21 @@ export default function EpigramForm({
             <span className={cn(LabelRequiredClass)}>*</span>
           </label>
           <ul className='flex flex-wrap gap-4'>
-            <li>
-              <Radio
-                name='selectedAuthor'
-                label='직접 입력'
-                checked={watch('selectedAuthor') === '직접 입력'}
-                onChange={() => setValue('selectedAuthor', '직접 입력')}
-              />
-            </li>
-            <li>
-              <Radio
-                name='selectedAuthor'
-                label='알 수 없음'
-                checked={watch('selectedAuthor') === '알 수 없음'}
-                onChange={() => setValue('selectedAuthor', '알 수 없음')}
-              />
-            </li>
-            <li>
-              <Radio
-                name='selectedAuthor'
-                label='본인'
-                checked={watch('selectedAuthor') === '본인'}
-                onChange={() => setValue('selectedAuthor', '본인')}
-              />
-            </li>
+            {AUTHOR_RADIO.map((option) => (
+              <li key={option}>
+                <Radio
+                  name='selectedAuthor'
+                  label={option}
+                  value={option}
+                  checked={watch('selectedAuthor') === option}
+                  onChange={(val) =>
+                    setValue('selectedAuthor', val as (typeof AUTHOR_RADIO)[number], {
+                      shouldValidate: true,
+                    })
+                  }
+                />
+              </li>
+            ))}
           </ul>
           {watch('selectedAuthor') === '직접 입력' && (
             <Input
