@@ -5,6 +5,7 @@ import Icon from '@/components/Icon';
 import Zigzag from './Zigzag';
 import { motion } from 'motion/react';
 import AnimatedText from './AnimatedText';
+import Link from 'next/link';
 
 export default function HeroSection() {
   return (
@@ -19,9 +20,11 @@ export default function HeroSection() {
           </span>
         </div>
         <div>
-          <Button className='mt-6 w-[112px] md:mt-[32px] lg:mt-[48px] lg:w-[286px]'>
-            시작하기
-          </Button>
+          <Link href={'/epigrams'}>
+            <Button className='mt-6 w-[112px] md:mt-[32px] lg:mt-[48px] lg:w-[286px]'>
+              시작하기
+            </Button>
+          </Link>
         </div>
         <div className='mt-[168px] mb-[20px] flex flex-col items-center justify-center md:mt-[106px] lg:mt-[214px] lg:mb-[58px]'>
           <span className='text-xs font-semibold text-blue-400 md:text-lg'>더 알아보기</span>
