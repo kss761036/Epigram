@@ -1,4 +1,3 @@
-import Icon from '@/components/Icon';
 import HeroSection from './_components/HeroSection';
 import ServiceSection from './_components/ServiceSection';
 import CTASection from './_components/CTASection';
