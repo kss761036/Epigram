@@ -1,7 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-import { toast } from 'react-toastify';
+import { useState, useEffect } from 'react';
 import TextArea from '@/components/TextArea';
 import Input from '@/components/Input';
 import Radio from '@/components/Radio';
@@ -9,118 +8,118 @@ import Chip from '@/components/Chip';
 import Button from '@/components/Button';
 import Spinner from '@/components/Spinner';
 import { cn } from '@/utils/helper';
-import { CreateEpigramFormType } from '@/apis/epigram/epigram.type';
+import {
+  baseEpigramSchema,
+  createEpigramFormSchema,
+  CreateEpigramFormType,
+} from '@/apis/epigram/epigram.type';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 
 interface EpigramFormProps {
   mode: 'create' | 'edit';
-  defaultValues?: Partial<CreateEpigramFormType>;
+  initValues?: Partial<CreateEpigramFormType>;
   onSubmit: (data: CreateEpigramFormType) => void;
   isSubmitting?: boolean;
 }
 
+const singleTagSchema = z
+  .string()
+  .trim()
+  .nonempty({ message: '태그를 작성해주세요.' })
+  .max(10, { message: '10자 이하로 작성해주세요.' });
+
+const fullTagsSchema = baseEpigramSchema.shape.tags;
+
 export default function EpigramForm({
   mode,
-  defaultValues,
+  initValues,
   onSubmit,
   isSubmitting = false,
 }: EpigramFormProps) {
-  const [content, setContent] = useState(defaultValues?.content || '');
-  const [author, setAuthor] = useState(
-    defaultValues?.author && !['알 수 없음', '본인'].includes(defaultValues.author)
-      ? defaultValues.author
-      : '',
-  );
-  const [referenceTitle, setReferenceTitle] = useState(defaultValues?.referenceTitle || '');
-  const [referenceUrl, setReferenceUrl] = useState(defaultValues?.referenceUrl || '');
-  const [tags, setTags] = useState<string[]>(defaultValues?.tags || []);
-  const [selectedAuthor, setSelectedAuthor] = useState(
-    defaultValues?.author
-      ? ['알 수 없음', '본인'].includes(defaultValues.author)
-        ? defaultValues.author
-        : '직접 입력'
-      : '',
-  );
+  const {
+    register,
+    watch,
+    setValue,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<CreateEpigramFormType>({
+    mode: 'all',
+    resolver: zodResolver(createEpigramFormSchema),
+    defaultValues: {
+      content: initValues?.content || '',
+      selectedAuthor: (initValues?.author && ['본인', '알 수 없음'].includes(initValues.author)
+        ? initValues.author
+        : '직접 입력') as '직접 입력' | '본인' | '알 수 없음',
+      author:
+        initValues?.author && !['본인', '알 수 없음'].includes(initValues.author)
+          ? initValues.author
+          : null,
+
+      referenceUrl: initValues?.referenceUrl ?? null,
+      referenceTitle: initValues?.referenceTitle ?? null,
+      tags: initValues?.tags || [],
+    },
+  });
 
   const [tagInput, setTagInput] = useState('');
+  const [tagError, setTagError] = useState<string | null>(null);
+  const selectedAuthor = watch('selectedAuthor');
 
-  const [contentError, setContentError] = useState<string | null>(null);
-  const [authorError, setAuthorError] = useState<string | null>(null);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (content.length > 500) {
-      setContentError('500자 이내로 입력해주세요.');
-      return;
+  useEffect(() => {
+    if (selectedAuthor !== '직접 입력') {
+      setValue('author', '');
     }
+  }, [selectedAuthor, setValue]);
 
-    if (selectedAuthor === '직접 입력') {
-      if (!author.trim()) {
-        setAuthorError('저자를 입력해주세요.');
-        return;
-      } else {
-        setAuthorError(null);
-      }
-    }
+  const handleFormSubmit = (data: CreateEpigramFormType) => {
+    const finalAuthor =
+      data.selectedAuthor === '직접 입력' ? data.author?.trim() || '' : data.selectedAuthor;
 
-    setContentError(null);
-
-    const payload: Partial<CreateEpigramFormType> = {
-      content,
-      author: selectedAuthor === '직접 입력' ? author : selectedAuthor,
-      tags,
+    const payload: CreateEpigramFormType = {
+      ...data,
+      author: finalAuthor,
+      selectedAuthor: undefined,
+      referenceUrl:
+        data.referenceUrl && data.referenceUrl.trim() !== '' ? data.referenceUrl : undefined,
+      referenceTitle:
+        data.referenceTitle && data.referenceTitle.trim() !== '' ? data.referenceTitle : undefined,
     };
 
-    if (referenceTitle) payload.referenceTitle = referenceTitle;
-
-    if (referenceUrl && !/^https?:\/\//.test(referenceUrl)) {
-      payload.referenceUrl = 'https://' + referenceUrl;
-    } else if (referenceUrl) {
-      payload.referenceUrl = referenceUrl;
-    }
-
-    onSubmit(payload as CreateEpigramFormType);
-  };
-
-  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const value = e.target.value;
-    setContent(value);
-
-    if (value.length > 500) {
-      setContentError('500자 이내로 입력해주세요.');
-    } else {
-      setContentError(null);
-    }
-  };
-
-  const handleTagInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTagInput(e.target.value);
+    onSubmit(payload);
   };
 
   const handleTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    const trimmed = tagInput.trim();
+    if (e.key !== 'Enter' || e.nativeEvent.isComposing) return;
 
-    if (e.key === 'Enter' && !e.nativeEvent.isComposing && trimmed) {
-      e.preventDefault();
+    e.preventDefault();
 
-      if (tags.length >= 3) {
-        toast.error('태그는 최대 3개까지 가능합니다.');
-        setTagInput('');
-        return;
-      }
-      if (trimmed.length > 10) {
-        toast.error('태그는 10자 이내로 입력해주세요.');
-        return;
-      }
-      if (tags.includes(trimmed)) return;
-
-      setTags([...tags, trimmed]);
-      setTagInput('');
+    const singleResult = singleTagSchema.safeParse(tagInput);
+    if (!singleResult.success) {
+      setTagError(singleResult.error.errors[0].message);
+      return;
     }
+
+    const trimmed = singleResult.data;
+    const prevTags = watch('tags') || [];
+    const newTags = [...prevTags, trimmed];
+
+    const fullResult = fullTagsSchema.safeParse(newTags);
+    if (!fullResult.success) {
+      setTagError(fullResult.error.errors[0].message);
+      return;
+    }
+
+    setValue('tags', newTags);
+    setTagInput('');
+    setTagError(null);
   };
 
   const handleTagRemove = (tagToRemove: string) => {
-    setTags(tags.filter((tag) => tag !== tagToRemove));
+    const currentTags = watch('tags') || [];
+    const nextTags = currentTags.filter((tag) => tag !== tagToRemove);
+    setValue('tags', nextTags);
   };
 
   const LabelClass =
@@ -128,7 +127,7 @@ export default function EpigramForm({
   const LabelRequiredClass = 'text-red ml-1 text-lg md:text-lg lg:ml-1.5 lg:text-xl';
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(handleFormSubmit)}>
       <ul className='flex flex-col gap-y-10'>
         <li>
           <label className={cn(LabelClass)}>
@@ -137,9 +136,8 @@ export default function EpigramForm({
           </label>
           <TextArea
             placeholder='500자 이내로 입력해주세요.'
-            value={content}
-            onChange={handleContentChange}
-            error={contentError || undefined}
+            error={errors.content?.message}
+            {...register('content')}
           />
         </li>
         <li>
@@ -150,41 +148,35 @@ export default function EpigramForm({
           <ul className='flex flex-wrap gap-4'>
             <li>
               <Radio
-                name='author'
+                name='selectedAuthor'
                 label='직접 입력'
-                checked={selectedAuthor === '직접 입력'}
-                onChange={() => setSelectedAuthor('직접 입력')}
+                checked={watch('selectedAuthor') === '직접 입력'}
+                onChange={() => setValue('selectedAuthor', '직접 입력')}
               />
             </li>
             <li>
               <Radio
-                name='author'
+                name='selectedAuthor'
                 label='알 수 없음'
-                checked={selectedAuthor === '알 수 없음'}
-                onChange={() => setSelectedAuthor('알 수 없음')}
+                checked={watch('selectedAuthor') === '알 수 없음'}
+                onChange={() => setValue('selectedAuthor', '알 수 없음')}
               />
             </li>
             <li>
               <Radio
-                name='author'
+                name='selectedAuthor'
                 label='본인'
-                checked={selectedAuthor === '본인'}
-                onChange={() => setSelectedAuthor('본인')}
+                checked={watch('selectedAuthor') === '본인'}
+                onChange={() => setValue('selectedAuthor', '본인')}
               />
             </li>
           </ul>
-          {selectedAuthor === '직접 입력' && (
+          {watch('selectedAuthor') === '직접 입력' && (
             <Input
-              placeholder='저자 이름 입력'
               type='text'
-              value={author}
-              onChange={(e) => {
-                setAuthor(e.target.value);
-                if (e.target.value.trim()) {
-                  setAuthorError(null);
-                }
-              }}
-              error={authorError || undefined}
+              placeholder='저자 이름 입력'
+              {...register('author')}
+              error={errors.author?.message}
               className='mt-3'
             />
           )}
@@ -192,16 +184,16 @@ export default function EpigramForm({
         <li>
           <label className={cn(LabelClass)}>출처</label>
           <Input
-            placeholder='출처 제목 입력'
             type='text'
-            value={referenceTitle}
-            onChange={(e) => setReferenceTitle(e.target.value)}
+            placeholder='출처 제목 입력'
+            {...register('referenceTitle')}
+            error={errors.referenceTitle?.message}
           />
           <Input
-            placeholder='URL (ex. https://www.website.com)'
             type='text'
-            value={referenceUrl}
-            onChange={(e) => setReferenceUrl(e.target.value)}
+            placeholder='URL (ex. https://example.com)'
+            {...register('referenceUrl')}
+            error={errors.referenceUrl?.message}
             className='mt-2 lg:mt-4'
           />
         </li>
@@ -211,12 +203,17 @@ export default function EpigramForm({
             placeholder='입력하여 태그 작성 (최대 10자)'
             type='text'
             value={tagInput}
-            onChange={handleTagInputChange}
+            onChange={(e) => {
+              setTagInput(e.target.value);
+              if (tagError) setTagError(null);
+            }}
             onKeyDown={handleTagKeyDown}
+            error={tagError || undefined}
           />
-          {tags.length > 0 && (
+
+          {(watch('tags') || []).length > 0 && (
             <ul className='mt-4 flex flex-wrap gap-2'>
-              {tags.map((tag) => (
+              {watch('tags')!.map((tag) => (
                 <li key={tag}>
                   <Chip label={tag} onRemove={() => handleTagRemove(tag)} />
                 </li>
@@ -225,13 +222,7 @@ export default function EpigramForm({
           )}
         </li>
       </ul>
-      <Button
-        className='mt-6 lg:mt-10'
-        disabled={
-          !content.trim() || !selectedAuthor || (selectedAuthor === '직접 입력' && !author.trim())
-        }
-        type='submit'
-      >
+      <Button className='mt-6 lg:mt-10' disabled={!isValid || isSubmitting} type='submit'>
         {isSubmitting ? (
           <Spinner className='fill-black text-gray-100' />
         ) : mode === 'create' ? (

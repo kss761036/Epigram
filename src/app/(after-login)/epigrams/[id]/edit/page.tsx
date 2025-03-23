@@ -58,7 +58,7 @@ export default function EditEpigramPage({ params }: EditEpigramPageProps) {
       <Section>에피그램 수정</Section>
       <EpigramForm
         mode='edit'
-        defaultValues={{
+        initValues={{
           ...data,
           tags: data.tags.map((tag) => tag.name),
         }}
