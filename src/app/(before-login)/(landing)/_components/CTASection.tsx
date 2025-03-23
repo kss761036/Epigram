@@ -5,7 +5,7 @@ import Zigzag from './Zigzag';
 import Image from 'next/image';
 import EveryDay from '@/assets/img/landing/EveryDay.svg';
 import { motion } from 'motion/react';
-
+import Link from 'next/link';
 const slideUpVariants = {
   offscreen: {
     y: 80,
@@ -40,9 +40,11 @@ export default function CTASection() {
             width={122}
             height={70}
           />
-          <Button className='mt-[32px] mb-[270px] w-[88px] md:mb-[198px] md:w-[112px] lg:mt-[48px] lg:mb-[400px] lg:w-[286px]'>
-            시작하기
-          </Button>
+          <Link href={'/epigrams'}>
+            <Button className='mt-[32px] mb-[270px] w-[88px] md:mb-[198px] md:w-[112px] lg:mt-[48px] lg:mb-[400px] lg:w-[286px]'>
+              시작하기
+            </Button>
+          </Link>
         </motion.div>
       </div>
     </>

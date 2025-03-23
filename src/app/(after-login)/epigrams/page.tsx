@@ -8,22 +8,25 @@ import TodayEpigram from './_components/TodayEpigram';
 import RecentEpigram from './_components/RecentEpigram';
 import RecentComment from './_components/RecentComment';
 import { AnimatePresence, motion } from 'motion/react';
+import Inner from '@/components/Inner';
 
 export default function Page() {
   const { data: session } = useSession();
   const userId = session?.user.id;
-  const { data: emotionLog } = useEmotionLogToday(userId);
+  const { data: emotionLog, isLoading } = useEmotionLogToday(userId);
   const [showTodayMood, setShowTodayMood] = useState(true);
 
   useEffect(() => {
-    if (emotionLog?.emotion) {
-      setShowTodayMood(false);
+    if (!isLoading) {
+      setShowTodayMood(!emotionLog?.emotion);
     }
-  }, [emotionLog]);
+  }, [emotionLog, isLoading]);
+
+  if (isLoading) return null;
 
   return (
     <div className='bg-bg flex h-full w-full justify-center'>
-      <div className='mt-[32px] h-full w-[312px] md:w-[384px] lg:mt-[120px] lg:w-[640px]'>
+      <Inner className='mt-[32px] h-full lg:mt-[120px]'>
         <TodayEpigram />
         <AnimatePresence>
           {showTodayMood && (
@@ -39,7 +42,7 @@ export default function Page() {
         </AnimatePresence>
         <RecentEpigram />
         <RecentComment />
-      </div>
+      </Inner>
     </div>
   );
 }
