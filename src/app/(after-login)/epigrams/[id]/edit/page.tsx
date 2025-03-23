@@ -11,6 +11,7 @@ import Spinner from '@/components/Spinner';
 import { Section } from '@/components/Section';
 import ErrorPage from '@/app/error';
 import EpigramForm from '../../_components/EpigramForm';
+import Inner from '@/components/Inner';
 
 interface EditEpigramPageProps {
   params: Promise<{ id: string }>;
@@ -54,7 +55,7 @@ export default function EditEpigramPage({ params }: EditEpigramPageProps) {
   }
 
   return (
-    <div className='mx-auto w-full max-w-[408px] p-6 lg:max-w-[664px] lg:py-8'>
+    <Inner className='p-6 lg:py-8'>
       <Section>에피그램 수정</Section>
       <EpigramForm
         mode='edit'
@@ -65,6 +66,6 @@ export default function EditEpigramPage({ params }: EditEpigramPageProps) {
         onSubmit={(formData: CreateEpigramFormType) => mutate(formData)}
         isSubmitting={isPending}
       />
-    </div>
+    </Inner>
   );
 }

@@ -7,6 +7,7 @@ import { createEpigram } from '@/apis/epigram/epigram.service';
 import { CreateEpigramFormType } from '@/apis/epigram/epigram.type';
 import { Section } from '@/components/Section';
 import EpigramForm from '../_components/EpigramForm';
+import Inner from '@/components/Inner';
 
 export default function Page() {
   const router = useRouter();
@@ -23,13 +24,13 @@ export default function Page() {
   });
 
   return (
-    <div className='mx-auto w-full max-w-[408px] p-6 lg:max-w-[664px] lg:py-8'>
+    <Inner className='p-6 lg:py-8'>
       <Section>에피그램 만들기</Section>
       <EpigramForm
         mode='create'
         onSubmit={(data: CreateEpigramFormType) => mutate(data)}
         isSubmitting={isPending}
       />
-    </div>
+    </Inner>
   );
 }
