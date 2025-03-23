@@ -6,19 +6,32 @@ import React from 'react';
 type RadioProps = {
   label: string;
   name: string;
+  value?: string;
   checked?: boolean;
   onChange?: (value: string) => void;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  inputRef?: React.Ref<HTMLInputElement>;
 };
 
-const Radio: React.FC<RadioProps> = ({ label, name, checked, onChange }) => {
+const Radio: React.FC<RadioProps> = ({
+  label,
+  name,
+  value = label,
+  checked,
+  onChange,
+  onBlur,
+  inputRef,
+}) => {
   return (
     <label className='flex cursor-pointer items-center gap-2'>
       <input
         type='radio'
         name={name}
-        value={label}
+        value={value}
         checked={checked}
-        onChange={() => onChange?.(label)}
+        onChange={(e) => onChange?.(e.target.value)}
+        onBlur={onBlur}
+        ref={inputRef}
         className='hidden'
       />
       <span className='relative block h-5 w-5 rounded-full border-2 border-blue-300'>
