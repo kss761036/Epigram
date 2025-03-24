@@ -15,10 +15,10 @@ export const useRecentSearchStore = create(
       keywords: [],
       add: (keyword: string) => {
         set((state) => {
-          const keywords = state.keywords;
-          const newKeywords = keywords
-            ? [keyword, ...keywords.filter((item) => item !== keyword)].slice(0, RECENT_SEARCH_SIZE)
-            : [keyword];
+          const newKeywords = [keyword, ...state.keywords.filter((item) => item !== keyword)].slice(
+            0,
+            RECENT_SEARCH_SIZE,
+          );
           return { ...state, keywords: newKeywords };
         });
       },
