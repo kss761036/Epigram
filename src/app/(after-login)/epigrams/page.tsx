@@ -18,12 +18,8 @@ export default function Page() {
   const [showTodayMood, setShowTodayMood] = useState(true);
 
   useEffect(() => {
-    if (!isLoading) {
-      setShowTodayMood(!emotionLog?.emotion);
-    }
+    setShowTodayMood(!emotionLog?.emotion);
   }, [emotionLog, isLoading]);
-
-  if (isLoading) return null;
 
   return (
     <div className='bg-bg flex h-full w-full justify-center'>
