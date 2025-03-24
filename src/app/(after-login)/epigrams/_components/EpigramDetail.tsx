@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { notFound, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { toast } from 'react-toastify';
@@ -9,6 +10,7 @@ import {
   useLikeEpigram,
 } from '@/apis/epigram/epigram.queries';
 import { EpigramDetail as EpigramDetailType } from '@/apis/epigram/epigram.type';
+import DeleteModal from '@/components/DeleteModal';
 import { DeatailFooter, DetailContent, DetailHeader, DetailWrapper, DetailLoading } from './detail';
 
 interface EpigramDetailProps {
@@ -19,8 +21,9 @@ export default function EpigramDetail({ id }: EpigramDetailProps) {
   const router = useRouter();
   const { data: session } = useSession();
   const { data: details, isLoading } = useEpigramDetails(id);
-  const { mutate: deleteEpigram } = useDeleteEpigram();
+  const { mutate: deleteEpigram, isPending: isDeletePending } = useDeleteEpigram();
   const { mutate: likeEpigram } = useLikeEpigram();
+  const [isDeleteConfirmModalOpen, setIsDeleteConfirmModalOpen] = useState(false);
 
   if (isLoading) return <DetailLoading />;
   if (!details) notFound();
@@ -50,29 +53,42 @@ export default function EpigramDetail({ id }: EpigramDetailProps) {
     });
   };
 
+  const handleRemoveConfirm = () => {
+    setIsDeleteConfirmModalOpen(true);
+  };
+
   const handleLike = () => {
     likeEpigram({ epigramId: id, flag: !isLiked });
   };
 
   return (
-    <DetailWrapper>
-      <DetailHeader //
-        tags={tags}
-        isOwner={isOwner}
-        onEdit={handleEdit}
-        onRemove={handleRemove}
+    <>
+      <DetailWrapper>
+        <DetailHeader //
+          tags={tags}
+          isOwner={isOwner}
+          onEdit={handleEdit}
+          onRemove={handleRemoveConfirm}
+        />
+        <DetailContent //
+          content={content}
+          author={author}
+        />
+        <DeatailFooter //
+          referenceTitle={referenceTitle}
+          referenceUrl={referenceUrl}
+          isLiked={isLiked}
+          likeCount={likeCount}
+          onLike={handleLike}
+        />
+      </DetailWrapper>
+      <DeleteModal
+        isOpen={isDeleteConfirmModalOpen}
+        type='post'
+        onClose={() => setIsDeleteConfirmModalOpen(false)}
+        onDelete={handleRemove}
+        isSubmitting={isDeletePending}
       />
-      <DetailContent //
-        content={content}
-        author={author}
-      />
-      <DeatailFooter //
-        referenceTitle={referenceTitle}
-        referenceUrl={referenceUrl}
-        isLiked={isLiked}
-        likeCount={likeCount}
-        onLike={handleLike}
-      />
-    </DetailWrapper>
+    </>
   );
 }
