@@ -24,6 +24,6 @@ export const useRecentSearchStore = create(
       },
       clear: () => set({ keywords: [] }),
     }),
-    { name: 'recentKeywords' },
+    { name: 'recent-keywords' },
   ),
 );

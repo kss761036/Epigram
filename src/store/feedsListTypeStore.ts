@@ -17,6 +17,6 @@ export const useFeedsListTypeStore = create(
         });
       },
     }),
-    { name: 'feedslistType' },
+    { name: 'feeds-list-type' },
   ),
 );
