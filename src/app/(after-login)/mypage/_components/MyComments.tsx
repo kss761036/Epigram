@@ -1,26 +1,28 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useUserCommentsByIdInFiniteQuery } from '@/apis/user/user.queries';
 import Comment from '@/components/Comment';
 import Spinner from '@/components/Spinner';
 import EtcButton from '@/components/EtcButton';
 import Icon from '@/components/Icon';
 import Image from 'next/image';
 import emptyImg from '@/assets/img/empty.png';
+import type { Comment as CommentType } from '@/apis/comment/comment.type';
 
-export default function MyComments() {
-  const { data: session } = useSession();
-  const userId = session?.user?.id;
+interface MyCommentsProps {
+  comments: CommentType[];
+  isFetching: boolean;
+  hasNextPage: boolean;
+  fetchNextPage: () => void;
+}
 
+export default function MyComments({
+  comments,
+  isFetching,
+  hasNextPage,
+  fetchNextPage,
+}: MyCommentsProps) {
   const router = useRouter();
-
-  const { data, isFetching, hasNextPage, fetchNextPage } = useUserCommentsByIdInFiniteQuery(
-    userId ? { userId, limit: 4 } : { userId: 0, limit: 4 },
-  );
-
-  const comments = data?.pages.flatMap((page) => page.list) ?? [];
 
   const isShowLoader = isFetching;
   const isShowMoreTrigger = !isFetching && hasNextPage;
