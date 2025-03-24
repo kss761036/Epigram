@@ -1,20 +1,20 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
+import { useRecentSearchStore } from '@/store/recentSearchStore';
 import SearchWrapper from './_components/SearchWrapper';
 import SearchHeader from './_components/SearchHeader';
 import SearchRecent from './_components/SearchRecent';
 import SearchResult from './_components/SearchResult';
-import useRecent from './_components/useRecent';
 
 export default function SearchPage() {
   const searchParams = useSearchParams();
   const keyword = searchParams.get('keyword') || undefined;
   const {
     keywords: recentKeywords,
-    save: saveRecentKeyword,
+    add: saveRecentKeyword,
     clear: clearRecentKeywords,
-  } = useRecent();
+  } = useRecentSearchStore();
 
   return (
     <SearchWrapper>

@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from 'motion/react';
 import { cn } from '@/utils/helper';
-import useLocalStorage from '@/hooks/useLocalStorage';
+import { useFeedsListTypeStore } from '@/store/feedsListTypeStore';
 import { useEpigramInfiniteQuery } from '@/apis/epigram/epigram.queries';
 import Card from '@/components/Card';
 import EtcButton from '@/components/EtcButton';
@@ -12,10 +12,9 @@ import Spinner from '@/components/Spinner';
 
 export default function FeedPage() {
   const { data, isFetching, hasNextPage, fetchNextPage } = useEpigramInfiniteQuery({ limit: 6 });
-  const [isListMode, setIsListMode] = useLocalStorage<boolean>('isListMode', false);
+  const { listType, toggle: toggleList } = useFeedsListTypeStore();
 
   const results = data?.pages.flatMap((page) => page.list) ?? [];
-
   const isShowLoader = isFetching;
   const isShowMoreTrigger = !isFetching && hasNextPage;
   const isShowEmpty = !results.length && !isFetching;
@@ -29,9 +28,9 @@ export default function FeedPage() {
           <SectionUtil>
             <button
               className='cursor-pointer text-gray-200 transition-colors hover:text-gray-800 md:hidden'
-              onClick={() => setIsListMode((prev) => !prev)}
+              onClick={toggleList}
             >
-              {isListMode ? <Icon name='dashboard' /> : <Icon name='filter' />}
+              {listType === 'list' ? <Icon name='dashboard' /> : <Icon name='filter' />}
             </button>
           </SectionUtil>
         </Section>
@@ -39,7 +38,7 @@ export default function FeedPage() {
           <ul
             className={cn(
               'grid grid-cols-2 items-start gap-6 md:grid-cols-2 md:gap-8',
-              isListMode && 'grid-cols-1',
+              listType === 'list' && 'grid-cols-1',
             )}
           >
             <AnimatePresence>
