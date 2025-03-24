@@ -9,6 +9,7 @@ import RecentEpigram from './_components/RecentEpigram';
 import RecentComment from './_components/RecentComment';
 import { AnimatePresence, motion } from 'motion/react';
 import Inner from '@/components/Inner';
+import FloatingButtons from '../_components/FloatingButtons';
 
 export default function Page() {
   const { data: session } = useSession();
@@ -43,6 +44,7 @@ export default function Page() {
         <RecentEpigram />
         <RecentComment />
       </Inner>
+      <FloatingButtons />
     </div>
   );
 }
