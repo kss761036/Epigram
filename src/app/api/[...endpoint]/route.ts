@@ -1,33 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
-import axios from 'axios';
+import axios, { Method } from 'axios';
 import { axiosServerInstance } from '@/utils/axios';
 
-async function handler(req: NextRequest, method: string) {
+async function handler(req: NextRequest, method: Method) {
   const url = `${req.nextUrl.pathname.replace('/api', '')}${req.nextUrl.search}`;
   const body = await req.json().catch(() => ({}));
+  const isBodyAllowed = !['GET', 'DELETE', 'HEAD', 'OPTIONS'].includes(method.toUpperCase());
 
   try {
-    let response;
-
-    switch (method) {
-      case 'GET':
-        response = await axiosServerInstance.get(url);
-        break;
-      case 'POST':
-        response = await axiosServerInstance.post(url, body);
-        break;
-      case 'PUT':
-        response = await axiosServerInstance.put(url, body);
-        break;
-      case 'PATCH':
-        response = await axiosServerInstance.patch(url, body);
-        break;
-      case 'DELETE':
-        response = await axiosServerInstance.delete(url);
-        break;
-      default:
-        return NextResponse.json({ error: 'Method Not Allowed' }, { status: 405 });
-    }
+    const response = await axiosServerInstance({
+      method,
+      url,
+      ...(isBodyAllowed && { data: body }),
+    });
 
     return NextResponse.json(response.data, { status: response.status });
   } catch (error) {
