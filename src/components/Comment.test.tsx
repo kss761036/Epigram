@@ -11,7 +11,7 @@ describe('댓글 컴포넌트', () => {
       image: 'https://placehold.co/40x40/000000/FFFFFF.png',
       nickname: '테스터',
     },
-    createdAt: '2025-03-14T12:04:09.521Z',
+    updatedAt: '2025-03-14T12:04:09.521Z',
     className: '',
     handleEdit: mockHandleEdit,
     handleDelete: mockHandleDelete,
