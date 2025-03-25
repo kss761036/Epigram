@@ -1,7 +1,7 @@
 import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getComments, deleteComment } from './comment.service';
+import { getComments, deleteComment, updateComment } from './comment.service';
 import { PaginationQueryParams } from '@/types/common';
-import { Comment } from './comment.type';
+import { Comment, UpdateCommentFormType } from './comment.type';
 
 export const useCommentsInfiniteQuery = (params: Omit<PaginationQueryParams, 'cursor'>) => {
   return useInfiniteQuery({
@@ -30,6 +30,34 @@ export const useDeleteComment = () => {
           pages: oldData.pages.map((page) => ({
             ...page,
             list: page.list.filter((comment) => comment.id !== commentId),
+          })),
+        };
+      });
+    },
+  });
+};
+
+export const useUpdateComment = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ commentId, data }: { commentId: number; data: UpdateCommentFormType }) =>
+      updateComment(commentId, data),
+    onSuccess: (updatedComment) => {
+      queryClient.invalidateQueries({ queryKey: ['userComments'] });
+
+      queryClient.setQueryData<{
+        pages: { list: Comment[]; nextCursor?: number }[];
+      }>(['userComments'], (oldData) => {
+        if (!oldData) return oldData;
+
+        return {
+          ...oldData,
+          pages: oldData.pages.map((page) => ({
+            ...page,
+            list: page.list.map((comment) =>
+              comment.id === updatedComment.id ? updatedComment : comment,
+            ),
           })),
         };
       });
