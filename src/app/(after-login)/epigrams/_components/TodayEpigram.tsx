@@ -1,16 +1,12 @@
-import { getTodayEpigram } from '@/apis/epigram/epigram.service';
+import { useTodayEpigram } from '@/apis/epigram/epigram.queries';
 import { Section } from '@/components/Section';
-import { useQuery } from '@tanstack/react-query';
 import Spinner from '@/components/Spinner';
 import Card from '@/components/Card';
 
 export default function TodayEpigram() {
-  const { data } = useQuery({
-    queryKey: ['todayEpigram'],
-    queryFn: getTodayEpigram,
-  });
+  const { data, isLoading, isError } = useTodayEpigram();
 
-  if (!data)
+  if (isLoading) {
     return (
       <>
         <Section>오늘의 에피그램</Section>
@@ -20,6 +16,18 @@ export default function TodayEpigram() {
         </div>
       </>
     );
+  }
+
+  if (isError || !data) {
+    return (
+      <>
+        <Section>오늘의 에피그램</Section>
+        <div className='flex items-center justify-center p-10 text-blue-400'>
+          오늘의 에피그램이 없습니다.
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
