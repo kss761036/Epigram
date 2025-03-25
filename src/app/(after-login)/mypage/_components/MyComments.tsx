@@ -1,13 +1,17 @@
 'use client';
 
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
+import { useDeleteComment } from '@/apis/comment/comment.queries';
+import type { Comment as CommentType } from '@/apis/comment/comment.type';
 import Comment from '@/components/Comment';
 import Spinner from '@/components/Spinner';
 import EtcButton from '@/components/EtcButton';
 import Icon from '@/components/Icon';
+import DeleteModal from '@/components/DeleteModal';
 import Image from 'next/image';
 import emptyImg from '@/assets/img/empty.png';
-import type { Comment as CommentType } from '@/apis/comment/comment.type';
 
 interface MyCommentsProps {
   comments: CommentType[];
@@ -23,6 +27,26 @@ export default function MyComments({
   fetchNextPage,
 }: MyCommentsProps) {
   const router = useRouter();
+  const [selectedCommentId, setSelectedCommentId] = useState<number | null>(null);
+  const { mutate: deleteComment, isPending: isDeletePending } = useDeleteComment();
+
+  const handleDeleteConfirm = (commentId: number) => {
+    setSelectedCommentId(commentId);
+  };
+
+  const handleDelete = () => {
+    if (!selectedCommentId) return;
+
+    deleteComment(selectedCommentId, {
+      onSuccess: () => {
+        toast.success('댓글이 삭제되었습니다.');
+        setSelectedCommentId(null);
+      },
+      onError: () => {
+        toast.error('댓글 삭제에 실패했습니다.');
+      },
+    });
+  };
 
   const isShowLoader = isFetching;
   const isShowMoreTrigger = !isFetching && hasNextPage;
@@ -34,7 +58,7 @@ export default function MyComments({
       <ul>
         {comments.map((comment) => (
           <li key={comment.id}>
-            <Comment {...comment} />
+            <Comment {...comment} handleDelete={() => handleDeleteConfirm(comment.id)} />
           </li>
         ))}
       </ul>
@@ -84,6 +108,14 @@ export default function MyComments({
           </EtcButton>
         </div>
       )}
+
+      <DeleteModal
+        isOpen={selectedCommentId !== null}
+        type='comment'
+        onClose={() => setSelectedCommentId(null)}
+        onDelete={handleDelete}
+        isSubmitting={isDeletePending}
+      />
     </>
   );
 }
