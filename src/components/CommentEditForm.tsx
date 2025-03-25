@@ -31,7 +31,8 @@ export default function CommentEditForm({
         <textarea
           value={editedContent}
           onChange={(e) => setEditedContent(e.target.value)}
-          className='border-black-600 text-md text-black-700 w-full resize-none rounded-lg border px-4 py-3 md:text-lg lg:text-xl'
+          placeholder='100자 이내로 입력해 주세요.'
+          className='border-black-600 text-md text-black-700 w-full resize-none rounded-lg border px-4 py-3 placeholder-blue-400 md:text-lg lg:text-xl'
         />
         <div className='flex items-center justify-between'>
           <Toggle
