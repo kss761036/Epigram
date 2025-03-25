@@ -6,6 +6,7 @@ import {
   getEpigramsByUserId,
   likeEpigram,
   unlikeEpigram,
+  getTodayEpigram,
 } from './epigram.service';
 import {
   PaginationQueryParams,
@@ -78,5 +79,13 @@ export const useLikeEpigram = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['epigrams'] });
     },
+  });
+};
+
+export const useTodayEpigram = () => {
+  return useQuery({
+    queryKey: ['todayEpigram'],
+    queryFn: getTodayEpigram,
+    retryOnMount: false,
   });
 };
