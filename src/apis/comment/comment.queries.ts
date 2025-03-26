@@ -17,50 +17,83 @@ export const useDeleteComment = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (commentId: Comment['id']) => deleteComment(commentId),
-    onSuccess: (_, commentId) => {
-      queryClient.invalidateQueries({ queryKey: ['userComments'] });
 
-      queryClient.setQueryData<{
+    onMutate: async (commentId) => {
+      await queryClient.cancelQueries({ queryKey: ['userComments'] });
+
+      const previousComments = queryClient.getQueryData<{
         pages: { list: Comment[]; nextCursor?: number }[];
-      }>(['userComments'], (oldData) => {
-        if (!oldData) return oldData;
+      }>(['userComments']);
 
-        return {
-          ...oldData,
-          pages: oldData.pages.map((page) => ({
-            ...page,
-            list: page.list.filter((comment) => comment.id !== commentId),
-          })),
-        };
-      });
+      queryClient.setQueryData<{ pages: { list: Comment[]; nextCursor?: number }[] }>(
+        ['userComments'],
+        (oldData) => {
+          if (!oldData) return oldData;
+          return {
+            ...oldData,
+            pages: oldData.pages.map((page) => ({
+              ...page,
+              list: page.list.filter((comment) => comment.id !== commentId),
+            })),
+          };
+        },
+      );
+
+      return { previousComments };
+    },
+
+    onError: (_, __, context) => {
+      if (context?.previousComments) {
+        queryClient.setQueryData(['userComments'], context.previousComments);
+      }
+    },
+
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['userComments'] });
     },
   });
 };
 
 export const useUpdateComment = () => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: ({ commentId, data }: { commentId: number; data: UpdateCommentFormType }) =>
       updateComment(commentId, data),
-    onSuccess: (updatedComment) => {
-      queryClient.invalidateQueries({ queryKey: ['userComments'] });
 
-      queryClient.setQueryData<{
+    onMutate: async ({ commentId, data }) => {
+      await queryClient.cancelQueries({ queryKey: ['userComments'] });
+
+      const previousComments = queryClient.getQueryData<{
         pages: { list: Comment[]; nextCursor?: number }[];
-      }>(['userComments'], (oldData) => {
-        if (!oldData) return oldData;
+      }>(['userComments']);
 
-        return {
-          ...oldData,
-          pages: oldData.pages.map((page) => ({
-            ...page,
-            list: page.list.map((comment) =>
-              comment.id === updatedComment.id ? updatedComment : comment,
-            ),
-          })),
-        };
-      });
+      queryClient.setQueryData<{ pages: { list: Comment[]; nextCursor?: number }[] }>(
+        ['userComments'],
+        (oldData) => {
+          if (!oldData) return oldData;
+          return {
+            ...oldData,
+            pages: oldData.pages.map((page) => ({
+              ...page,
+              list: page.list.map((comment) =>
+                comment.id === commentId ? { ...comment, ...data } : comment,
+              ),
+            })),
+          };
+        },
+      );
+
+      return { previousComments };
+    },
+
+    onError: (_, __, context) => {
+      if (context?.previousComments) {
+        queryClient.setQueryData(['userComments'], context.previousComments);
+      }
+    },
+
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['userComments'] });
     },
   });
 };
