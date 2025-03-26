@@ -3,15 +3,10 @@
 import { useState } from 'react';
 import { notFound, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { toast } from 'react-toastify';
-import {
-  useDeleteEpigram,
-  useEpigramDetails,
-  useLikeEpigram,
-} from '@/apis/epigram/epigram.queries';
+import { useEpigram } from '@/apis/epigram/epigram.queries';
 import { EpigramDetail as EpigramDetailType } from '@/apis/epigram/epigram.type';
 import DeleteModal from '@/components/DeleteModal';
-import { DeatailFooter, DetailContent, DetailHeader, DetailWrapper, DetailLoading } from './detail';
+import { DeatailFooter, DetailContent, DetailHeader, DetailWrapper } from './detail';
 
 interface EpigramDetailProps {
   id: EpigramDetailType['id'];
@@ -20,16 +15,13 @@ interface EpigramDetailProps {
 export default function EpigramDetail({ id }: EpigramDetailProps) {
   const router = useRouter();
   const { data: session } = useSession();
-  const { data: details, isLoading } = useEpigramDetails(id);
-  const { mutate: deleteEpigram, isPending: isDeletePending } = useDeleteEpigram();
-  const { mutate: likeEpigram } = useLikeEpigram();
+  const { details, remove, like, disLike } = useEpigram(id);
   const [isDeleteConfirmModalOpen, setIsDeleteConfirmModalOpen] = useState(false);
 
-  if (isLoading) return <DetailLoading />;
-  if (!details) notFound();
+  if (!details.data) return notFound();
 
   const { tags, content, author, writerId, referenceTitle, referenceUrl, likeCount, isLiked } =
-    details;
+    details.data;
   const isOwner = writerId === session?.user.id;
 
   const handleEdit = () => {
@@ -45,12 +37,7 @@ export default function EpigramDetail({ id }: EpigramDetailProps) {
       return alert('작성자만 삭제가 가능합니다.');
     }
 
-    deleteEpigram(id, {
-      onSuccess: () => {
-        toast.success('게시물을 삭제했습니다.');
-        router.replace(`/feeds`);
-      },
-    });
+    remove.mutate();
   };
 
   const handleRemoveConfirm = () => {
@@ -58,7 +45,7 @@ export default function EpigramDetail({ id }: EpigramDetailProps) {
   };
 
   const handleLike = () => {
-    likeEpigram({ epigramId: id, flag: !isLiked });
+    return !isLiked ? like.mutate() : disLike.mutate();
   };
 
   return (
@@ -87,7 +74,7 @@ export default function EpigramDetail({ id }: EpigramDetailProps) {
         type='post'
         onClose={() => setIsDeleteConfirmModalOpen(false)}
         onDelete={handleRemove}
-        isSubmitting={isDeletePending}
+        isSubmitting={remove.isPending}
       />
     </>
   );
