@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   deleteEpigram,
@@ -5,7 +7,7 @@ import {
   getEpigrams,
   getEpigramsByUserId,
   likeEpigram,
-  unlikeEpigram,
+  disLikeEpigram,
   getTodayEpigram,
 } from './epigram.service';
 import {
@@ -13,7 +15,7 @@ import {
   SearchableQueryParams,
   WriterFilterQueryParams,
 } from '@/types/common';
-import { Epigram } from './epigram.type';
+import { Epigram, EpigramDetail } from './epigram.type';
 
 export const useEpigramSearchInfiniteQuery = (params: Omit<SearchableQueryParams, 'cursor'>) => {
   return useInfiniteQuery({
@@ -54,32 +56,71 @@ export const useEpigramWriterFilterInfiniteQuery = (
   });
 };
 
-export const useEpigramDetails = (epigramId: Epigram['id']) => {
-  return useQuery({
+export const useEpigram = (epigramId: Epigram['id']) => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  const details = useQuery({
     queryKey: ['epigrams', epigramId],
     queryFn: () => getEpigramDetails(epigramId),
   });
-};
 
-export const useDeleteEpigram = () => {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: (epigramId: Epigram['id']) => deleteEpigram(epigramId),
+  const remove = useMutation({
+    mutationFn: () => deleteEpigram(epigramId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['epigrams'] });
+      toast.success('게시물을 삭제했습니다.');
+      router.replace(`/feeds`);
     },
   });
-};
 
-export const useLikeEpigram = () => {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: ({ epigramId, flag }: { epigramId: Epigram['id']; flag: boolean }) =>
-      flag ? likeEpigram(epigramId) : unlikeEpigram(epigramId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['epigrams'] });
+  const like = useMutation({
+    mutationFn: () => likeEpigram(epigramId),
+    onMutate: () => {
+      queryClient.cancelQueries({ queryKey: ['epigrams', epigramId] });
+      const prevData = queryClient.getQueryData(['epigrams', epigramId]);
+
+      queryClient.setQueryData(['epigrams', epigramId], (old: EpigramDetail) => ({
+        ...old,
+        isLiked: true,
+      }));
+
+      return { prevData };
+    },
+    onError: (_, __, context) => {
+      if (context?.prevData) {
+        queryClient.setQueryData(['epigrams', epigramId], context.prevData);
+      }
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['epigrams', data.id] });
     },
   });
+
+  const disLike = useMutation({
+    mutationFn: () => disLikeEpigram(epigramId),
+    onMutate: () => {
+      queryClient.cancelQueries({ queryKey: ['epigrams', epigramId] });
+
+      const prevData = queryClient.getQueryData(['epigrams', epigramId]);
+      queryClient.setQueryData(['epigrams', epigramId], (old: EpigramDetail) => ({
+        ...old,
+        isLiked: false,
+      }));
+
+      return { prevData };
+    },
+    onError: (_, __, context) => {
+      if (context?.prevData) {
+        queryClient.setQueryData(['epigrams', epigramId], context.prevData);
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['epigrams', epigramId] });
+    },
+  });
+
+  return { details, remove, like, disLike };
 };
 
 export const useTodayEpigram = () => {
