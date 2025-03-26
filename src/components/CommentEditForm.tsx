@@ -2,9 +2,11 @@ import { Comment } from '@/apis/comment/comment.type';
 import Avatar from './Avatar';
 import Button from './Button';
 import Toggle from './Toggle';
+import { cn } from '@/utils/helper';
 
 interface CommentEditFormProps {
-  comment: Comment;
+  comment?: Comment;
+  writer?: { image: string; nickname: string };
   editedContent: string;
   setEditedContent: React.Dispatch<React.SetStateAction<string>>;
   isPrivate: boolean;
@@ -12,10 +14,12 @@ interface CommentEditFormProps {
   isUpdatePending: boolean;
   handleSaveEdit: () => void;
   handleCancelEdit: () => void;
+  className?: string;
 }
 
 export default function CommentEditForm({
   comment,
+  writer,
   editedContent,
   setEditedContent,
   isPrivate,
@@ -23,10 +27,22 @@ export default function CommentEditForm({
   isUpdatePending,
   handleSaveEdit,
   handleCancelEdit,
+  className,
 }: CommentEditFormProps) {
+  const resolvedWriter = comment?.writer ?? writer;
+
+  if (!resolvedWriter) {
+    return null;
+  }
+
   return (
-    <div className='border-line-200 flex items-start border-t px-6 py-4 text-left md:py-6 lg:py-9'>
-      <Avatar src={comment.writer.image} alt={comment.writer.nickname} />
+    <div
+      className={cn(
+        'border-line-200 flex items-start border-t px-6 py-4 text-left md:py-6 lg:py-9',
+        className,
+      )}
+    >
+      <Avatar src={resolvedWriter.image} alt={resolvedWriter.nickname} />
       <div className='ml-4 flex flex-1 flex-col gap-2 lg:gap-4'>
         <textarea
           value={editedContent}

@@ -9,6 +9,7 @@ import {
   likeEpigram,
   disLikeEpigram,
   getTodayEpigram,
+  getEpigramComments,
 } from './epigram.service';
 import {
   PaginationQueryParams,
@@ -130,5 +131,25 @@ export const useTodayEpigram = () => {
     queryKey: ['todayEpigram'],
     queryFn: getTodayEpigram,
     retryOnMount: false,
+  });
+};
+
+export const useFeedCommentsInFiniteQuery = (
+  epigramId: number,
+  params: Omit<PaginationQueryParams, 'cursor'>,
+) => {
+  return useInfiniteQuery({
+    queryKey: ['comments', epigramId, params],
+    queryFn: ({ pageParam }: { pageParam?: number }) =>
+      getEpigramComments(epigramId, { ...params, cursor: pageParam }),
+    initialPageParam: undefined,
+    getNextPageParam: (lastPage) => lastPage.nextCursor || undefined,
+  });
+};
+
+export const useEpigramDetails = (epigramId: Epigram['id']) => {
+  return useQuery({
+    queryKey: ['epigrams', epigramId],
+    queryFn: () => getEpigramDetails(epigramId),
   });
 };

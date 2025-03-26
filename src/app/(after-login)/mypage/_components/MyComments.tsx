@@ -1,5 +1,5 @@
 'use client';
-
+import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
@@ -20,6 +20,7 @@ interface MyCommentsProps {
   isFetching: boolean;
   hasNextPage: boolean;
   fetchNextPage: () => void;
+  buttonText?: string;
 }
 
 export default function MyComments({
@@ -27,7 +28,9 @@ export default function MyComments({
   isFetching,
   hasNextPage,
   fetchNextPage,
+  buttonText = '내 댓글 더보기',
 }: MyCommentsProps) {
+  const { data: session } = useSession();
   const router = useRouter();
   const { mutate: updateComment, isPending: isUpdatePending } = useUpdateComment();
   const { mutate: deleteComment, isPending: isDeletePending } = useDeleteComment();
@@ -119,6 +122,7 @@ export default function MyComments({
                 {...comment}
                 handleEdit={() => handleEdit(comment)}
                 handleDelete={() => handleDeleteConfirm(comment.id)}
+                isOwnComment={comment.writer.id === session?.user.id}
               />
             )}
           </li>
@@ -166,7 +170,7 @@ export default function MyComments({
       {isShowMoreTrigger && (
         <div className='flex items-center justify-center p-4'>
           <EtcButton variant='outlined' onClick={fetchNextPage} size='lg'>
-            <Icon name='plus' /> 내 댓글 더보기
+            <Icon name='plus' /> {buttonText}
           </EtcButton>
         </div>
       )}
