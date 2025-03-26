@@ -82,6 +82,7 @@ export const useEpigram = (epigramId: Epigram['id']) => {
 
       queryClient.setQueryData(['epigrams', epigramId], (old: EpigramDetail) => ({
         ...old,
+        likeCount: old.likeCount + 1,
         isLiked: true,
       }));
 
@@ -105,6 +106,7 @@ export const useEpigram = (epigramId: Epigram['id']) => {
       const prevData = queryClient.getQueryData(['epigrams', epigramId]);
       queryClient.setQueryData(['epigrams', epigramId], (old: EpigramDetail) => ({
         ...old,
+        likeCount: old.likeCount - 1,
         isLiked: false,
       }));
 
