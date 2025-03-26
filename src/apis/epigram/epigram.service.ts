@@ -105,7 +105,7 @@ export const likeEpigram = async (epigramId: number) => {
  * 에피그램 좋아요 취소
  * https://fe-project-epigram-api.vercel.app/docs/#/Epigram/UnlikeEpigram
  */
-export const unlikeEpigram = async (epigramId: number) => {
+export const disLikeEpigram = async (epigramId: number) => {
   const response = await axios.delete<LikeEpigramResponse>(`/api/epigrams/${epigramId}/like`);
   return response.data;
 };
