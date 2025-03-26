@@ -1,11 +1,11 @@
+import { notFound } from 'next/navigation';
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
+import { isAxiosError } from 'axios';
+import { axiosServerInstance } from '@/utils/axios';
+import { getQueryClient } from '@/utils/getQueryClient';
 import Inner from '@/components/Inner';
 import EpigramDetail from '../_components/EpigramDetail';
 import EpigramComments from '../_components/EpigramComments';
-import { getQueryClient } from '@/utils/getQueryClient';
-import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
-import { axiosServerInstance } from '@/utils/axios';
-import { notFound } from 'next/navigation';
-import { isAxiosError } from 'axios';
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
   const id = Number((await params).id);
