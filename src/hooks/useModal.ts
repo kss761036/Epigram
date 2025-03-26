@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const useModal = (isOpen: boolean, onClose: () => void) => {
+export default function useModal(isOpen: boolean, onClose: () => void) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -20,31 +20,55 @@ const useModal = (isOpen: boolean, onClose: () => void) => {
       }
     };
 
-    if (isOpen) {
-      window.addEventListener('keydown', handleKeyDown);
-      window.addEventListener('click', handleClickOutside);
+    const getScrollbarWidth = () => window.innerWidth - document.documentElement.clientWidth;
 
-      const scrollBarWidth = window.innerWidth - document.body.clientWidth;
-      if (scrollBarWidth > 0) {
-        document.body.style.paddingRight = `${scrollBarWidth}px`;
-      }
+    const getFixedElements = () => {
+      return Array.from(document.querySelectorAll<HTMLElement>('*')).filter(
+        (el) => getComputedStyle(el).position === 'fixed',
+      );
+    };
+
+    if (isOpen) {
+      const scrollbarWidth = getScrollbarWidth();
+      const fixedElements = getFixedElements();
 
       document.body.style.overflow = 'hidden';
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+
+      fixedElements.forEach((el) => {
+        el.style.paddingRight = `${scrollbarWidth}px`;
+      });
+
+      window.addEventListener('keydown', handleKeyDown);
+      window.addEventListener('click', handleClickOutside);
     } else {
+      const fixedElements = getFixedElements();
+
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+
+      fixedElements.forEach((el) => {
+        el.style.paddingRight = '';
+      });
+
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('click', handleClickOutside);
-      document.body.style.paddingRight = '0';
-      document.body.style.overflow = 'auto';
     }
 
     return () => {
+      const fixedElements = getFixedElements();
+
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+
+      fixedElements.forEach((el) => {
+        el.style.paddingRight = '';
+      });
+
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('click', handleClickOutside);
-      document.body.style.paddingRight = '0';
-      document.body.style.overflow = 'auto';
     };
   }, [isOpen, onClose]);
-  return { mounted };
-};
 
-export default useModal;
+  return { mounted };
+}
