@@ -6,6 +6,7 @@ describe('댓글 컴포넌트', () => {
   const mockHandleDelete = jest.fn();
 
   const defaultProps = {
+    epigramId: 1,
     content: '테스트 댓글',
     writer: {
       image: 'https://placehold.co/40x40/000000/FFFFFF.png',

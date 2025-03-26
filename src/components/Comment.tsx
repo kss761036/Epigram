@@ -18,6 +18,7 @@ interface CommentProps {
   className?: string;
   handleEdit?: () => void;
   handleDelete?: () => void;
+  isOwnComment?: boolean;
 }
 
 export default function Comment({
@@ -28,6 +29,7 @@ export default function Comment({
   className,
   handleEdit,
   handleDelete,
+  isOwnComment = true,
 }: CommentProps) {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
@@ -65,30 +67,32 @@ export default function Comment({
           <div className={classes.commentInfo}>
             <div className={classes.commentInfoText}>{writer.nickname}</div>
             <div className={cn(classes.commentInfoText, 'ml-2')}>{formatTime(updatedAt)}</div>
-            <ul className={classes.commentInfoBtns}>
-              <li>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleEdit?.();
-                  }}
-                  className={cn(classes.commentInfoBtn, 'text-black-600 decoration-black-600')}
-                >
-                  수정
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleDelete?.();
-                  }}
-                  className={cn(classes.commentInfoBtn, 'text-red decoration-red')}
-                >
-                  삭제
-                </button>
-              </li>
-            </ul>
+            {isOwnComment && (
+              <ul className={classes.commentInfoBtns}>
+                <li>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleEdit?.();
+                    }}
+                    className={cn(classes.commentInfoBtn, 'text-black-600 decoration-black-600')}
+                  >
+                    수정
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDelete?.();
+                    }}
+                    className={cn(classes.commentInfoBtn, 'text-red decoration-red')}
+                  >
+                    삭제
+                  </button>
+                </li>
+              </ul>
+            )}
           </div>
           <div className={classes.commentContent}>{content}</div>
         </div>
