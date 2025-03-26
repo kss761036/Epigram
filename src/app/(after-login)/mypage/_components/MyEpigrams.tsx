@@ -1,26 +1,28 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useEpigramWriterFilterInfiniteQuery } from '@/apis/epigram/epigram.queries';
 import Card from '@/components/Card';
 import Spinner from '@/components/Spinner';
 import EtcButton from '@/components/EtcButton';
 import Icon from '@/components/Icon';
 import Image from 'next/image';
 import emptyImg from '@/assets/img/empty.png';
+import { Epigram } from '@/apis/epigram/epigram.type';
 
-export default function MyEpigrams() {
-  const { data: session } = useSession();
-  const userId = session?.user?.id;
+interface MyEpigramsProps {
+  epigrams: Epigram[];
+  isFetching: boolean;
+  hasNextPage: boolean;
+  fetchNextPage: () => void;
+}
 
+export default function MyEpigrams({
+  epigrams,
+  isFetching,
+  hasNextPage,
+  fetchNextPage,
+}: MyEpigramsProps) {
   const router = useRouter();
-
-  const { data, isFetching, hasNextPage, fetchNextPage } = useEpigramWriterFilterInfiniteQuery(
-    userId ? { writerId: userId, limit: 4 } : { writerId: 0, limit: 4 },
-  );
-
-  const epigrams = data?.pages.flatMap((page) => page.list) ?? [];
 
   const isShowLoader = isFetching;
   const isShowMoreTrigger = !isFetching && hasNextPage;

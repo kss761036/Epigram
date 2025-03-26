@@ -1,47 +1,39 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
-import { getEpigramsByUserId } from '@/apis/epigram/epigram.service';
-import { getUserCommentsById } from '@/apis/user/user.service';
+import { useEpigramWriterFilterInfiniteQuery } from '@/apis/epigram/epigram.queries';
+import { useUserCommentsByIdInFiniteQuery } from '@/apis/user/user.queries';
 import { TabBtn, TabItem, TabItemsContainer, TabList, Tabs } from '@/components/Tab';
 import MyEpigrams from './MyEpigrams';
 import MyComments from './MyComments';
 
 export default function MyWritings() {
   const [activeTab, setActiveTab] = useState(0);
-  const [myEpigramsCount, setMyEpigramsCount] = useState<number | null>(null);
-  const [myCommentsCount, setMyCommentsCount] = useState<number | null>(null);
-
   const { data: session } = useSession();
   const userId = session?.user?.id;
 
-  useEffect(() => {
-    if (!userId) {
-      return;
-    }
+  const {
+    data: epigramData,
+    isFetching: isFetchingEpigrams,
+    hasNextPage: hasNextEpigramPage,
+    fetchNextPage: fetchNextEpigramPage,
+  } = useEpigramWriterFilterInfiniteQuery(
+    userId ? { writerId: userId, limit: 4 } : { writerId: 0, limit: 4 },
+  );
 
-    const fetchEpigramsCount = async () => {
-      try {
-        const response = await getEpigramsByUserId({ limit: 1, writerId: userId });
-        setMyEpigramsCount(response.totalCount);
-      } catch (error) {
-        console.error('에피그램 개수 가져오기 실패:', error);
-      }
-    };
+  const epigrams = epigramData?.pages.flatMap((page) => page.list) ?? [];
+  const myEpigramsCount = epigramData?.pages?.[0]?.totalCount ?? 0;
 
-    const fetchCommentsCount = async () => {
-      try {
-        const response = await getUserCommentsById(userId, { limit: 1, cursor: undefined });
-        setMyCommentsCount(response.totalCount);
-      } catch (error) {
-        console.error('댓글 개수 가져오기 실패:', error);
-      }
-    };
+  const {
+    data: commentData,
+    isFetching: isFetchingComments,
+    hasNextPage: hasNextCommentPage,
+    fetchNextPage: fetchNextCommentPage,
+  } = useUserCommentsByIdInFiniteQuery(userId ? { userId, limit: 4 } : { userId: 0, limit: 4 });
 
-    fetchEpigramsCount();
-    fetchCommentsCount();
-  }, [userId]);
+  const comments = commentData?.pages.flatMap((page) => page.list) ?? [];
+  const myCommentsCount = commentData?.pages?.[0]?.totalCount ?? 0;
 
   return (
     <Tabs>
@@ -52,7 +44,7 @@ export default function MyWritings() {
           activeTab={activeTab}
           setActiveTab={setActiveTab}
         >
-          내 에피그램({myEpigramsCount !== null ? myEpigramsCount : '...'})
+          내 에피그램({myEpigramsCount})
         </TabBtn>
         <TabBtn
           tabIndex={1}
@@ -60,15 +52,25 @@ export default function MyWritings() {
           activeTab={activeTab}
           setActiveTab={setActiveTab}
         >
-          내 댓글({myCommentsCount !== null ? myCommentsCount : '...'})
+          내 댓글({myCommentsCount})
         </TabBtn>
       </TabList>
       <TabItemsContainer>
         <TabItem tabIndex={0} activeTab={activeTab}>
-          <MyEpigrams />
+          <MyEpigrams
+            epigrams={epigrams}
+            isFetching={isFetchingEpigrams}
+            hasNextPage={hasNextEpigramPage}
+            fetchNextPage={fetchNextEpigramPage}
+          />
         </TabItem>
         <TabItem tabIndex={1} activeTab={activeTab}>
-          <MyComments />
+          <MyComments
+            comments={comments}
+            isFetching={isFetchingComments}
+            hasNextPage={hasNextCommentPage}
+            fetchNextPage={fetchNextCommentPage}
+          />
         </TabItem>
       </TabItemsContainer>
     </Tabs>

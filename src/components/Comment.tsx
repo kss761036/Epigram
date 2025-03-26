@@ -10,7 +10,7 @@ interface CommentProps {
     image: string;
     nickname: string;
   };
-  createdAt: string;
+  updatedAt: string;
   className?: string;
   handleEdit?: () => void;
   handleDelete?: () => void;
@@ -19,7 +19,7 @@ interface CommentProps {
 export default function Comment({
   content,
   writer,
-  createdAt,
+  updatedAt,
   className,
   handleEdit,
   handleDelete,
@@ -44,7 +44,7 @@ export default function Comment({
       <div className={classes.commentBox}>
         <div className={classes.commentInfo}>
           <div className={classes.commentInfoText}>{writer.nickname}</div>
-          <div className={cn(classes.commentInfoText, 'ml-2')}>{formatTime(createdAt)}</div>
+          <div className={cn(classes.commentInfoText, 'ml-2')}>{formatTime(updatedAt)}</div>
           <ul className={classes.commentInfoBtns}>
             <li>
               <button
