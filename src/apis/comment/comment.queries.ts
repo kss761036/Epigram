@@ -1,5 +1,5 @@
 import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getComments, deleteComment, updateComment } from './comment.service';
+import { getComments, deleteComment, updateComment, createComment } from './comment.service';
 import { PaginationQueryParams } from '@/types/common';
 import { Comment, UpdateCommentFormType } from './comment.type';
 
@@ -96,4 +96,8 @@ export const useUpdateComment = () => {
       queryClient.invalidateQueries({ queryKey: ['userComments'] });
     },
   });
+};
+
+export const createEpigramComment = (epigramId: number, content: string, isPrivate: boolean) => {
+  return createComment({ epigramId, content, isPrivate });
 };

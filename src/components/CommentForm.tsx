@@ -4,7 +4,7 @@ import Button from './Button';
 import Toggle from './Toggle';
 import { cn } from '@/utils/helper';
 
-interface CommentEditFormProps {
+interface CommentFormProps {
   comment?: Comment;
   writer?: { image: string; nickname: string };
   editedContent: string;
@@ -17,7 +17,7 @@ interface CommentEditFormProps {
   className?: string;
 }
 
-export default function CommentEditForm({
+export default function CommentForm({
   comment,
   writer,
   editedContent,
@@ -28,7 +28,7 @@ export default function CommentEditForm({
   handleSaveEdit,
   handleCancelEdit,
   className,
-}: CommentEditFormProps) {
+}: CommentFormProps) {
   const resolvedWriter = comment?.writer ?? writer;
 
   if (!resolvedWriter) {

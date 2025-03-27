@@ -9,7 +9,7 @@ import {
 import { toast } from 'react-toastify';
 import { useSession } from 'next-auth/react';
 import Comment from '@/components/Comment';
-import CommentEditForm from '@/components/CommentEditForm';
+import CommentForm from '@/components/CommentForm';
 import Spinner from '@/components/Spinner';
 import EtcButton from '@/components/EtcButton';
 import { cn } from '@/utils/helper';
@@ -101,7 +101,7 @@ export default function RecentComment() {
           return (
             <li key={comment.id}>
               {editCommentId === comment.id ? (
-                <CommentEditForm
+                <CommentForm
                   comment={comment}
                   editedContent={editedContent}
                   setEditedContent={setEditedContent}

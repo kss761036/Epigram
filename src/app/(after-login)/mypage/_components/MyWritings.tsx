@@ -6,7 +6,7 @@ import { useEpigramWriterFilterInfiniteQuery } from '@/apis/epigram/epigram.quer
 import { useUserCommentsByIdInFiniteQuery } from '@/apis/user/user.queries';
 import { TabBtn, TabItem, TabItemsContainer, TabList, Tabs } from '@/components/Tab';
 import MyEpigrams from './MyEpigrams';
-import MyComments from './MyComments';
+import CommentList from './CommentList';
 
 export default function MyWritings() {
   const [activeTab, setActiveTab] = useState(0);
@@ -33,7 +33,7 @@ export default function MyWritings() {
   } = useUserCommentsByIdInFiniteQuery(userId ? { userId, limit: 4 } : { userId: 0, limit: 4 });
 
   const comments = commentData?.pages.flatMap((page) => page.list) ?? [];
-  const myCommentsCount = commentData?.pages?.[0]?.totalCount ?? 0;
+  const CommentListCount = commentData?.pages?.[0]?.totalCount ?? 0;
 
   return (
     <Tabs>
@@ -52,7 +52,7 @@ export default function MyWritings() {
           activeTab={activeTab}
           setActiveTab={setActiveTab}
         >
-          내 댓글({myCommentsCount})
+          내 댓글({CommentListCount})
         </TabBtn>
       </TabList>
       <TabItemsContainer>
@@ -65,7 +65,7 @@ export default function MyWritings() {
           />
         </TabItem>
         <TabItem tabIndex={1} activeTab={activeTab}>
-          <MyComments
+          <CommentList
             comments={comments}
             isFetching={isFetchingComments}
             hasNextPage={hasNextCommentPage}

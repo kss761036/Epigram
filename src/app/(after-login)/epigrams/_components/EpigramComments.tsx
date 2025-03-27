@@ -1,27 +1,25 @@
 'use client';
 
 import { Epigram } from '@/apis/epigram/epigram.type';
-import MyComments from '../../mypage/_components/MyComments';
+import CommentList from '../../mypage/_components/CommentList';
 import { useFeedCommentsInFiniteQuery } from '@/apis/epigram/epigram.queries';
-import { getUser } from '@/apis/user/user.service';
-import { useEffect, useState } from 'react';
-import { User } from '@/apis/user/user.type';
-import { DetailLoading } from './detail';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { createComment } from '@/apis/comment/comment.service';
-import CommentEditForm from '@/components/CommentEditForm';
+import CommentForm from '@/components/CommentForm';
 import { useQueryClient } from '@tanstack/react-query';
+import { useSession } from 'next-auth/react';
+import { createEpigramComment } from '@/apis/comment/comment.queries';
 
 interface EpigramCommentslProps {
   id: Epigram['id'];
 }
 
 export default function EpigramComments({ id }: EpigramCommentslProps) {
-  const [userData, setUserData] = useState<User | null>(null);
   const [isPrivate, setIsPrivate] = useState<boolean>(false);
   const [content, setContent] = useState<string>('');
   const queryClient = useQueryClient();
   const commentQueryParams = { limit: 4 };
+  const { data: session } = useSession();
 
   const {
     data: commentData,
@@ -29,16 +27,6 @@ export default function EpigramComments({ id }: EpigramCommentslProps) {
     hasNextPage: hasNextCommentPage,
     fetchNextPage: fetchNextCommentPage,
   } = useFeedCommentsInFiniteQuery(id, commentQueryParams);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const data = await getUser();
-      setUserData(data);
-    };
-    fetchUser();
-  }, []);
-
-  if (!userData) return <DetailLoading />;
 
   const comments = commentData?.pages.flatMap((page) => page.list) ?? [];
 
@@ -54,11 +42,7 @@ export default function EpigramComments({ id }: EpigramCommentslProps) {
     }
 
     try {
-      await createComment({
-        epigramId: id,
-        content: trimmed,
-        isPrivate,
-      });
+      await createEpigramComment(id, trimmed, isPrivate);
 
       toast.success('댓글이 등록되었습니다');
 
@@ -76,8 +60,12 @@ export default function EpigramComments({ id }: EpigramCommentslProps) {
       <h2 className='mb-4 text-[16px] leading-7 font-semibold md:mb-6 lg:text-[20px]'>
         댓글 ({comments.length})
       </h2>
-      <CommentEditForm
-        writer={{ ...userData, image: userData.image ?? '' }}
+      <CommentForm
+        writer={
+          session?.user
+            ? { nickname: session.user.nickname, image: session.user.image }
+            : { nickname: '', image: '' }
+        }
         editedContent={content}
         setEditedContent={setContent}
         isPrivate={isPrivate}
@@ -88,7 +76,7 @@ export default function EpigramComments({ id }: EpigramCommentslProps) {
         className='border-t-0 px-0 !pt-0'
       />
 
-      <MyComments
+      <CommentList
         comments={comments}
         isFetching={isFetchingComments}
         hasNextPage={hasNextCommentPage}

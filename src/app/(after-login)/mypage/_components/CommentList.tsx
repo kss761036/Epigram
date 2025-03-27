@@ -11,11 +11,12 @@ import Spinner from '@/components/Spinner';
 import EtcButton from '@/components/EtcButton';
 import Icon from '@/components/Icon';
 import DeleteModal from '@/components/DeleteModal';
-import CommentEditForm from '@/components/CommentEditForm';
+import CommentForm from '@/components/CommentForm';
 import Image from 'next/image';
 import emptyImg from '@/assets/img/empty.png';
+import { useQueryClient } from '@tanstack/react-query';
 
-interface MyCommentsProps {
+interface CommentListProps {
   comments: CommentType[];
   isFetching: boolean;
   hasNextPage: boolean;
@@ -23,13 +24,13 @@ interface MyCommentsProps {
   buttonText?: string;
 }
 
-export default function MyComments({
+export default function CommentList({
   comments,
   isFetching,
   hasNextPage,
   fetchNextPage,
   buttonText = '내 댓글 더보기',
-}: MyCommentsProps) {
+}: CommentListProps) {
   const { data: session } = useSession();
   const router = useRouter();
   const { mutate: updateComment, isPending: isUpdatePending } = useUpdateComment();
@@ -40,6 +41,7 @@ export default function MyComments({
   const [isPrivate, setIsPrivate] = useState<boolean>(false);
 
   const [selectedCommentId, setSelectedCommentId] = useState<number | null>(null);
+  const queryClient = useQueryClient();
 
   const handleEdit = (comment: CommentType) => {
     setEditCommentId(comment.id);
@@ -66,6 +68,7 @@ export default function MyComments({
         onSuccess: () => {
           toast.success('댓글이 수정되었습니다.');
           setEditCommentId(null);
+          queryClient.invalidateQueries({ queryKey: ['comments'] });
         },
         onError: () => {
           toast.error('댓글 수정에 실패했습니다.');
@@ -89,6 +92,7 @@ export default function MyComments({
       onSuccess: () => {
         toast.success('댓글이 삭제되었습니다.');
         setSelectedCommentId(null);
+        queryClient.invalidateQueries({ queryKey: ['comments'] });
       },
       onError: () => {
         toast.error('댓글 삭제에 실패했습니다.');
@@ -107,7 +111,7 @@ export default function MyComments({
         {comments.map((comment) => (
           <li key={comment.id}>
             {editCommentId === comment.id ? (
-              <CommentEditForm
+              <CommentForm
                 comment={comment}
                 editedContent={editedContent}
                 setEditedContent={setEditedContent}

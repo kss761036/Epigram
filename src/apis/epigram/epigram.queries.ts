@@ -146,10 +146,3 @@ export const useFeedCommentsInFiniteQuery = (
     getNextPageParam: (lastPage) => lastPage.nextCursor || undefined,
   });
 };
-
-export const useEpigramDetails = (epigramId: Epigram['id']) => {
-  return useQuery({
-    queryKey: ['epigrams', epigramId],
-    queryFn: () => getEpigramDetails(epigramId),
-  });
-};
