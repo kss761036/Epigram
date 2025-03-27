@@ -37,7 +37,7 @@ export default function Page() {
           <Section>오늘의 에피그램</Section>
           <EpigramsSkeleton />
           <div className={baseClass}>
-            <Section>오늘의 감정</Section>
+            <Section>오늘의 감정을 선택해 주세요</Section>
             <TodayMoodSkeleton />
           </div>
           <div className={baseClass}>
