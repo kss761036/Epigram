@@ -55,7 +55,7 @@ export default function MyEpigrams({
           </span>
           <EtcButton
             variant='outlined'
-            onClick={() => router.push('/addepigram')}
+            onClick={() => router.push('/epigrams/create')}
             size='lg'
             className='text-black-400 border-gray-100 font-medium md:text-[14px] lg:text-[20px]'
           >
