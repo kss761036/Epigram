@@ -10,7 +10,12 @@ import RecentComment from './_components/RecentComment';
 import { AnimatePresence, motion } from 'motion/react';
 import Inner from '@/components/Inner';
 import FloatingButtons from '../_components/FloatingButtons';
-import EpigramsSkeleton from './_components/EpigramsSkeleton';
+import {
+  EpigramsSkeleton,
+  TodayMoodSkeleton,
+  CommentSkeleton,
+} from './_components/EpigramsSkeleton';
+import { Section } from '@/components/Section';
 
 export default function Page() {
   const { data: session } = useSession();
@@ -25,7 +30,31 @@ export default function Page() {
   }, [emotionLog, isLoading]);
 
   if (isLoading) {
-    return <EpigramsSkeleton />;
+    const baseClass = 'mt-[56px] lg:mt-[140px]';
+    return (
+      <div className='bg-bg flex h-full w-full justify-center'>
+        <Inner className='mt-[32px] h-full lg:mt-[120px]'>
+          <Section>오늘의 에피그램</Section>
+          <EpigramsSkeleton />
+          <div className={baseClass}>
+            <Section>오늘의 감정</Section>
+            <TodayMoodSkeleton />
+          </div>
+          <div className={baseClass}>
+            <Section>최신 에피그램</Section>
+            <EpigramsSkeleton />
+            <EpigramsSkeleton />
+            <EpigramsSkeleton />
+          </div>
+          <div className={baseClass}>
+            <Section>최신 댓글</Section>
+            <CommentSkeleton />
+            <CommentSkeleton />
+            <CommentSkeleton />
+          </div>
+        </Inner>
+      </div>
+    );
   }
 
   return (
