@@ -10,6 +10,7 @@ import RecentComment from './_components/RecentComment';
 import { AnimatePresence, motion } from 'motion/react';
 import Inner from '@/components/Inner';
 import FloatingButtons from '../_components/FloatingButtons';
+import EpigramsSkeleton from './_components/EpigramsSkeleton';
 
 export default function Page() {
   const { data: session } = useSession();
@@ -23,7 +24,9 @@ export default function Page() {
     }
   }, [emotionLog, isLoading]);
 
-  if (isLoading) return null;
+  if (isLoading) {
+    return <EpigramsSkeleton />;
+  }
 
   return (
     <div className='bg-bg flex h-full w-full justify-center'>
