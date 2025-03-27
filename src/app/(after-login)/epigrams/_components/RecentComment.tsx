@@ -10,7 +10,6 @@ import { toast } from 'react-toastify';
 import { useSession } from 'next-auth/react';
 import Comment from '@/components/Comment';
 import CommentEditForm from '@/components/CommentEditForm';
-import Spinner from '@/components/Spinner';
 import EtcButton from '@/components/EtcButton';
 import { cn } from '@/utils/helper';
 import { Section } from '@/components/Section';
@@ -87,7 +86,6 @@ export default function RecentComment() {
     });
   };
 
-  const isShowLoader = isFetching;
   const isShowMoreTrigger = !isFetching && hasNextPage;
   const isShowEmpty = !comments.length && !isFetching;
   const isShowEnd = !isFetching && !hasNextPage;
@@ -126,13 +124,6 @@ export default function RecentComment() {
 
       {isShowEmpty && (
         <div className='flex items-center justify-center p-10 text-blue-400'>댓글이 없습니다.</div>
-      )}
-
-      {isShowLoader && (
-        <div className='flex flex-col items-center justify-center gap-4 p-4 text-center text-blue-400'>
-          <Spinner className='fill-black text-gray-100' />
-          댓글을 가져오는 중입니다.
-        </div>
       )}
 
       {isShowMoreTrigger && (

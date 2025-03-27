@@ -1,22 +1,9 @@
 import { useTodayEpigram } from '@/apis/epigram/epigram.queries';
 import { Section } from '@/components/Section';
-import Spinner from '@/components/Spinner';
 import Card from '@/components/Card';
 
 export default function TodayEpigram() {
-  const { data, isLoading, isError } = useTodayEpigram();
-
-  if (isLoading) {
-    return (
-      <>
-        <Section>오늘의 에피그램</Section>
-        <div className='flex flex-col items-center justify-center gap-4 p-4 text-center text-blue-400'>
-          <Spinner className='fill-black text-gray-100' />
-          에피그램을 가져오는 중입니다.
-        </div>
-      </>
-    );
-  }
+  const { data, isError } = useTodayEpigram();
 
   if (isError || !data) {
     return (

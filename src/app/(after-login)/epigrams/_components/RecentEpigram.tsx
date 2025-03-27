@@ -6,14 +6,12 @@ import Card from '@/components/Card';
 import EtcButton from '@/components/EtcButton';
 import Icon from '@/components/Icon';
 import { Section, SectionTitle } from '@/components/Section';
-import Spinner from '@/components/Spinner';
 
 export default function RecentEpigrams() {
   const { data, isFetching, hasNextPage, fetchNextPage } = useEpigramInfiniteQuery({ limit: 5 });
   const results =
     data?.pages.flatMap((page, index) => (index === 0 ? page.list.slice(0, 3) : page.list)) ?? [];
 
-  const isShowLoader = isFetching;
   const isShowMoreTrigger = !isFetching && hasNextPage;
   const isShowEmpty = !results.length && !isFetching;
   const isShowEnd = !isFetching && !hasNextPage;
@@ -35,13 +33,6 @@ export default function RecentEpigrams() {
         {isShowEmpty && (
           <div className='flex items-center justify-center p-10 text-blue-400'>
             작성된 에피그램이 없습니다.
-          </div>
-        )}
-
-        {isShowLoader && (
-          <div className='flex flex-col items-center justify-center gap-4 p-4 text-center text-blue-400'>
-            <Spinner className='fill-black text-gray-100' />
-            에피그램을 가져오는 중입니다.
           </div>
         )}
 
