@@ -47,10 +47,9 @@ export const getUserCommentsById = async (userId: User['id'], params: Pagination
  * https://fe-project-epigram-api.vercel.app/docs/#/Image/ImageUpload
  */
 export const uploadImage = async (data: UploadImageForm) => {
-  const response = await axios.post<UploadImageReponse>('/api/images/upload', data, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
+  const formData = new FormData();
+  formData.append('image', data.image);
+
+  const response = await axios.post<UploadImageReponse>('/api/images/upload', formData);
   return response.data;
 };
