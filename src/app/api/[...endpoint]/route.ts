@@ -4,8 +4,12 @@ import { axiosServerInstance } from '@/utils/axios';
 
 async function handler(req: NextRequest, method: Method) {
   const url = `${req.nextUrl.pathname.replace('/api', '')}${req.nextUrl.search}`;
-  const body = await req.json().catch(() => ({}));
+  const isFormData = req.headers.get('content-type')?.includes('multipart/form-data');
   const isBodyAllowed = !['GET', 'DELETE', 'HEAD', 'OPTIONS'].includes(method.toUpperCase());
+
+  const body = isFormData
+    ? await req.formData().catch(() => undefined)
+    : await req.json().catch(() => ({}));
 
   try {
     const response = await axiosServerInstance({
