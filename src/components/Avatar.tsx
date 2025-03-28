@@ -19,7 +19,15 @@ export default function Avatar({ src, alt, className }: AvatarProps) {
   if (error || !src) {
     renderImage = alt ? <CharacterAvatar name={alt} /> : <DefaultAvatar />;
   } else {
-    renderImage = <Image src={src} alt={alt || 'avatar'} onError={() => setError(true)} fill />;
+    renderImage = (
+      <Image
+        src={src}
+        alt={alt || 'avatar'}
+        onError={() => setError(true)}
+        fill
+        className='object-cover'
+      />
+    );
   }
 
   return (
