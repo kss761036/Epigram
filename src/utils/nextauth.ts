@@ -1,5 +1,6 @@
 import { isAxiosError } from 'axios';
 import { AuthOptions } from 'next-auth';
+import { redirect } from 'next/navigation';
 import { jwtDecode } from 'jwt-decode';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { googleSignIn, kakaoSignIn, refreshAccessToken, signIn } from '@/apis/auth/auth.service';
@@ -119,6 +120,7 @@ export const authOptions: AuthOptions = {
         } catch (error) {
           console.error('토큰 갱신 실패:', error);
           token.error = 'RefreshTokenError';
+          redirect('/login');
         }
       }
 
