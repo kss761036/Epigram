@@ -1,5 +1,6 @@
 import { isAxiosError } from 'axios';
 import { AuthOptions } from 'next-auth';
+import { redirect } from 'next/navigation';
 import { jwtDecode } from 'jwt-decode';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { googleSignIn, kakaoSignIn, refreshAccessToken, signIn } from '@/apis/auth/auth.service';
