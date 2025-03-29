@@ -22,9 +22,15 @@ function RefreshErrorWatcher() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (pathname !== '/login' && session?.error === 'RefreshTokenError') {
-      signOut({ callbackUrl: '/login' });
-    }
+    (async function handleSignOut() {
+      if (pathname !== '/login' && session?.error === 'RefreshTokenError') {
+        // nextauth client api 이용하여, cookie 안전하게 삭제
+        await signOut({ redirect: false });
+
+        // nextjs middleware에게 다시 페이지 검증요청
+        window.location.reload();
+      }
+    })();
   }, [session, pathname]);
 
   return null;
