@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import {
-  useCommentsInfiniteQuery,
+  useCustomCommentsInfiniteQuery,
   useDeleteComment,
   useUpdateComment,
 } from '@/apis/comment/comment.queries';
@@ -21,7 +21,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 export default function RecentComment() {
   const queryClient = useQueryClient();
-  const { data, isFetching, hasNextPage, fetchNextPage } = useCommentsInfiniteQuery({ limit: 3 });
+  const { data, isFetching, hasNextPage, fetchNextPage } = useCustomCommentsInfiniteQuery(3, 4);
   const { data: session } = useSession();
 
   const comments = data?.pages.flatMap((page) => page.list) ?? [];
