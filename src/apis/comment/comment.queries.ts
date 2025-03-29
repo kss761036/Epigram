@@ -101,3 +101,15 @@ export const useUpdateComment = () => {
 export const createEpigramComment = (epigramId: number, content: string, isPrivate: boolean) => {
   return createComment({ epigramId, content, isPrivate });
 };
+
+export const useCustomCommentsInfiniteQuery = (initialLimit: number, fetchLimit: number) => {
+  return useInfiniteQuery({
+    queryKey: ['customComments', { initialLimit, fetchLimit }],
+    queryFn: ({ pageParam = 0 }) => {
+      const limit = pageParam === 0 ? initialLimit : fetchLimit;
+      return getComments({ cursor: pageParam, limit });
+    },
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) => lastPage.nextCursor || undefined,
+  });
+};
