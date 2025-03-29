@@ -120,7 +120,6 @@ export const authOptions: AuthOptions = {
         } catch (error) {
           console.error('토큰 갱신 실패:', error);
           token.error = 'RefreshTokenError';
-          redirect('/login');
         }
       }
 
