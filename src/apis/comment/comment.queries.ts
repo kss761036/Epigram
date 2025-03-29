@@ -3,12 +3,14 @@ import { getComments, deleteComment, updateComment, createComment } from './comm
 import { PaginationQueryParams } from '@/types/common';
 import { Comment, UpdateCommentFormType } from './comment.type';
 
-export const useCommentsInfiniteQuery = (params: Omit<PaginationQueryParams, 'cursor'>) => {
+export const useCommentsInfiniteQuery = (initialLimit: number, fetchLimit: number) => {
   return useInfiniteQuery({
-    queryKey: ['comments', params],
-    queryFn: ({ pageParam }: { pageParam?: number }) =>
-      getComments({ ...params, cursor: pageParam }),
-    initialPageParam: undefined,
+    queryKey: ['comments', { initialLimit, fetchLimit }],
+    queryFn: ({ pageParam = 0 }) => {
+      const limit = pageParam === 0 ? initialLimit : fetchLimit;
+      return getComments({ cursor: pageParam, limit });
+    },
+    initialPageParam: 0,
     getNextPageParam: (lastPage) => lastPage.nextCursor || undefined,
   });
 };
@@ -100,16 +102,4 @@ export const useUpdateComment = () => {
 
 export const createEpigramComment = (epigramId: number, content: string, isPrivate: boolean) => {
   return createComment({ epigramId, content, isPrivate });
-};
-
-export const useCustomCommentsInfiniteQuery = (initialLimit: number, fetchLimit: number) => {
-  return useInfiniteQuery({
-    queryKey: ['customComments', { initialLimit, fetchLimit }],
-    queryFn: ({ pageParam = 0 }) => {
-      const limit = pageParam === 0 ? initialLimit : fetchLimit;
-      return getComments({ cursor: pageParam, limit });
-    },
-    initialPageParam: 0,
-    getNextPageParam: (lastPage) => lastPage.nextCursor || undefined,
-  });
 };
