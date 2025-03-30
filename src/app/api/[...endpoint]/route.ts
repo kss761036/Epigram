@@ -55,7 +55,7 @@ export async function DELETE(req: NextRequest) {
   return handler(req, 'DELETE');
 }
 
-export async function parseRequestBody(req: NextRequest): Promise<unknown> {
+async function parseRequestBody(req: NextRequest): Promise<unknown> {
   const contentType = req.headers.get('content-type') || '';
 
   try {
