@@ -1,12 +1,12 @@
 'use client';
 
-import Inner from '@/components/Inner';
-import EpigramComments from '../_components/EpigramComments';
+import { useState } from 'react';
 import { notFound, useParams, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useEpigram } from '@/apis/epigram/epigram.queries';
-import { useState } from 'react';
+import Inner from '@/components/Inner';
 import DeleteModal from '@/components/DeleteModal';
+import EpigramComments from '../_components/EpigramComments';
 import {
   DeatailFooter,
   DetailContent,
