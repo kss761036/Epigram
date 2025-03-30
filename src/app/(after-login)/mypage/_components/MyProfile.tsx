@@ -1,15 +1,13 @@
+'use client';
+
 import { signOut, useSession } from 'next-auth/react';
-import Avatar from '@/components/Avatar';
-import { useState } from 'react';
+import useModalStore from '@/hooks/useModalStore';
 import ProfileEditModal from './ProfileEditModal';
+import Avatar from '@/components/Avatar';
 
 export default function MyProfile() {
   const { data: session } = useSession();
-  const [isProfileEditModalOpen, setIsProfileEditModalOpen] = useState(false);
-
-  const handleImageClick = () => {
-    setIsProfileEditModalOpen(true);
-  };
+  const { open } = useModalStore();
 
   return (
     <>
@@ -19,7 +17,7 @@ export default function MyProfile() {
             <div className='flex flex-col items-center gap-2 lg:gap-4'>
               {session && (
                 <>
-                  <div onClick={handleImageClick} className='cursor-pointer'>
+                  <div onClick={() => open('ProfileEdit')} className='cursor-pointer'>
                     <Avatar
                       src={session.user?.image ?? undefined}
                       alt={session.user?.nickname}
@@ -41,10 +39,7 @@ export default function MyProfile() {
           </div>
         </div>
 
-        <ProfileEditModal
-          isOpen={isProfileEditModalOpen}
-          onClose={() => setIsProfileEditModalOpen(false)}
-        />
+        <ProfileEditModal />
       </div>
     </>
   );
