@@ -18,6 +18,9 @@ import Icon from '@/components/Icon';
 import type { Comment as CommentType } from '@/apis/comment/comment.type';
 import DeleteModal from '@/components/DeleteModal';
 import { useQueryClient } from '@tanstack/react-query';
+import { useForm, FormProvider } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { commentSchema, CommentFormValues } from '@/apis/epigram/epigram.type';
 
 export default function RecentComment() {
   const queryClient = useQueryClient();
@@ -27,31 +30,41 @@ export default function RecentComment() {
   const comments = data?.pages.flatMap((page) => page.list) ?? [];
 
   const [editCommentId, setEditCommentId] = useState<number | null>(null);
-  const [editedContent, setEditedContent] = useState<string>('');
-  const [isPrivate, setIsPrivate] = useState<boolean>(false);
   const [selectedCommentId, setSelectedCommentId] = useState<number | null>(null);
 
   const { mutate: updateComment, isPending: isUpdatePending } = useUpdateComment();
   const { mutate: deleteComment, isPending: isDeletePending } = useDeleteComment();
 
+  const methods = useForm<CommentFormValues>({
+    resolver: zodResolver(commentSchema),
+    defaultValues: {
+      content: '',
+      isPrivate: false,
+    },
+  });
+
   const handleEdit = (comment: CommentType) => {
     setEditCommentId(comment.id);
-    setEditedContent(comment.content);
-    setIsPrivate(comment.isPrivate);
+    methods.reset({
+      content: comment.content,
+      isPrivate: comment.isPrivate,
+    });
   };
 
   const handleSaveEdit = () => {
-    const trimmedContent = editedContent.trim();
-    if (!editCommentId || !trimmedContent) {
+    const data = methods.getValues();
+    const trimmed = data.content.trim();
+
+    if (!editCommentId || !trimmed) {
       toast.error('댓글을 입력해주세요');
       return;
     }
-    if (trimmedContent.length > 100) {
-      toast.error('100자 이내로 작성해주세요');
-      return;
-    }
+
     updateComment(
-      { commentId: editCommentId, data: { content: trimmedContent, isPrivate } },
+      {
+        commentId: editCommentId,
+        data: { content: trimmed, isPrivate: data.isPrivate },
+      },
       {
         onSuccess: () => {
           toast.success('댓글이 수정되었습니다.');
@@ -101,16 +114,16 @@ export default function RecentComment() {
           return (
             <li key={comment.id}>
               {editCommentId === comment.id ? (
-                <CommentForm
-                  comment={comment}
-                  editedContent={editedContent}
-                  setEditedContent={setEditedContent}
-                  isPrivate={isPrivate}
-                  setIsPrivate={setIsPrivate}
-                  isUpdatePending={isUpdatePending}
-                  handleSaveEdit={handleSaveEdit}
-                  handleCancelEdit={handleCancelEdit}
-                />
+                <FormProvider {...methods}>
+                  <form onSubmit={(e) => e.preventDefault()}>
+                    <CommentForm
+                      comment={comment}
+                      isUpdatePending={isUpdatePending}
+                      handleSaveEdit={handleSaveEdit}
+                      handleCancelEdit={handleCancelEdit}
+                    />
+                  </form>
+                </FormProvider>
               ) : (
                 <Comment
                   {...comment}
