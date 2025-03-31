@@ -1,10 +1,9 @@
 'use client';
+
 import { useSession } from 'next-auth/react';
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
-import { useDeleteComment } from '@/apis/comment/comment.queries';
-import { useUpdateComment } from '@/apis/comment/comment.queries';
+import { useDeleteComment, useUpdateComment } from '@/apis/comment/comment.queries';
 import type { Comment as CommentType } from '@/apis/comment/comment.type';
 import Comment from '@/components/Comment';
 import Spinner from '@/components/Spinner';
@@ -15,6 +14,11 @@ import CommentForm from '@/components/CommentForm';
 import Image from 'next/image';
 import emptyImg from '@/assets/img/empty.png';
 import { useQueryClient } from '@tanstack/react-query';
+import { FormProvider, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { commentSchema, CommentFormValues } from '@/apis/epigram/epigram.type';
+import { useState } from 'react';
+import type { FieldErrors } from 'react-hook-form';
 
 interface CommentListProps {
   comments: CommentType[];
@@ -35,35 +39,35 @@ export default function CommentList({
   const router = useRouter();
   const { mutate: updateComment, isPending: isUpdatePending } = useUpdateComment();
   const { mutate: deleteComment, isPending: isDeletePending } = useDeleteComment();
+  const queryClient = useQueryClient();
 
   const [editCommentId, setEditCommentId] = useState<number | null>(null);
-  const [editedContent, setEditedContent] = useState<string>('');
-  const [isPrivate, setIsPrivate] = useState<boolean>(false);
-
   const [selectedCommentId, setSelectedCommentId] = useState<number | null>(null);
-  const queryClient = useQueryClient();
+
+  const methods = useForm<CommentFormValues>({
+    resolver: zodResolver(commentSchema),
+    defaultValues: {
+      content: '',
+      isPrivate: false,
+    },
+  });
 
   const handleEdit = (comment: CommentType) => {
     setEditCommentId(comment.id);
-    setEditedContent(comment.content);
-    setIsPrivate(comment.isPrivate);
+    methods.reset({
+      content: comment.content,
+      isPrivate: comment.isPrivate,
+    });
   };
 
-  const handleSaveEdit = () => {
-    const trimmedContent = editedContent.trim();
-
-    if (!editCommentId || !trimmedContent) {
-      toast.error('댓글을 입력해주세요');
-      return;
-    }
-
-    if (trimmedContent.length > 100) {
-      toast.error('100자 이내로 작성해주세요');
-      return;
-    }
+  const handleSaveEdit = (data: CommentFormValues) => {
+    if (!editCommentId) return;
 
     updateComment(
-      { commentId: editCommentId, data: { content: trimmedContent, isPrivate } },
+      {
+        commentId: editCommentId,
+        data: { content: data.content.trim(), isPrivate: data.isPrivate },
+      },
       {
         onSuccess: () => {
           toast.success('댓글이 수정되었습니다.');
@@ -75,6 +79,12 @@ export default function CommentList({
         },
       },
     );
+  };
+
+  const handleSaveError = (errors: FieldErrors<CommentFormValues>) => {
+    if (errors.content) {
+      toast.error(errors.content.message as string);
+    }
   };
 
   const handleCancelEdit = () => {
@@ -111,16 +121,16 @@ export default function CommentList({
         {comments.map((comment) => (
           <li key={comment.id}>
             {editCommentId === comment.id ? (
-              <CommentForm
-                comment={comment}
-                editedContent={editedContent}
-                setEditedContent={setEditedContent}
-                isPrivate={isPrivate}
-                setIsPrivate={setIsPrivate}
-                isUpdatePending={isUpdatePending}
-                handleSaveEdit={handleSaveEdit}
-                handleCancelEdit={handleCancelEdit}
-              />
+              <FormProvider {...methods}>
+                <form onSubmit={(e) => e.preventDefault()}>
+                  <CommentForm
+                    comment={comment}
+                    isUpdatePending={isUpdatePending}
+                    handleSaveEdit={methods.handleSubmit(handleSaveEdit, handleSaveError)}
+                    handleCancelEdit={handleCancelEdit}
+                  />
+                </form>
+              </FormProvider>
             ) : (
               <Comment
                 {...comment}

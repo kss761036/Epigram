@@ -78,7 +78,13 @@ export const createEpigramFormSchema = baseEpigramSchema.superRefine((data, ctx)
   }
 });
 
+export const commentSchema = z.object({
+  content: z.string().trim().min(1, '댓글을 입력해주세요').max(100, '100자 이내로 작성해주세요'),
+  isPrivate: z.boolean(),
+});
+
 export type CreateEpigramFormType = z.infer<typeof createEpigramFormSchema>;
 export type UpdateEpigramFormType = Partial<CreateEpigramFormType>;
 export type DeleteEpigramResponse = Pick<Epigram, 'id'>;
 export type LikeEpigramResponse = Epigram & { isLiked: boolean };
+export type CommentFormValues = z.infer<typeof commentSchema>;

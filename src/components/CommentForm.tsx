@@ -1,16 +1,16 @@
+'use client';
+
 import { Comment } from '@/apis/comment/comment.type';
 import Avatar from './Avatar';
 import Button from './Button';
 import Toggle from './Toggle';
 import { cn } from '@/utils/helper';
+import { useFormContext, Controller } from 'react-hook-form';
+import { CommentFormValues } from '@/apis/epigram/epigram.type';
 
 interface CommentFormProps {
   comment?: Comment;
   writer?: { image: string; nickname: string };
-  editedContent: string;
-  setEditedContent: React.Dispatch<React.SetStateAction<string>>;
-  isPrivate: boolean;
-  setIsPrivate: React.Dispatch<React.SetStateAction<boolean>>;
   isUpdatePending: boolean;
   handleSaveEdit: () => void;
   handleCancelEdit: () => void;
@@ -20,20 +20,19 @@ interface CommentFormProps {
 export default function CommentForm({
   comment,
   writer,
-  editedContent,
-  setEditedContent,
-  isPrivate,
-  setIsPrivate,
   isUpdatePending,
   handleSaveEdit,
   handleCancelEdit,
   className,
 }: CommentFormProps) {
   const resolvedWriter = comment?.writer ?? writer;
+  const {
+    register,
+    control,
+    formState: { errors },
+  } = useFormContext<CommentFormValues>();
 
-  if (!resolvedWriter) {
-    return null;
-  }
+  if (!resolvedWriter) return null;
 
   return (
     <div
@@ -45,16 +44,21 @@ export default function CommentForm({
       <Avatar src={resolvedWriter.image} alt={resolvedWriter.nickname} />
       <div className='ml-4 flex flex-1 flex-col gap-2 lg:gap-4'>
         <textarea
-          value={editedContent}
-          onChange={(e) => setEditedContent(e.target.value)}
+          {...register('content')}
           placeholder='100자 이내로 입력해 주세요.'
           className='border-black-600 text-md text-black-700 w-full resize-none rounded-lg border px-4 py-3 placeholder-blue-400 md:text-lg lg:text-xl'
         />
         <div className='flex items-center justify-between'>
-          <Toggle
-            label='공개'
-            checked={!isPrivate}
-            onChange={() => setIsPrivate((prev) => !prev)}
+          <Controller
+            name='isPrivate'
+            control={control}
+            render={({ field }) => (
+              <Toggle
+                label='공개'
+                checked={!field.value}
+                onChange={() => field.onChange(!field.value)}
+              />
+            )}
           />
           <div className='flex gap-2'>
             <Button
