@@ -15,7 +15,7 @@ export default function Page() {
   const { data: session } = useSession();
   const userId = session?.user.id;
   const { data: emotionLog, isLoading } = useEmotionLogToday(userId);
-  const [showTodayMood, setShowTodayMood] = useState(true);
+  const [showTodayMood, setShowTodayMood] = useState(false);
 
   useEffect(() => {
     if (!isLoading) {
@@ -23,7 +23,7 @@ export default function Page() {
     }
   }, [emotionLog, isLoading]);
 
-  if (isLoading) return null;
+  if (isLoading) return <div className='bg-bg h-screen w-screen'></div>;
 
   return (
     <div className='bg-bg flex h-full w-full justify-center'>
