@@ -40,6 +40,7 @@ export default function EpigramForm({
   isSubmitting = false,
 }: EpigramFormProps) {
   const {
+    reset,
     register,
     watch,
     setValue,
@@ -89,6 +90,7 @@ export default function EpigramForm({
     };
 
     onSubmit(payload);
+    reset();
   };
 
   const handleTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
