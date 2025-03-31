@@ -128,7 +128,7 @@ export const useEpigram = (epigramId: Epigram['id']) => {
 
 export const useTodayEpigram = () => {
   return useQuery({
-    queryKey: ['todayEpigram'],
+    queryKey: ['epigrams', 'today'],
     queryFn: getTodayEpigram,
     retryOnMount: false,
   });
@@ -139,7 +139,7 @@ export const useFeedCommentsInFiniteQuery = (
   params: Omit<PaginationQueryParams, 'cursor'>,
 ) => {
   return useInfiniteQuery({
-    queryKey: ['comments', epigramId, params],
+    queryKey: ['comments', 'epigrams', epigramId, params],
     queryFn: ({ pageParam }: { pageParam?: number }) =>
       getEpigramComments(epigramId, { ...params, cursor: pageParam }),
     initialPageParam: undefined,
