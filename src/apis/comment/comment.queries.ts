@@ -1,6 +1,5 @@
 import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getComments, deleteComment, updateComment, createComment } from './comment.service';
-import { PaginationQueryParams } from '@/types/common';
 import { Comment, UpdateCommentFormType } from './comment.type';
 
 export const useCommentsInfiniteQuery = (initialLimit: number, fetchLimit: number) => {
@@ -21,14 +20,14 @@ export const useDeleteComment = () => {
     mutationFn: (commentId: Comment['id']) => deleteComment(commentId),
 
     onMutate: async (commentId) => {
-      await queryClient.cancelQueries({ queryKey: ['userComments'] });
+      await queryClient.cancelQueries({ queryKey: ['comments', 'user'] });
 
       const previousComments = queryClient.getQueryData<{
         pages: { list: Comment[]; nextCursor?: number }[];
-      }>(['userComments']);
+      }>(['comments', 'user']);
 
       queryClient.setQueryData<{ pages: { list: Comment[]; nextCursor?: number }[] }>(
-        ['userComments'],
+        ['comments', 'user'],
         (oldData) => {
           if (!oldData) return oldData;
           return {
@@ -46,12 +45,12 @@ export const useDeleteComment = () => {
 
     onError: (_, __, context) => {
       if (context?.previousComments) {
-        queryClient.setQueryData(['userComments'], context.previousComments);
+        queryClient.setQueryData(['comments', 'user'], context.previousComments);
       }
     },
 
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['userComments'] });
+      queryClient.invalidateQueries({ queryKey: ['comments', 'user'] });
     },
   });
 };
@@ -63,14 +62,14 @@ export const useUpdateComment = () => {
       updateComment(commentId, data),
 
     onMutate: async ({ commentId, data }) => {
-      await queryClient.cancelQueries({ queryKey: ['userComments'] });
+      await queryClient.cancelQueries({ queryKey: ['comments', 'user'] });
 
       const previousComments = queryClient.getQueryData<{
         pages: { list: Comment[]; nextCursor?: number }[];
-      }>(['userComments']);
+      }>(['comments', 'user']);
 
       queryClient.setQueryData<{ pages: { list: Comment[]; nextCursor?: number }[] }>(
-        ['userComments'],
+        ['comments', 'user'],
         (oldData) => {
           if (!oldData) return oldData;
           return {
@@ -90,12 +89,12 @@ export const useUpdateComment = () => {
 
     onError: (_, __, context) => {
       if (context?.previousComments) {
-        queryClient.setQueryData(['userComments'], context.previousComments);
+        queryClient.setQueryData(['comments', 'user'], context.previousComments);
       }
     },
 
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['userComments'] });
+      queryClient.invalidateQueries({ queryKey: ['comments', 'user'] });
     },
   });
 };
