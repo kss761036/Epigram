@@ -35,3 +35,14 @@
 //     }
 //   }
 // }
+
+Cypress.Commands.add('login', () => {
+  const email = Cypress.env('test_email');
+  const password = Cypress.env('test_password');
+
+  cy.visit('/login');
+
+  cy.get('[name="email"]').type(email);
+  cy.get('[name="password"]').type(password);
+  cy.get('form').submit();
+});
