@@ -1,4 +1,15 @@
 describe('회원가입 페이지', () => {
+  describe('로그인 유무 체크', () => {
+    it('세션이 있을경우, 루트 페이지로 이동한다.', () => {
+      cy.login();
+
+      cy.wait(400);
+
+      cy.visit('/login');
+      cy.url().should('eq', `${Cypress.config().baseUrl}/`);
+    });
+  });
+
   beforeEach(() => {
     cy.visit('/signup');
   });
