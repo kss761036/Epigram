@@ -10,7 +10,7 @@ import { format } from 'date-fns';
 
 export const useEmotionLogToday = (userId: number | null) => {
   return useQuery({
-    queryKey: ['emotionLogToday', userId],
+    queryKey: ['emotion', 'today', userId],
     queryFn: () => (userId ? getEmotionLogToday({ userId }) : Promise.resolve(null)),
     enabled: userId !== null,
     retryOnMount: false,
@@ -23,7 +23,7 @@ export const useCreateEmotionLog = (userId: number | null) => {
     mutationFn: (data: { emotion: Emotion }) => createEmotionLogToday(data),
     onSuccess: () => {
       if (userId !== null) {
-        queryClient.invalidateQueries({ queryKey: ['emotionLogToday', userId] });
+        queryClient.invalidateQueries({ queryKey: ['emotion', 'today', userId] });
       }
     },
   });
@@ -34,7 +34,7 @@ export const useEmotionLogsMonthly = (userId: number | null) => {
   const queryClient = useQueryClient();
 
   const { data = {} } = useQuery({
-    queryKey: ['emotionLogsMonthly', userId, currentMonth],
+    queryKey: ['emotion', 'monthly', userId, currentMonth],
     queryFn: async () => {
       if (!userId) return {};
 
@@ -53,7 +53,7 @@ export const useEmotionLogsMonthly = (userId: number | null) => {
 
   const refetchLogs = () => {
     if (userId) {
-      queryClient.invalidateQueries({ queryKey: ['emotionLogsMonthly', userId] });
+      queryClient.invalidateQueries({ queryKey: ['emotion', 'monthly', userId, currentMonth] });
     }
   };
 
