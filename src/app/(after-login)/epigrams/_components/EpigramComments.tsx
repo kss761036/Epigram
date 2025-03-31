@@ -12,11 +12,11 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import type { FieldErrors } from 'react-hook-form';
 
-interface EpigramCommentslProps {
+interface EpigramCommentsProps {
   id: Epigram['id'];
 }
 
-export default function EpigramComments({ id }: EpigramCommentslProps) {
+export default function EpigramComments({ id }: EpigramCommentsProps) {
   const methods = useForm<CommentFormValues>({
     resolver: zodResolver(commentSchema),
     defaultValues: {
