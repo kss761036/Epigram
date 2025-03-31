@@ -6,7 +6,7 @@ export const useUserCommentsByIdInFiniteQuery = (
   params: Omit<PaginationQueryParams, 'cursor'> & { userId: number },
 ) => {
   return useInfiniteQuery({
-    queryKey: ['userComments', params],
+    queryKey: ['comments', 'user', params.userId, params],
     queryFn: ({ pageParam }: { pageParam: number | undefined }) =>
       getUserCommentsById(params.userId, { ...params, cursor: pageParam }),
     initialPageParam: undefined,
