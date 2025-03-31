@@ -10,7 +10,7 @@ interface ErrorFallbackProps {
 
 export default function ErrorFallback({ title, content }: ErrorFallbackProps) {
   return (
-    <div className='bg-bg flex min-h-dvh items-center justify-center text-center'>
+    <div data-scroll-reset className='bg-bg flex min-h-dvh items-center justify-center text-center'>
       <div className='w-full max-w-xs rounded-3xl bg-white p-12'>
         <div className='mb-16'>
           <Image src={Logo} alt='epigram' className='mx-auto mb-6 h-8 w-auto' />

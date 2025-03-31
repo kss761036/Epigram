@@ -13,7 +13,7 @@ import IconKakao from '@/assets/img/auth/icon-kakao.svg';
 export default function AuthWrapper({ children }: PropsWithChildren) {
   return (
     <div className='bg-bg'>
-      <Inner className='flex min-h-dvh flex-col justify-center py-14 lg:py-20'>
+      <Inner data-scroll-reset className='flex min-h-dvh flex-col justify-center py-14 lg:py-20'>
         <AuthHeader />
         <AuthBody>{children}</AuthBody>
         <AuthFooter />

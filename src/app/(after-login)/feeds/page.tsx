@@ -90,7 +90,7 @@ export default function FeedPage() {
 
   return (
     <>
-      <div className='bg-bg min-h-dvh py-8'>
+      <div data-scroll-reset className='bg-bg min-h-dvh py-8'>
         <div className='mx-auto px-6 md:px-19 lg:max-w-7xl'>
           <Section>
             <SectionTitle>피드</SectionTitle>
