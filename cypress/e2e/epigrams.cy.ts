@@ -8,8 +8,10 @@ describe('메인 페이지 (/epigrams)', () => {
 
   describe('메인 페이지 기능 검증', () => {
     beforeEach(() => {
-      cy.login();
-      cy.wait(400);
+      cy.session('user-session', () => {
+        cy.login();
+      });
+
       cy.visit('/epigrams');
     });
 
