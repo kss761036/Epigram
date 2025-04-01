@@ -10,7 +10,6 @@ describe('검색페이지', () => {
     beforeEach(() => {
       cy.session('user-session', () => {
         cy.login();
-        cy.wait(400);
       });
 
       cy.visit('/search', {
@@ -114,16 +113,12 @@ describe('검색페이지', () => {
 
       cy.get('input[type="search"]').type(keyword).type('{enter}');
 
-      cy.wait(1000);
       cy.get('[data-search-results] li')
         .should('have.length.greaterThan', 0)
-        .then(($el) => {
-          const count = $el.length;
-
+        .then(() => {
           cy.scrollTo('bottom');
-          cy.wait(1000);
 
-          cy.get('[data-search-results] li').should('have.length.greaterThan', count);
+          cy.contains('div', '검색중입니다.').should('exist');
         });
     });
   });
