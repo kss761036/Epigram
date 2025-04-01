@@ -99,6 +99,25 @@ export const useUpdateComment = () => {
   });
 };
 
-export const createEpigramComment = (epigramId: number, content: string, isPrivate: boolean) => {
-  return createComment({ epigramId, content, isPrivate });
+export const useCreateComment = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({
+      epigramId,
+      content,
+      isPrivate,
+    }: {
+      epigramId: number;
+      content: string;
+      isPrivate: boolean;
+    }) => createComment({ epigramId, content, isPrivate }),
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['comments', 'user'] });
+    },
+
+    onError: (error) => {
+      console.error('댓글 생성 실패:', error);
+    },
+  });
 };
