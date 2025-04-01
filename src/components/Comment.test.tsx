@@ -1,6 +1,10 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import Comment from './Comment';
 
+jest.mock('next/navigation', () => ({
+  usePathname: () => '/epigrams',
+}));
+
 describe('댓글 컴포넌트', () => {
   const mockHandleEdit = jest.fn();
   const mockHandleDelete = jest.fn();
