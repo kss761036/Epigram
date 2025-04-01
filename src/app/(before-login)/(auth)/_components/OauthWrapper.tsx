@@ -1,11 +1,7 @@
 import { PropsWithChildren } from 'react';
 
 export default function OauthWrapper({ children }: PropsWithChildren) {
-  return (
-    <div data-scroll-reset className='bg-bg flex min-h-dvh items-center justify-center'>
-      {children}
-    </div>
-  );
+  return <div className='bg-bg flex min-h-dvh items-center justify-center'>{children}</div>;
 }
 
 export function OauthLoading({ children }: PropsWithChildren) {
