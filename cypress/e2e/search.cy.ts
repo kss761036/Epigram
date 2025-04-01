@@ -74,14 +74,12 @@ describe('검색페이지', () => {
       const keyword = '테스트';
       cy.get('[type="search"]').type(keyword).type('{enter}');
 
-      cy.get('[data-search-results] li')
-        .should('have.length.greaterThan', 0)
-        .then(() => {
-          cy.get('span.text-illust-blue')
-            .should('exist')
-            .each(($el) => {
-              cy.wrap($el).should('contain.text', keyword);
-            });
+      cy.get('[data-search-results] li').should('have.length.greaterThan', 0);
+
+      cy.get('span.text-illust-blue')
+        .should('exist')
+        .each(($el) => {
+          cy.wrap($el).should('contain.text', keyword);
         });
     });
 
