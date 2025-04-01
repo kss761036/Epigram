@@ -9,7 +9,7 @@ import { Section, SectionTitle } from '@/components/Section';
 import Spinner from '@/components/Spinner';
 
 export default function RecentEpigrams() {
-  const { data, isFetching, hasNextPage, fetchNextPage } = useEpigramInfiniteQuery({ limit: 5 });
+  const { data, isFetching, hasNextPage, fetchNextPage } = useEpigramInfiniteQuery({ limit: 3 });
   const results =
     data?.pages.flatMap((page, index) => (index === 0 ? page.list.slice(0, 3) : page.list)) ?? [];
 
