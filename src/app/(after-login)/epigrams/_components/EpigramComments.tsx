@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import CommentForm from '@/components/CommentForm';
 import { useQueryClient } from '@tanstack/react-query';
 import { useSession } from 'next-auth/react';
-import { createEpigramComment } from '@/apis/comment/comment.queries';
+import { useCreateComment } from '@/apis/comment/comment.queries';
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import type { FieldErrors } from 'react-hook-form';
@@ -36,17 +36,28 @@ export default function EpigramComments({ id }: EpigramCommentsProps) {
     fetchNextPage: fetchNextCommentPage,
   } = useFeedCommentsInFiniteQuery(id, commentQueryParams);
 
+  const { mutate: createComment, isPending: isCreatePending } = useCreateComment();
+
   const comments = commentData?.pages.flatMap((page) => page.list) ?? [];
 
-  const handleCreateComment = async (data: CommentFormValues) => {
-    try {
-      await createEpigramComment(id, data.content.trim(), data.isPrivate);
-      toast.success('댓글이 등록되었습니다');
-      methods.reset();
-      queryClient.invalidateQueries({ queryKey: ['comments', id, commentQueryParams] });
-    } catch (error) {
-      toast.error('댓글 등록에 실패했습니다');
-    }
+  const handleCreateComment = (data: CommentFormValues) => {
+    createComment(
+      {
+        epigramId: id,
+        content: data.content.trim(),
+        isPrivate: data.isPrivate,
+      },
+      {
+        onSuccess: () => {
+          toast.success('댓글이 생성되었습니다.');
+          methods.reset();
+          queryClient.invalidateQueries({ queryKey: ['comments'] });
+        },
+        onError: () => {
+          toast.error('댓글 생성에 실패했습니다.');
+        },
+      },
+    );
   };
 
   const handleCreateError = (errors: FieldErrors<CommentFormValues>) => {
@@ -71,7 +82,7 @@ export default function EpigramComments({ id }: EpigramCommentsProps) {
                 ? { nickname: session.user.nickname, image: session.user.image }
                 : { nickname: '', image: '' }
             }
-            isUpdatePending={false}
+            isUpdatePending={isCreatePending}
             handleSaveEdit={() => {}}
             handleCancelEdit={() => methods.reset()}
           />

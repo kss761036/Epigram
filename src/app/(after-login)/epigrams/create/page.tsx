@@ -8,28 +8,33 @@ import { CreateEpigramFormType } from '@/apis/epigram/epigram.type';
 import { Section } from '@/components/Section';
 import EpigramForm from '../_components/EpigramForm';
 import Inner from '@/components/Inner';
+import { useForm } from 'react-hook-form';
 
 export default function Page() {
   const router = useRouter();
-  const { mutate, isPending } = useMutation({
+  const { mutateAsync, isPending } = useMutation({
     mutationFn: createEpigram,
-    onSuccess: (data) => {
-      toast.success('에피그램이 작성되었습니다.');
-      router.push(`/epigrams/${data.id}`);
-    },
-    onError: (error) => {
-      console.error('에피그램 작성 실패:', error);
-      toast.error('에피그램 작성에 실패했습니다.');
-    },
   });
+  const methods = useForm();
+  const { reset } = methods;
 
   return (
     <Inner className='p-6 lg:py-8'>
       <Section>에피그램 만들기</Section>
       <EpigramForm
         mode='create'
-        onSubmit={(data: CreateEpigramFormType) => mutate(data)}
         isSubmitting={isPending}
+        onSubmit={async (data: CreateEpigramFormType) => {
+          try {
+            const result = await mutateAsync(data);
+            toast.success('에피그램이 작성되었습니다.');
+            reset();
+            router.push(`/epigrams/${result.id}`);
+          } catch (error) {
+            console.error('에피그램 작성 실패:', error);
+            toast.error('에피그램 작성에 실패했습니다.');
+          }
+        }}
       />
     </Inner>
   );
