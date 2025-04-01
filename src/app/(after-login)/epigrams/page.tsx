@@ -14,14 +14,14 @@ import FloatingButtons from '../_components/FloatingButtons';
 export default function Page() {
   const { data: session } = useSession();
   const userId = session?.user.id;
-  const { data: emotionLog, isLoading } = useEmotionLogToday(userId);
+  const { data: emotion, isLoading } = useEmotionLogToday(userId);
   const [showTodayMood, setShowTodayMood] = useState(false);
 
   useEffect(() => {
     if (!isLoading) {
-      setShowTodayMood(!emotionLog?.emotion);
+      setShowTodayMood(!emotion?.emotion);
     }
-  }, [emotionLog, isLoading]);
+  }, [emotion, isLoading]);
 
   if (isLoading) return <div className='bg-bg h-screen w-screen'></div>;
 
