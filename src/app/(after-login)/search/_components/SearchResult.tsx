@@ -37,7 +37,7 @@ export default function SearchResult({ keyword }: SearchResultProps) {
 
     return (
       <>
-        <ul>
+        <ul data-search-results>
           {results.map((item) => (
             <li key={item.id}>
               <SearchCard {...item} keyword={keyword} />
