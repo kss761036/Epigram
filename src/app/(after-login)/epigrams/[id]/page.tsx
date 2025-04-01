@@ -57,7 +57,7 @@ export default function Page() {
   };
 
   return (
-    <div className='bg-bg flex min-h-dvh flex-col gap-8 md:gap-10 lg:gap-12'>
+    <div className='bg-bg flex min-h-dvh flex-col gap-8 pb-30 md:gap-10 lg:gap-12'>
       <DetailWrapper>
         <DetailHeader
           tags={tags}

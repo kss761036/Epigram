@@ -6,6 +6,7 @@ import Avatar from './Avatar';
 import ProfileModal from './ProfileModal';
 import { cn } from '@/utils/helper';
 import { Epigram } from '@/apis/epigram/epigram.type';
+import { usePathname } from 'next/navigation';
 
 interface CommentProps {
   epigramId: Epigram['id'];
@@ -32,14 +33,18 @@ export default function Comment({
   isOwnComment = true,
 }: CommentProps) {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const pathname = usePathname();
+  const isDetailPage = pathname.startsWith('/epigrams/');
 
   const handleCommentClick = () => {
+    if (isDetailPage) return;
     window.location.href = `/epigrams/${epigramId}`;
   };
 
   const classes = {
     commentWrapper: cn(
-      'border-line-200 flex items-start border-t px-6 py-4 text-left md:py-6 lg:py-9 cursor-pointer',
+      'border-line-200 flex items-start border-t px-6 py-4 text-left md:py-6 lg:py-9',
+      !isDetailPage && 'cursor-pointer',
       className,
     ),
     commentBox: 'ml-4 flex-1',

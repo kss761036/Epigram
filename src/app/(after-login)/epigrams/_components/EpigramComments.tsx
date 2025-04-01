@@ -40,6 +40,8 @@ export default function EpigramComments({ id }: EpigramCommentsProps) {
 
   const comments = commentData?.pages.flatMap((page) => page.list) ?? [];
 
+  const totalCount = commentData?.pages[0]?.totalCount ?? 0;
+
   const handleCreateComment = (data: CommentFormValues) => {
     createComment(
       {
@@ -69,7 +71,7 @@ export default function EpigramComments({ id }: EpigramCommentsProps) {
   return (
     <>
       <h2 className='mb-4 text-[16px] leading-7 font-semibold md:mb-6 lg:text-[20px]'>
-        댓글 ({comments.length})
+        댓글 ({totalCount})
       </h2>
       <FormProvider {...methods}>
         <form
