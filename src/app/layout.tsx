@@ -6,6 +6,7 @@ import QueryClientProvider from '@/context/QueryProvider';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '@/assets/css/globals.css';
+import ScrollToTop from '@/components/ScrollToTop';
 
 const pretendard = localFont({
   src: '../assets/fonts/PretendardVariable.woff2',
@@ -28,6 +29,7 @@ export default function RootLayout({
   return (
     <html lang='ko'>
       <body className={`${pretendard.className} ${iropke.variable}`}>
+        <ScrollToTop />
         <AuthSession>
           <QueryClientProvider>
             {children}
