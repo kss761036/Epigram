@@ -23,7 +23,7 @@ export const useCreateEmotionLog = (userId: number | null) => {
     mutationFn: (data: { emotion: Emotion }) => createEmotionLogToday(data),
     onSuccess: () => {
       if (userId !== null) {
-        queryClient.invalidateQueries({ queryKey: ['emotion', 'today', userId] });
+        queryClient.invalidateQueries({ queryKey: ['emotion'] });
       }
     },
   });
