@@ -27,7 +27,7 @@ export default function TodayMood({ label, containerClassName, labelClassName }:
         { emotion },
         {
           onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['emotion', userId] });
+            queryClient.invalidateQueries({ queryKey: ['emotion'] });
           },
         },
       );
