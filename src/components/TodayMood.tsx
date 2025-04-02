@@ -18,7 +18,7 @@ export default function TodayMood({ label, containerClassName, labelClassName }:
   const queryClient = useQueryClient();
   const userId = session?.user?.id;
 
-  const { data: emotionLog } = useEmotionLogToday(userId);
+  const { data: emotion } = useEmotionLogToday(userId);
   const mutation = useCreateEmotionLog(userId);
 
   const handleClick = (emotion: Emotion) => {
@@ -27,14 +27,14 @@ export default function TodayMood({ label, containerClassName, labelClassName }:
         { emotion },
         {
           onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['emotionLogsMonthly', userId] });
+            queryClient.invalidateQueries({ queryKey: ['emotion'] });
           },
         },
       );
     }
   };
 
-  const selectedEmotion = emotionLog?.emotion || null;
+  const selectedEmotion = emotion?.emotion || null;
 
   return (
     <>
