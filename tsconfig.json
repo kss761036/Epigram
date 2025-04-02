@@ -20,8 +20,9 @@
     ],
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "composite": true,
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "__tests__/**/*.ts", "__tests__/**/*.tsx", "src/app/api/auth/[...nextauth]/route.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "cypress", "cypress.config.ts", "**/*.cy.ts", "**/*.cy.tsx"]
 }
