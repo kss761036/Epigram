@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react';
 import { useEpigram } from '@/apis/epigram/epigram.queries';
 import Inner from '@/components/Inner';
 import DeleteModal from '@/components/DeleteModal';
+import EtcButton from '@/components/EtcButton';
 import EpigramComments from '../_components/EpigramComments';
 import {
   DeatailFooter,
@@ -53,6 +54,10 @@ export default function Page() {
   };
 
   const handleLike = () => {
+    if (!session) {
+      return alert('로그인이 필요합니다.');
+    }
+
     return !isLiked ? like.mutate() : disLike.mutate();
   };
 
@@ -82,9 +87,18 @@ export default function Page() {
         isSubmitting={remove.isPending}
       />
 
-      <Inner>
-        <EpigramComments id={id} />
-      </Inner>
+      {session ? (
+        <Inner>
+          <EpigramComments id={id} />
+        </Inner>
+      ) : (
+        <div className='text-black-600 flex flex-col items-center justify-center gap-8 py-16'>
+          댓글을 보려면 로그인이 필요합니다.
+          <EtcButton variant='outlined' href='/login' size='default'>
+            로그인하기
+          </EtcButton>
+        </div>
+      )}
     </div>
   );
 }

@@ -59,9 +59,9 @@ export default function AfterLoginHeader() {
             ))}
           </ul>
 
-          <Link href='/mypage' className='ml-auto flex items-center gap-1.5'>
-            {session && (
-              <>
+          <div className='ml-auto'>
+            {session ? (
+              <Link href='/mypage' className='flex items-center gap-1.5'>
                 <Avatar
                   src={session.user.image}
                   alt={String(session.user.nickname)}
@@ -70,9 +70,13 @@ export default function AfterLoginHeader() {
                 <span className='text-[13px] leading-none text-gray-300 lg:text-[16px]'>
                   {session.user.nickname}
                 </span>
-              </>
+              </Link>
+            ) : (
+              <Link href='/login' className='text-[14px] leading-relaxed font-semibold'>
+                로그인
+              </Link>
             )}
-          </Link>
+          </div>
         </div>
       </header>
       <AnimatePresence mode='wait'>
