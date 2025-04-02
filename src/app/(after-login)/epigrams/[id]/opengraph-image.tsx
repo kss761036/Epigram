@@ -1,7 +1,4 @@
 import { ImageResponse } from 'next/og';
-import { readFile } from 'node:fs/promises';
-import { join } from 'node:path';
-import { getEpigramDetailsOnServer } from '@/apis/epigram/epigram.service';
 import { truncateText } from '@/utils/truncateText';
 
 export const contentType = 'image/png';
@@ -11,16 +8,46 @@ export const size = {
   height: 630,
 };
 
+function getHost() {
+  return process.env.NODE_ENV === 'production'
+    ? 'https://epigram-gilv.vercel.app'
+    : 'http://localhost:3000';
+}
+
 export default async function Image({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const iropke = await readFile(join(process.cwd(), 'src/assets/fonts/IropkeBatang.woff'));
-  let renderText = '에피그램';
+  const HOST = getHost();
+  const API_URL = 'https://fe-project-epigram-api.vercel.app/12-4';
+
+  let iropke: ArrayBuffer | undefined;
+  let bgBase64: string | undefined;
+  let content = '에피그램';
 
   try {
-    const { content } = await getEpigramDetailsOnServer(Number(id));
-    renderText = content;
-  } catch (error) {
-    console.error(error);
+    const [fontRes, bgRes, dataRes] = await Promise.all([
+      fetch(`${HOST}/IropkeBatang.woff`),
+      fetch(`${HOST}/open-bg.png`),
+      fetch(`${API_URL}/epigrams/${id}`),
+    ]);
+
+    if (!fontRes.ok) throw new Error('Font fetch failed');
+    if (!bgRes.ok) throw new Error('Background fetch failed');
+    if (!dataRes.ok) throw new Error('Data fetch failed');
+
+    const [font, bg, data] = await Promise.all([
+      fontRes.arrayBuffer(),
+      bgRes.arrayBuffer(),
+      dataRes.json(),
+    ]);
+
+    iropke = font;
+    bgBase64 = `data:image/png;base64,${Buffer.from(bg).toString('base64')}`;
+
+    if (data.content) {
+      content = truncateText(data.content, 8);
+    }
+  } catch (err) {
+    console.error('Fail to generate og-image', err);
   }
 
   return new ImageResponse(
@@ -35,24 +62,27 @@ export default async function Image({ params }: { params: Promise<{ id: string }
           fontSize: 100,
           fontWeight: 'bold',
           color: 'black',
-          backgroundImage: `url(${process.env.APP_URL}/open-bg.png)`,
+          backgroundImage: bgBase64 ? `url(${bgBase64})` : undefined,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
+          backgroundColor: '#fafafa',
         }}
       >
-        {truncateText(renderText, 8)}
+        {content}
       </div>
     ),
     {
       ...size,
-      fonts: [
-        {
-          name: 'Iropke',
-          data: iropke,
-          style: 'normal',
-          weight: 400,
-        },
-      ],
+      fonts: iropke
+        ? [
+            {
+              name: 'Iropke',
+              data: iropke,
+              style: 'normal',
+              weight: 400,
+            },
+          ]
+        : [],
     },
   );
 }
