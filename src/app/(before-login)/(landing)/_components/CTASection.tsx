@@ -31,19 +31,17 @@ export default function CTASection() {
           initial='offscreen'
           whileInView='onscreen'
           viewport={{ once: false, amount: 0.5, margin: '300px 0px 0px 0px' }}
-          className='flex flex-col items-center'
+          className='mb-[270px] flex flex-col items-center md:mb-[198px] lg:mb-[400px]'
         >
           <Image
             src={EveryDay}
             alt='날마다 에피그램'
-            className='mt-[180px] lg:mt-[420px] xl:h-[105px] xl:w-[184px]'
+            className='mt-[180px] mb-[32px] lg:mt-[420px] lg:mb-[48px] xl:h-[105px] xl:w-[184px]'
             width={122}
             height={70}
           />
           <Link href={'/epigrams'}>
-            <Button className='mt-[32px] mb-[270px] w-[88px] md:mb-[198px] md:w-[112px] lg:mt-[48px] lg:mb-[400px] lg:w-[286px]'>
-              시작하기
-            </Button>
+            <Button className='w-[88px] md:w-[112px] lg:w-[286px]'>시작하기</Button>
           </Link>
         </motion.div>
       </div>
