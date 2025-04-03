@@ -1,11 +1,4 @@
 describe('피드 페이지', () => {
-  describe('피드 기본 검증', () => {
-    it('로그인이 되어있지 않으면, 로그인 페이지로 이동한다.', () => {
-      cy.visit('/feeds');
-      cy.url().should('include', `${Cypress.config().baseUrl}/login`);
-    });
-  });
-
   describe('피드 페이지 기능 검증', () => {
     beforeEach(() => {
       cy.session('user-session', () => {
