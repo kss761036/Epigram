@@ -37,4 +37,10 @@ describe('formatTime', () => {
     const result = formatTime(oneDayAgo);
     expect(result).toBe('1일 전');
   });
+
+  it('유효하지 않은 날짜가 들어오면 에러를 던져야 함', () => {
+    expect(() => formatTime('2024/11/32')).toThrow(
+      'formatTime: 유효하지 않은 날짜 형식입니다. 입력값: 2024/11/32',
+    );
+  });
 });
