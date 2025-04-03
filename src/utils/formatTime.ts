@@ -1,10 +1,6 @@
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import 'dayjs/locale/ko';
-
-dayjs.extend(relativeTime);
-dayjs.locale('ko');
+import { formatDistanceToNow } from 'date-fns';
+import { ko } from 'date-fns/locale';
 
 export default function formatTime(date: string): string {
-  return dayjs(date).fromNow();
+  return formatDistanceToNow(new Date(date), { addSuffix: true, locale: ko });
 }
