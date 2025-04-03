@@ -2,6 +2,9 @@ import { ImageResponse } from 'next/og';
 import { headers } from 'next/headers';
 import { truncateText } from '@/utils/truncateText';
 
+/**
+ * OG 이미지 필수 export
+ */
 export const contentType = 'image/png';
 export const alt = '에피그램';
 export const size = {
@@ -9,6 +12,9 @@ export const size = {
   height: 630,
 };
 
+/**
+ * OG 이미지 스타일 설정값 및 API 경로
+ */
 const API_URL = 'https://fe-project-epigram-api.vercel.app/12-4';
 const FONT_PATH = '/IropkeBatang.woff';
 const FONT_NAME = 'Iropke';
@@ -53,8 +59,8 @@ export default async function Image({ params }: { params: Promise<{ id: string }
     if (data.content) {
       content = truncateText(data.content, CONTENT_MAX_LENGTH);
     }
-  } catch (err) {
-    console.error('Fail to generate og-image', err);
+  } catch (error) {
+    console.error('Fail to generate og-image', error);
   }
 
   return new ImageResponse(
