@@ -1,6 +1,10 @@
 import { ImageResponse } from 'next/og';
+import { headers } from 'next/headers';
 import { truncateText } from '@/utils/truncateText';
 
+/**
+ * OG 이미지 필수 export
+ */
 export const contentType = 'image/png';
 export const alt = '에피그램';
 export const size = {
@@ -8,25 +12,34 @@ export const size = {
   height: 630,
 };
 
-function getHost() {
-  return process.env.NODE_ENV === 'production'
-    ? 'https://epigram-gilv.vercel.app'
-    : 'http://localhost:3000';
-}
+/**
+ * OG 이미지 스타일 설정값 및 API 경로
+ */
+const API_URL = 'https://fe-project-epigram-api.vercel.app/12-4';
+const FONT_PATH = '/IropkeBatang.woff';
+const FONT_NAME = 'Iropke';
+const FONT_SIZE = 100;
+const FONT_COLOR = 'black';
+const BG_PATH = '/open-bg.png';
+const BG_COLOR = '#fafafa';
+const FALLBACK_CONTENT = '에피그램';
+const CONTENT_MAX_LENGTH = 8;
 
 export default async function Image({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const HOST = getHost();
-  const API_URL = 'https://fe-project-epigram-api.vercel.app/12-4';
+  const headersList = await headers();
+  const host = headersList.get('host');
+  const protocol = host?.includes('localhost') ? 'http' : 'https';
+  const APP_URL = `${protocol}://${host}`;
 
-  let iropke: ArrayBuffer | undefined;
+  let fontData: ArrayBuffer | undefined;
   let bgBase64: string | undefined;
-  let content = '에피그램';
+  let content = FALLBACK_CONTENT;
 
   try {
     const [fontRes, bgRes, dataRes] = await Promise.all([
-      fetch(`${HOST}/IropkeBatang.woff`),
-      fetch(`${HOST}/open-bg.png`),
+      fetch(`${APP_URL}/${FONT_PATH}`),
+      fetch(`${APP_URL}/${BG_PATH}`),
       fetch(`${API_URL}/epigrams/${id}`),
     ]);
 
@@ -40,14 +53,14 @@ export default async function Image({ params }: { params: Promise<{ id: string }
       dataRes.json(),
     ]);
 
-    iropke = font;
+    fontData = font;
     bgBase64 = `data:image/png;base64,${Buffer.from(bg).toString('base64')}`;
 
     if (data.content) {
-      content = truncateText(data.content, 8);
+      content = truncateText(data.content, CONTENT_MAX_LENGTH);
     }
-  } catch (err) {
-    console.error('Fail to generate og-image', err);
+  } catch (error) {
+    console.error('Fail to generate og-image', error);
   }
 
   return new ImageResponse(
@@ -59,13 +72,12 @@ export default async function Image({ params }: { params: Promise<{ id: string }
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          fontSize: 100,
-          fontWeight: 'bold',
-          color: 'black',
+          fontSize: FONT_SIZE,
+          color: FONT_COLOR,
           backgroundImage: bgBase64 ? `url(${bgBase64})` : undefined,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          backgroundColor: '#fafafa',
+          backgroundColor: BG_COLOR,
         }}
       >
         {content}
@@ -73,11 +85,11 @@ export default async function Image({ params }: { params: Promise<{ id: string }
     ),
     {
       ...size,
-      fonts: iropke
+      fonts: fontData
         ? [
             {
-              name: 'Iropke',
-              data: iropke,
+              name: FONT_NAME,
+              data: fontData,
               style: 'normal',
               weight: 400,
             },
