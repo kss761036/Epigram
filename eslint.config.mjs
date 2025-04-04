@@ -2,7 +2,6 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { FlatCompat } from '@eslint/eslintrc';
 import importPlugin from 'eslint-plugin-import';
-import unusedImportsPlugin from 'eslint-plugin-unused-imports';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -22,7 +21,6 @@ const eslintConfig = [
   {
     plugins: {
       import: importPlugin,
-      'unused-imports': unusedImportsPlugin,
     },
     rules: {
       'import/order': [
@@ -64,9 +62,16 @@ const eslintConfig = [
       ],
 
       'prettier/prettier': 'off',
-      'unused-imports/no-unused-imports': 'warn',
-      '@typescript-eslint/no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        {
+          vars: 'all',
+          args: 'none',
+          ignoreRestSiblings: true,
+        },
+      ],
       'no-unused-vars': 'off',
+
       'no-warning-comments': [
         'error',
         {
