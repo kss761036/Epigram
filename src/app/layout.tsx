@@ -1,11 +1,11 @@
 import { Metadata } from 'next';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, Slide } from 'react-toastify';
 import localFont from 'next/font/local';
+import ScrollToTop from '@/components/ScrollToTop';
 import QueryClientProvider from '@/context/QueryProvider';
 import AuthSession from '../context/AuthSession';
 import 'react-toastify/dist/ReactToastify.css';
 import '@/assets/css/globals.css';
-import ScrollToTop from '@/components/ScrollToTop';
 
 const pretendard = localFont({
   src: '../assets/fonts/PretendardVariable.woff2',
@@ -39,7 +39,33 @@ export default function RootLayout({
           <QueryClientProvider>
             {children}
             <div id='portal-root' />
-            <ToastContainer />
+            <ToastContainer
+              toastStyle={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: 'fit-content',
+                backgroundColor: 'var(--color-black-700)',
+                color: 'var(--color-blue-100)',
+                borderRadius: '12px',
+                padding: '10px 28px',
+                minHeight: 'unset',
+                minWidth: 'unset',
+                marginBottom: '60px',
+              }}
+              toastClassName='text-md lg:text-lg'
+              position='bottom-center'
+              autoClose={2000}
+              closeButton={false}
+              hideProgressBar
+              newestOnTop={false}
+              pauseOnFocusLoss
+              draggable
+              closeOnClick={true}
+              pauseOnHover
+              transition={Slide}
+              limit={3}
+            />
           </QueryClientProvider>
         </AuthSession>
       </body>
