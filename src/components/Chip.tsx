@@ -1,5 +1,5 @@
-import { cn } from '@/utils/helper';
 import { HTMLAttributes } from 'react';
+import { cn } from '@/utils/helper';
 import Icon from './Icon';
 
 interface ChipProps extends HTMLAttributes<HTMLSpanElement> {

@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react';
 import { motion } from 'motion/react';
-import Inner from '@/components/Inner';
 import paperBackground from '@/assets/img/common/paper.svg';
+import Inner from '@/components/Inner';
 
 export function DetailWrapper({ children }: PropsWithChildren) {
   return (

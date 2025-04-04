@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { AnimatePresence, motion } from 'motion/react';
-import Chart from './Chart';
-import Emoji from './Emoji';
 import { Emotion, EMOTION_LABEL } from '@/types/common';
 import { getPercentage } from '@/utils/getPercentage';
+import Chart from './Chart';
+import Emoji from './Emoji';
 
 const tempData = { MOVED: 10, HAPPY: 8, WORRIED: 6, SAD: 5, ANGRY: 3 };
 const sortedData = (Object.entries(tempData) as [Emotion, number][]).sort(([, a], [, b]) => b - a);

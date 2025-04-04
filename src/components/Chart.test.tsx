@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import Chart from './Chart';
 
 jest.mock('react-chartjs-2', () => ({

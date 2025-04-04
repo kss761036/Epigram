@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
+import { Emotion } from '@/types/common';
 import EmotionFilter from './EmotionFilter';
-import { EMOTION, Emotion } from '@/types/common';
 
 const meta: Meta<typeof EmotionFilter> = {
   component: EmotionFilter,

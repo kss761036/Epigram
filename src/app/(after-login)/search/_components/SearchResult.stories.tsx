@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
-import SearchResult from './SearchResult';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import SearchResult from './SearchResult';
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { staleTime: Infinity, refetchOnMount: true } },

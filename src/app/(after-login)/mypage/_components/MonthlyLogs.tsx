@@ -1,14 +1,14 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useSession } from 'next-auth/react';
 import { useEmotionLogsMonthly } from '@/apis/emotion/emotion.queries';
-import { Emotion, EMOTION_LABEL } from '@/types/common';
 import Calendar from '@/components/Calendar';
 import Chart from '@/components/Chart';
 import Emoji from '@/components/Emoji';
+import { Emotion, EMOTION_LABEL } from '@/types/common';
 import { getPercentage } from '@/utils/getPercentage';
-import { motion, AnimatePresence } from 'framer-motion';
 
 const emotionColors: Record<Emotion, string> = {
   MOVED: '#48BB98',

@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
+import { getServerSession } from 'next-auth';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { getServerSession } from 'next-auth';
 import { authOptions } from '@/utils/nextauth';
 import AuthWrapper from '../_components/AuthWrapper';
 import LoginForm from '../_components/LoginForm';

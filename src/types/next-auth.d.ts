@@ -1,4 +1,6 @@
+// NOTE: 타입 선언 확장을 위해 반드시 import 필요 (실제 사용 X)
 import NextAuth from 'next-auth';
+
 declare module 'next-auth' {
   interface User {
     error?: string;

@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
 import axios, { Method } from 'axios';
+import { NextRequest, NextResponse } from 'next/server';
 import { axiosServerInstance } from '@/utils/axios';
 
 const METHODS_WITHOUT_BODY = ['GET', 'DELETE', 'HEAD', 'OPTIONS'];

@@ -1,8 +1,8 @@
 'use client';
 
-import { cn } from '@/utils/helper';
 import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { cn } from '@/utils/helper';
 
 interface TabListProps {
   children: React.ReactNode;

@@ -1,8 +1,8 @@
 'use client';
 
+import Link from 'next/link';
 import { Epigram } from '@/apis/epigram/epigram.type';
 import { cn } from '@/utils/helper';
-import Link from 'next/link';
 
 interface CardProps extends Epigram {
   className?: string;

@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { cn } from '@/utils/helper';
 import { Epigram } from '@/apis/epigram/epigram.type';
+import { cn } from '@/utils/helper';
 
 interface SearchCardProps extends Epigram {
   className?: string;

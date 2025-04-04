@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   format,
   startOfMonth,
@@ -12,11 +12,11 @@ import {
   subMonths,
 } from 'date-fns';
 import { ko } from 'date-fns/locale';
-import Icon from './Icon';
-import Emoji from './Emoji';
 import { Emotion } from '@/types/common';
 import { cn } from '@/utils/helper';
+import Emoji from './Emoji';
 import EmotionFilter from './EmotionFilter';
+import Icon from './Icon';
 
 export interface CalendarProps {
   moodData?: { [dateString: string]: Emotion };

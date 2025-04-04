@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Meta, StoryObj } from '@storybook/react';
 import { useArgs } from '@storybook/preview-api';
+import { Meta, StoryObj } from '@storybook/react';
 import DeleteModal from './DeleteModal';
 
 const meta: Meta<typeof DeleteModal> = {

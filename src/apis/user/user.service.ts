@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { UpdateUserForm, UploadImageForm, UploadImageReponse, User } from './user.type';
 import { PaginationQueryParams, PaginationResponse } from '@/types/common';
 import { Comment } from '../comment/comment.type';
+import { UpdateUserForm, UploadImageForm, UploadImageReponse, User } from './user.type';
 
 /**
  * 내정보 조회

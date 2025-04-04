@@ -1,15 +1,15 @@
 'use client';
 
 import { useEffect } from 'react';
+import { signIn } from 'next-auth/react';
 import Image from 'next/image';
 import { redirect, useSearchParams } from 'next/navigation';
-import { signIn } from 'next-auth/react';
+import IconGoogle from '@/assets/img/auth/icon-google.svg';
 import OauthWrapper, {
   OauthIcon,
   OauthLoading,
   OauthMessage,
 } from '../../_components/OauthWrapper';
-import IconGoogle from '@/assets/img/auth/icon-google.svg';
 
 export default function GoogleCallback() {
   const searchParams = useSearchParams();

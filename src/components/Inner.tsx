@@ -1,5 +1,5 @@
-import { cn } from '@/utils/helper';
 import { HTMLAttributes, PropsWithChildren } from 'react';
+import { cn } from '@/utils/helper';
 
 export default function Inner({
   className,

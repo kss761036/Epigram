@@ -1,12 +1,12 @@
 'use client';
 
 import { useEpigramInfiniteQuery } from '@/apis/epigram/epigram.queries';
-import { cn } from '@/utils/helper';
 import Card from '@/components/Card';
 import EtcButton from '@/components/EtcButton';
 import Icon from '@/components/Icon';
 import { Section, SectionTitle } from '@/components/Section';
 import Spinner from '@/components/Spinner';
+import { cn } from '@/utils/helper';
 
 export default function RecentEpigrams() {
   const { data, isFetching, hasNextPage, fetchNextPage } = useEpigramInfiniteQuery({ limit: 5 });

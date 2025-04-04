@@ -1,4 +1,4 @@
-import { describe, test, expect } from '@jest/globals';
+import { describe, expect } from '@jest/globals';
 import { getPercentage } from './getPercentage';
 
 describe('getPercentage 함수 테스트', () => {

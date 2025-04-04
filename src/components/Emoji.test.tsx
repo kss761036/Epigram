@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
-import Emoji from './Emoji';
 import { EMOTION } from '@/types/common';
+import Emoji from './Emoji';
 
 describe('Emoji 컴포넌트 테스트', () => {
   it('아이콘 데이터에 없는 이름을 넣을시 경고와 함께 null을 반환한다.', () => {

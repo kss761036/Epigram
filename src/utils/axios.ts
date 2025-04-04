@@ -1,10 +1,10 @@
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 import { getServerSession } from 'next-auth';
 import { encode } from 'next-auth/jwt';
 import { cookies } from 'next/headers';
-import { jwtDecode } from 'jwt-decode';
-import { authOptions } from './nextauth';
 import { refreshAccessToken } from '@/apis/auth/auth.service';
+import { authOptions } from './nextauth';
 
 export const axiosServerInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,

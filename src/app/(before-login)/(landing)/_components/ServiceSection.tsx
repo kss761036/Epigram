@@ -1,21 +1,21 @@
 'use client';
 
-import SectionImg1Mo from '@/assets/img/landing/SectionImg1Mo.svg';
-import SectionImg1Tab from '@/assets/img/landing/SectionImg1Tab.svg';
-import SectionImg1PC from '@/assets/img/landing/SectionImg1PC.svg';
-import SectionImg2Mo from '@/assets/img/landing/SectionImg2Mo.svg';
-import SectionImg2Tab from '@/assets/img/landing/SectionImg2Tab.svg';
-import SectionImg2PC from '@/assets/img/landing/SectionImg2PC.svg';
-import SectionImg3Mo from '@/assets/img/landing/SectionImg3Mo.svg';
-import SectionImg3Tab from '@/assets/img/landing/SectionImg3Tab.svg';
-import SectionImg3PC from '@/assets/img/landing/SectionImg3PC.svg';
-import SectionImg4Mo from '@/assets/img/landing/SectionImg4Mo.svg';
-import SectionImg4Tab from '@/assets/img/landing/SectionImg4Tab.svg';
-import SectionImg4PC from '@/assets/img/landing/SectionImg4PC.svg';
-import Image from 'next/image';
-import { useMediaQuery } from 'react-responsive';
 import React, { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
+import { useMediaQuery } from 'react-responsive';
+import Image from 'next/image';
+import SectionImg1Mo from '@/assets/img/landing/SectionImg1Mo.svg';
+import SectionImg1PC from '@/assets/img/landing/SectionImg1PC.svg';
+import SectionImg1Tab from '@/assets/img/landing/SectionImg1Tab.svg';
+import SectionImg2Mo from '@/assets/img/landing/SectionImg2Mo.svg';
+import SectionImg2PC from '@/assets/img/landing/SectionImg2PC.svg';
+import SectionImg2Tab from '@/assets/img/landing/SectionImg2Tab.svg';
+import SectionImg3Mo from '@/assets/img/landing/SectionImg3Mo.svg';
+import SectionImg3PC from '@/assets/img/landing/SectionImg3PC.svg';
+import SectionImg3Tab from '@/assets/img/landing/SectionImg3Tab.svg';
+import SectionImg4Mo from '@/assets/img/landing/SectionImg4Mo.svg';
+import SectionImg4PC from '@/assets/img/landing/SectionImg4PC.svg';
+import SectionImg4Tab from '@/assets/img/landing/SectionImg4Tab.svg';
 
 export default function ServiceSection() {
   const slideRightVariants = {

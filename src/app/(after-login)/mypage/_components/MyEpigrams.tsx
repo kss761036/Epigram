@@ -1,13 +1,13 @@
 'use client';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { Epigram } from '@/apis/epigram/epigram.type';
+import emptyImg from '@/assets/img/empty.png';
 import Card from '@/components/Card';
-import Spinner from '@/components/Spinner';
 import EtcButton from '@/components/EtcButton';
 import Icon from '@/components/Icon';
-import Image from 'next/image';
-import emptyImg from '@/assets/img/empty.png';
-import { Epigram } from '@/apis/epigram/epigram.type';
+import Spinner from '@/components/Spinner';
 
 interface MyEpigramsProps {
   epigrams: Epigram[];

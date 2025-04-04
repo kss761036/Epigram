@@ -1,6 +1,6 @@
-import { useRouter } from 'next/navigation';
-import { signOut } from 'next-auth/react';
 import Cookies from 'js-cookie';
+import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 export function useLogout() {
   const router = useRouter();

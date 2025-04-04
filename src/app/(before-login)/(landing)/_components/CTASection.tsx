@@ -1,11 +1,11 @@
 'use client';
 
+import { motion } from 'motion/react';
+import Image from 'next/image';
+import Link from 'next/link';
+import EveryDay from '@/assets/img/landing/EveryDay.svg';
 import Button from '@/components/Button';
 import Zigzag from './Zigzag';
-import Image from 'next/image';
-import EveryDay from '@/assets/img/landing/EveryDay.svg';
-import { motion } from 'motion/react';
-import Link from 'next/link';
 const slideUpVariants = {
   offscreen: {
     y: 80,

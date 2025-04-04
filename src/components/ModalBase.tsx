@@ -1,8 +1,8 @@
 'use client';
 
 import { createPortal } from 'react-dom';
-import useModalStore from '@/hooks/useModalStore';
 import useModal from '@/hooks/useModal';
+import useModalStore from '@/hooks/useModalStore';
 
 export default function ModalBase({ children }: { children: React.ReactNode }) {
   const { isOpen, close, type } = useModalStore();

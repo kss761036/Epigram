@@ -1,5 +1,5 @@
-import { ImageResponse } from 'next/og';
 import { headers } from 'next/headers';
+import { ImageResponse } from 'next/og';
 import { truncateText } from '@/utils/truncateText';
 
 /**
