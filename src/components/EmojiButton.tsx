@@ -1,7 +1,7 @@
-import { Emotion, EMOTION_BORDER_COLOR, EMOTION_LABEL } from '@/types/common';
 import { ButtonHTMLAttributes } from 'react';
-import Emoji from './Emoji';
+import { Emotion, EMOTION_BORDER_COLOR, EMOTION_LABEL } from '@/types/common';
 import { cn } from '@/utils/helper';
+import Emoji from './Emoji';
 
 interface EmojiButton extends ButtonHTMLAttributes<HTMLButtonElement> {
   name: Emotion;

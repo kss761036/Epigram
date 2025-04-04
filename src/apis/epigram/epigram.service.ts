@@ -1,10 +1,11 @@
+import axios from 'axios';
 import {
   PaginationQueryParams,
   PaginationResponse,
   SearchableQueryParams,
   WriterFilterQueryParams,
 } from '@/types/common';
-import axios from 'axios';
+import { Comment } from '../comment/comment.type';
 import {
   CreateEpigramFormType,
   DeleteEpigramResponse,
@@ -13,7 +14,6 @@ import {
   LikeEpigramResponse,
   UpdateEpigramFormType,
 } from './epigram.type';
-import { Comment } from '../comment/comment.type';
 
 /**
  * 에피그램 목록 조회

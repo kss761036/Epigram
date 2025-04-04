@@ -1,13 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { notFound, useParams, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { notFound, useParams, useRouter } from 'next/navigation';
 import { useEpigram } from '@/apis/epigram/epigram.queries';
-import Inner from '@/components/Inner';
 import DeleteModal from '@/components/DeleteModal';
 import EtcButton from '@/components/EtcButton';
-import EpigramComments from '../_components/EpigramComments';
+import Inner from '@/components/Inner';
 import {
   DeatailFooter,
   DetailContent,
@@ -15,6 +14,7 @@ import {
   DetailLoading,
   DetailWrapper,
 } from '../_components/detail';
+import EpigramComments from '../_components/EpigramComments';
 
 export default function Page() {
   const params = useParams<{ id: string }>();

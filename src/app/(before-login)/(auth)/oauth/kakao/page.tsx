@@ -1,15 +1,15 @@
 'use client';
 
 import { useEffect } from 'react';
+import { signIn } from 'next-auth/react';
 import Image from 'next/image';
 import { redirect, useSearchParams } from 'next/navigation';
-import { signIn } from 'next-auth/react';
+import IconKakao from '@/assets/img/auth/icon-kakao.svg';
 import OauthWrapper, {
   OauthIcon,
   OauthLoading,
   OauthMessage,
 } from '../../_components/OauthWrapper';
-import IconKakao from '@/assets/img/auth/icon-kakao.svg';
 
 export default function KakaoCallback() {
   const searchParams = useSearchParams();

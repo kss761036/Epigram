@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import { motion, useMotionValueEvent, useScroll } from 'motion/react';
+import Link from 'next/link';
 import Icon from '@/components/Icon';
 import IconButton from '@/components/IconButton';
 

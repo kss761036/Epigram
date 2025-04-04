@@ -1,12 +1,12 @@
 'use client';
 
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { Epigram } from '@/apis/epigram/epigram.type';
 import formatTime from '@/utils/formatTime';
+import { cn } from '@/utils/helper';
 import Avatar from './Avatar';
 import ProfileModal from './ProfileModal';
-import { cn } from '@/utils/helper';
-import { Epigram } from '@/apis/epigram/epigram.type';
-import { usePathname } from 'next/navigation';
 
 interface CommentProps {
   epigramId: Epigram['id'];

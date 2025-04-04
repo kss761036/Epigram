@@ -1,15 +1,15 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
-import TodayMood from '@/components/TodayMood';
-import { useEmotionLogToday } from '@/apis/emotion/emotion.queries';
 import { useEffect, useState } from 'react';
-import TodayEpigram from './_components/TodayEpigram';
-import RecentEpigram from './_components/RecentEpigram';
-import RecentComment from './_components/RecentComment';
 import { AnimatePresence, motion } from 'motion/react';
+import { useSession } from 'next-auth/react';
+import { useEmotionLogToday } from '@/apis/emotion/emotion.queries';
 import Inner from '@/components/Inner';
+import TodayMood from '@/components/TodayMood';
 import FloatingButtons from '../_components/FloatingButtons';
+import RecentComment from './_components/RecentComment';
+import RecentEpigram from './_components/RecentEpigram';
+import TodayEpigram from './_components/TodayEpigram';
 
 export default function Page() {
   const { data: session } = useSession();

@@ -2,9 +2,9 @@
 
 import { HTMLAttributes, useState } from 'react';
 import Image from 'next/image';
+import { EMOTION } from '@/types/common';
 import { cn } from '@/utils/helper';
 import Emoji from './Emoji';
-import { EMOTION } from '@/types/common';
 
 interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
   src?: string;

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import type { Meta, StoryObj } from '@storybook/react';
-import { TabList, TabBtn, TabItemsContainer, TabItem, Tabs } from './Tab';
 import { useState } from 'react';
+import { TabList, TabBtn, TabItemsContainer, TabItem, Tabs } from './Tab';
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta = {
   title: 'Components/Tab',

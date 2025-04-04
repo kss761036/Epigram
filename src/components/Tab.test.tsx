@@ -1,6 +1,6 @@
+import { useState } from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { TabList, TabBtn, TabItemsContainer, TabItem, Tabs } from '@/components/Tab';
-import { useState } from 'react';
 
 describe('Tab 컴포넌트 테스트', () => {
   it('탭 버튼을 클릭하면 활성화 상태가 변경되어야 한다', () => {

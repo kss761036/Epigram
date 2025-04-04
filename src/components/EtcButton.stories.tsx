@@ -1,7 +1,7 @@
-import { Meta, StoryObj } from '@storybook/react';
-import EtcButton from './EtcButton';
-import Link from 'next/link';
 import { ComponentProps } from 'react';
+import { Meta, StoryObj } from '@storybook/react';
+import Link from 'next/link';
+import EtcButton from './EtcButton';
 import Icon from './Icon';
 
 const MockLink = ({ href, children, ...props }: ComponentProps<typeof Link>) => {

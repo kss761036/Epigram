@@ -1,6 +1,6 @@
+import { HTMLAttributes } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/utils/helper';
-import { HTMLAttributes } from 'react';
 
 const sampleVariants = cva('p-4 flex items-center justify-center rounded-md', {
   variants: {

@@ -1,9 +1,9 @@
 'use client';
 
 import { signOut, useSession } from 'next-auth/react';
+import Avatar from '@/components/Avatar';
 import useModalStore from '@/hooks/useModalStore';
 import ProfileEditModal from './ProfileEditModal';
-import Avatar from '@/components/Avatar';
 
 export default function MyProfile() {
   const { data: session } = useSession();

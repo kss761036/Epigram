@@ -1,9 +1,9 @@
 'use client';
 
 import React, { InputHTMLAttributes, useState, useId, RefAttributes } from 'react';
+import { cva, VariantProps } from 'class-variance-authority';
 import { cn } from '@/utils/helper';
 import Icon from './Icon';
-import { cva, VariantProps } from 'class-variance-authority';
 
 type input = 'text' | 'email' | 'password' | 'search';
 

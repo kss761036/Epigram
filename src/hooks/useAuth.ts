@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
 import Cookies from 'js-cookie';
+import { useSession } from 'next-auth/react';
 
 export function useAuth() {
   const { data: session, status } = useSession();

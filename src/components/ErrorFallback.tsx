@@ -1,7 +1,7 @@
-import Link from 'next/link';
 import Image from 'next/image';
-import Button from '@/components/Button';
+import Link from 'next/link';
 import Logo from '@/assets/img/common/logo.svg';
+import Button from '@/components/Button';
 
 interface ErrorFallbackProps {
   title: string;

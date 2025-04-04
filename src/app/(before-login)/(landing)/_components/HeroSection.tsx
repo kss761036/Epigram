@@ -1,11 +1,11 @@
 'use client';
 
+import { motion } from 'motion/react';
+import Link from 'next/link';
 import Button from '@/components/Button';
 import Icon from '@/components/Icon';
-import Zigzag from './Zigzag';
-import { motion } from 'motion/react';
 import AnimatedText from './AnimatedText';
-import Link from 'next/link';
+import Zigzag from './Zigzag';
 
 export default function HeroSection() {
   return (

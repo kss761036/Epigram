@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect } from 'react';
-import { usePathname } from 'next/navigation';
 import { SessionProvider, signOut, useSession } from 'next-auth/react';
+import { usePathname } from 'next/navigation';
 
 type Props = {
   children: React.ReactNode;

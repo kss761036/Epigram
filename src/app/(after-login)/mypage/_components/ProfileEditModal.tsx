@@ -1,17 +1,17 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useSession } from 'next-auth/react';
-import { updateUser, uploadImage } from '@/apis/user/user.service';
-import { UpdateUserForm, updateUserFormSchema } from '@/apis/user/user.type';
-import { toast } from 'react-toastify';
-import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { isAxiosError } from 'axios';
-import useModalStore from '@/hooks/useModalStore';
-import ModalBase from '@/components/ModalBase';
+import { useSession } from 'next-auth/react';
+import { Controller, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
+import { updateUser, uploadImage } from '@/apis/user/user.service';
+import { UpdateUserForm, updateUserFormSchema } from '@/apis/user/user.type';
 import Button from '@/components/Button';
 import Input from '@/components/Input';
+import ModalBase from '@/components/ModalBase';
+import useModalStore from '@/hooks/useModalStore';
 import UploadPreview from './UploadPreview';
 
 export default function ProfileEditModal() {

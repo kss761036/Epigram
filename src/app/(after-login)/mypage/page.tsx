@@ -1,11 +1,11 @@
 'use client';
 
-import MyProfile from './_components/MyProfile';
+import { format } from 'date-fns';
+import Inner from '@/components/Inner';
 import TodayMood from '@/components/TodayMood';
 import MonthlyLogs from './_components/MonthlyLogs';
+import MyProfile from './_components/MyProfile';
 import MyWritings from './_components/MyWritings';
-import Inner from '@/components/Inner';
-import { format } from 'date-fns';
 
 export default function Page() {
   const today = format(new Date(), 'yyyy.MM.dd');

@@ -1,14 +1,14 @@
 'use client';
 
 import { AnimatePresence, motion } from 'motion/react';
-import { cn } from '@/utils/helper';
-import { useFeedsListTypeStore } from '@/store/feedsListTypeStore';
 import { useEpigramInfiniteQuery } from '@/apis/epigram/epigram.queries';
 import Card from '@/components/Card';
 import EtcButton from '@/components/EtcButton';
 import Icon from '@/components/Icon';
 import { Section, SectionTitle, SectionUtil } from '@/components/Section';
 import Spinner from '@/components/Spinner';
+import { useFeedsListTypeStore } from '@/store/feedsListTypeStore';
+import { cn } from '@/utils/helper';
 import FloatingButtons from '../_components/FloatingButtons';
 
 export default function FeedPage() {

@@ -1,6 +1,6 @@
+import { z } from 'zod';
 import { EMOTION, Emotion } from '@/types/common';
 import { User } from '../user/user.type';
-import { z } from 'zod';
 
 export type EmotionLog = {
   createdAt: string;

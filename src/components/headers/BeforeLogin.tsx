@@ -1,10 +1,10 @@
 'use client';
 
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
 import Logo from '@/assets/img/common/logo.svg';
-import Icon from '../Icon';
 import { useAuth } from '@/hooks/useAuth';
+import Icon from '../Icon';
 
 export default function BeforeLoginHeader() {
   const { isAuthenticated } = useAuth();

@@ -1,7 +1,7 @@
 import { useTodayEpigram } from '@/apis/epigram/epigram.queries';
+import Card from '@/components/Card';
 import { Section } from '@/components/Section';
 import Spinner from '@/components/Spinner';
-import Card from '@/components/Card';
 
 export default function TodayEpigram() {
   const { data, isLoading, isError } = useTodayEpigram();

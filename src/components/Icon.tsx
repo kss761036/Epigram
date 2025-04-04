@@ -1,6 +1,6 @@
 import { SVGProps } from 'react';
-import { iconPaths } from './Icon.path';
 import { cn } from '@/utils/helper';
+import { iconPaths } from './Icon.path';
 
 interface IconProps extends SVGProps<SVGSVGElement> {
   size?: number;

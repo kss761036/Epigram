@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
-import EmojiButton from './EmojiButton';
 import { EMOTION } from '@/types/common';
+import EmojiButton from './EmojiButton';
 
 const meta: Meta<typeof EmojiButton> = {
   component: EmojiButton,

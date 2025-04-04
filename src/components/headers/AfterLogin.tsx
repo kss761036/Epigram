@@ -1,13 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { useSession } from 'next-auth/react';
 import { AnimatePresence, motion } from 'motion/react';
-import Icon from '@/components/Icon';
-import Avatar from '@/components/Avatar';
+import { useSession } from 'next-auth/react';
+import Image from 'next/image';
+import Link from 'next/link';
 import Logo from '@/assets/img/common/logo.svg';
+import Avatar from '@/components/Avatar';
+import Icon from '@/components/Icon';
 
 const MENU_DATA = [
   {

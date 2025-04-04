@@ -1,5 +1,5 @@
-import { defineConfig } from 'cypress';
 import { loadEnvConfig } from '@next/env';
+import { defineConfig } from 'cypress';
 
 loadEnvConfig(process.cwd());
 

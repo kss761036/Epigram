@@ -1,8 +1,8 @@
-import { Meta, StoryObj } from '@storybook/react';
-import TodayMood from './TodayMood';
-import { SessionProvider } from 'next-auth/react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactNode } from 'react';
+import { Meta, StoryObj } from '@storybook/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { SessionProvider } from 'next-auth/react';
+import TodayMood from './TodayMood';
 
 function WithProviders({ children }: { children: ReactNode }) {
   const queryClient = new QueryClient();

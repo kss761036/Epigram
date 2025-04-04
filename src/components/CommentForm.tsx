@@ -1,12 +1,12 @@
 'use client';
 
+import { useFormContext, Controller } from 'react-hook-form';
 import { Comment } from '@/apis/comment/comment.type';
+import { CommentFormValues } from '@/apis/epigram/epigram.type';
+import { cn } from '@/utils/helper';
 import Avatar from './Avatar';
 import Button from './Button';
 import Toggle from './Toggle';
-import { cn } from '@/utils/helper';
-import { useFormContext, Controller } from 'react-hook-form';
-import { CommentFormValues } from '@/apis/epigram/epigram.type';
 
 interface CommentFormProps {
   comment?: Comment;

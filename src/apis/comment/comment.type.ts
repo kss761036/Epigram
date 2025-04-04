@@ -1,6 +1,6 @@
+import { User } from 'next-auth';
 import { z } from 'zod';
 import { Epigram } from '../epigram/epigram.type';
-import { User } from 'next-auth';
 
 export type Comment = {
   id: number;

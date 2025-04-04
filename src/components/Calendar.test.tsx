@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { render, screen } from '@testing-library/react';
-import Calendar from './Calendar';
 import { format, isValid } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { Emotion } from '@/types/common';
+import Calendar from './Calendar';
 
 const sampleMoodData: { [dateString: string]: Emotion } = {
   '2025-03-13': 'ANGRY',

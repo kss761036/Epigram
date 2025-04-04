@@ -1,6 +1,11 @@
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
-import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  PaginationQueryParams,
+  SearchableQueryParams,
+  WriterFilterQueryParams,
+} from '@/types/common';
 import {
   deleteEpigram,
   getEpigramDetails,
@@ -11,11 +16,6 @@ import {
   getTodayEpigram,
   getEpigramComments,
 } from './epigram.service';
-import {
-  PaginationQueryParams,
-  SearchableQueryParams,
-  WriterFilterQueryParams,
-} from '@/types/common';
 import { Epigram, EpigramDetail } from './epigram.type';
 
 export const useEpigramSearchInfiniteQuery = (params: Omit<SearchableQueryParams, 'cursor'>) => {

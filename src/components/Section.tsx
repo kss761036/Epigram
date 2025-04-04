@@ -1,7 +1,7 @@
 'use client';
 
-import { cn } from '@/utils/helper';
 import { ReactNode } from 'react';
+import { cn } from '@/utils/helper';
 
 interface SectionProps {
   children?: ReactNode;

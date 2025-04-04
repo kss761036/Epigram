@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from '@storybook/react';
 import { useArgs } from '@storybook/preview-api';
+import { Meta, StoryObj } from '@storybook/react';
 import ProfileModal from './ProfileModal';
 
 const meta: Meta<typeof ProfileModal> = {

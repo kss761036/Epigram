@@ -1,10 +1,10 @@
 'use client';
 
 import { createPortal } from 'react-dom';
-import { cn } from '@/utils/helper';
-import Icon from './Icon';
-import Avatar from './Avatar';
 import useModal from '@/hooks/useModal';
+import { cn } from '@/utils/helper';
+import Avatar from './Avatar';
+import Icon from './Icon';
 
 interface ProfileModalProps {
   isOpen: boolean;

@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import EmojiButton from './EmojiButton'; // 경로에 맞게 수정
 import { EMOTION_LABEL } from '@/types/common'; // 적절한 경로로 수정
+import EmojiButton from './EmojiButton'; // 경로에 맞게 수정
 
 jest.mock('./Emoji', () => ({
   __esModule: true,

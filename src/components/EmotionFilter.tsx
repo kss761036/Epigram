@@ -1,8 +1,8 @@
 'use client';
 
+import { EMOTION, Emotion, EMOTION_LABEL } from '@/types/common';
 import { cn } from '@/utils/helper';
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from './Dropdown';
-import { EMOTION, Emotion, EMOTION_LABEL } from '@/types/common';
 import EmojiButton from './EmojiButton';
 import Icon from './Icon';
 

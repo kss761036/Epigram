@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
-import localFont from 'next/font/local';
-import AuthSession from '../context/AuthSession';
-import QueryClientProvider from '@/context/QueryProvider';
 import { ToastContainer } from 'react-toastify';
+import localFont from 'next/font/local';
+import QueryClientProvider from '@/context/QueryProvider';
+import AuthSession from '../context/AuthSession';
 import 'react-toastify/dist/ReactToastify.css';
 import '@/assets/css/globals.css';
 import ScrollToTop from '@/components/ScrollToTop';

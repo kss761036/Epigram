@@ -5,8 +5,8 @@ import { useSession } from 'next-auth/react';
 import { useEpigramWriterFilterInfiniteQuery } from '@/apis/epigram/epigram.queries';
 import { useUserCommentsByIdInFiniteQuery } from '@/apis/user/user.queries';
 import { TabBtn, TabItem, TabItemsContainer, TabList, Tabs } from '@/components/Tab';
-import MyEpigrams from './MyEpigrams';
 import CommentList from './CommentList';
+import MyEpigrams from './MyEpigrams';
 
 export default function MyWritings() {
   const [activeTab, setActiveTab] = useState(0);

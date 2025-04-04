@@ -1,5 +1,5 @@
-import { cn } from '@/utils/helper';
 import { HTMLAttributes } from 'react';
+import { cn } from '@/utils/helper';
 
 export default function Spinner({ className }: HTMLAttributes<HTMLDivElement>) {
   return (

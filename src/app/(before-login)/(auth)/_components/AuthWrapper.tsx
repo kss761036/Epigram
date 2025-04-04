@@ -1,14 +1,14 @@
 'use client';
 
 import { PropsWithChildren } from 'react';
-import { usePathname } from 'next/navigation';
-import Link from 'next/link';
 import Image from 'next/image';
-import Inner from '@/components/Inner';
-import { SocialButton, SocialHeader, SocialList } from './Social';
-import Logo from '@/assets/img/common/logo.svg';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import IconGoogle from '@/assets/img/auth/icon-google.svg';
 import IconKakao from '@/assets/img/auth/icon-kakao.svg';
+import Logo from '@/assets/img/common/logo.svg';
+import Inner from '@/components/Inner';
+import { SocialButton, SocialHeader, SocialList } from './Social';
 
 export default function AuthWrapper({ children }: PropsWithChildren) {
   return (
