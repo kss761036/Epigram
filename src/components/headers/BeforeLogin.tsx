@@ -4,10 +4,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Logo from '@/assets/img/common/logo.svg';
 import Icon from '../Icon';
-import { useAuth } from '@/hooks/useAuth';
+import { useSession } from 'next-auth/react';
 
 export default function BeforeLoginHeader() {
-  const { isAuthenticated } = useAuth();
+  const { data: session } = useSession();
 
   return (
     <header className='border-line-100 fixed top-0 left-0 z-50 h-13 w-full border-b bg-white md:h-15.5 lg:h-20'>
@@ -20,7 +20,7 @@ export default function BeforeLoginHeader() {
             <Image src={Logo} alt='epigram' className='h-6.5 w-auto lg:h-9' />
           </Link>
         </h1>
-        <Link href={isAuthenticated ? '/mypage' : '/login'}>
+        <Link href={session ? '/mypage' : '/login'}>
           <Icon name='person' size={20} className='lg:w-[30px]' />
         </Link>
       </div>
