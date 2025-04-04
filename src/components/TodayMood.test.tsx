@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import TodayMood from './TodayMood';
-import { SessionProvider, useSession } from 'next-auth/react';
+import { SessionProvider } from 'next-auth/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 

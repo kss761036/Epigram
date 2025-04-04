@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useSession } from 'next-auth/react';
 import { useEmotionLogsMonthly } from '@/apis/emotion/emotion.queries';
 import { Emotion, EMOTION_LABEL } from '@/types/common';
