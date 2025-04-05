@@ -19,7 +19,7 @@ export default function LoginForm() {
     formState: { errors, isValid },
   } = useForm<LoginFormType>({
     resolver: zodResolver(loginFormSchema),
-    mode: 'onBlur',
+    mode: 'onChange',
   });
 
   const router = useRouter();
