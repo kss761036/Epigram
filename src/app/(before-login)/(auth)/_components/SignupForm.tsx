@@ -21,7 +21,7 @@ export default function SignupForm() {
     formState: { errors, isValid },
   } = useForm<SignupFormType>({
     resolver: zodResolver(signupFormSchema),
-    mode: 'onBlur',
+    mode: 'onChange',
   });
 
   const router = useRouter();
