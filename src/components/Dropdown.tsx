@@ -123,7 +123,7 @@ export function DropdownMenu({
   const focusFirstElement = () => {
     if (menuRef.current) {
       const focusable = menuRef.current.querySelector<HTMLElement>(
-        'button, [href], [tabindex="0"]',
+        'button, [href], [tabindex]:not([tabindex="-1"])',
       );
       focusable?.focus();
     }
@@ -140,7 +140,7 @@ export function DropdownMenu({
 
     function handleKeyDown(e: KeyboardEvent) {
       const focusable = Array.from(
-        menu.querySelectorAll<HTMLElement>('button, [href], [tabindex="0"]'),
+        menu.querySelectorAll<HTMLElement>('button, [href], [tabindex]:not([tabindex="-1"])'),
       );
       const currentIndex = focusable.findIndex((el) => el === document.activeElement);
 
