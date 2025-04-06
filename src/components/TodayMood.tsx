@@ -1,8 +1,7 @@
 'use client';
 
-import { useQueryClient } from '@tanstack/react-query';
-import { useSession } from 'next-auth/react';
-import { useEmotionLogToday, useCreateEmotionLog } from '@/apis/emotion/emotion.queries';
+import { format } from 'date-fns';
+import { EmotionLog } from '@/apis/emotion/emotion.type';
 import { EMOTION, Emotion } from '@/types/common';
 import { cn } from '@/utils/helper';
 import EmojiButton from './EmojiButton';
@@ -11,36 +10,30 @@ interface TodayMoodProps {
   label?: string;
   containerClassName?: string;
   labelClassName?: string;
+  showDate?: boolean;
+  emotion?: EmotionLog | null;
+  onEmotionClick: (emotion: Emotion) => void;
 }
 
-export default function TodayMood({ label, containerClassName, labelClassName }: TodayMoodProps) {
-  const { data: session } = useSession();
-  const queryClient = useQueryClient();
-  const userId = session?.user?.id;
-
-  const { data: emotion } = useEmotionLogToday(userId);
-  const mutation = useCreateEmotionLog(userId);
-
-  const handleClick = (emotion: Emotion) => {
-    if (!mutation.isPending) {
-      mutation.mutate(
-        { emotion },
-        {
-          onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['emotion'] });
-          },
-        },
-      );
-    }
-  };
-
+export default function TodayMood({
+  label,
+  containerClassName,
+  labelClassName,
+  showDate = false,
+  emotion,
+  onEmotionClick,
+}: TodayMoodProps) {
   const selectedEmotion = emotion?.emotion || null;
+  const today = format(new Date(), 'yyyy.MM.dd');
 
   return (
     <>
-      <label className={cn('text-black-600 text-lg font-semibold lg:text-2xl', labelClassName)}>
-        {label}
-      </label>
+      <div className='flex justify-between'>
+        <label className={cn('text-black-600 text-lg font-semibold lg:text-2xl', labelClassName)}>
+          {label}
+        </label>
+        {showDate && <span className='text-lg text-blue-400 lg:text-xl'>{today}</span>}
+      </div>
       <div
         className={cn(
           'mt-[24px] flex h-[84px] w-full justify-center gap-4 md:h-[96px] lg:mt-[48px] lg:h-[136px] lg:gap-6',
@@ -51,7 +44,7 @@ export default function TodayMood({ label, containerClassName, labelClassName }:
           <EmojiButton
             key={emotion}
             name={emotion}
-            onClick={() => handleClick(emotion)}
+            onClick={() => onEmotionClick(emotion)}
             selected={selectedEmotion === emotion}
           />
         ))}

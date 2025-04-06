@@ -3,9 +3,10 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useSession } from 'next-auth/react';
-import { useEmotionLogToday } from '@/apis/emotion/emotion.queries';
+import { useCreateEmotionLog, useEmotionLogToday } from '@/apis/emotion/emotion.queries';
 import Inner from '@/components/Inner';
 import TodayMood from '@/components/TodayMood';
+import { Emotion } from '@/types/common';
 import FloatingButtons from '../_components/FloatingButtons';
 import RecentComment from './_components/RecentComment';
 import RecentEpigram from './_components/RecentEpigram';
@@ -14,14 +15,22 @@ import TodayEpigram from './_components/TodayEpigram';
 export default function Page() {
   const { data: session } = useSession();
   const userId = session?.user.id;
-  const { data: emotion, isLoading } = useEmotionLogToday(userId);
+
   const [showTodayMood, setShowTodayMood] = useState(false);
+  const { data: emotion, isLoading } = useEmotionLogToday(userId);
+  const { isPending, mutate: createEmotion } = useCreateEmotionLog(userId);
 
   useEffect(() => {
     if (!isLoading) {
       setShowTodayMood(!emotion?.emotion);
     }
   }, [emotion, isLoading]);
+
+  const handleEmotionClick = (emotion: Emotion) => {
+    if (isPending) return;
+
+    createEmotion({ emotion });
+  };
 
   if (isLoading) return <div className='bg-bg h-screen w-screen'></div>;
 
@@ -37,7 +46,11 @@ export default function Page() {
               exit={{ opacity: 0, transition: { duration: 0.5 } }}
               className='mt-[56px] lg:mt-[140px]'
             >
-              <TodayMood label='오늘의 감정을 선택해 주세요' />
+              <TodayMood
+                emotion={emotion}
+                onEmotionClick={handleEmotionClick}
+                label='오늘의 감정을 선택해 주세요'
+              />
             </motion.div>
           )}
         </AnimatePresence>

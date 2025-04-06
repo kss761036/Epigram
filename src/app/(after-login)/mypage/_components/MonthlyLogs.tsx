@@ -2,8 +2,6 @@
 
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useSession } from 'next-auth/react';
-import { useEmotionLogsMonthly } from '@/apis/emotion/emotion.queries';
 import Calendar from '@/components/Calendar';
 import Chart from '@/components/Chart';
 import Emoji from '@/components/Emoji';
@@ -18,12 +16,13 @@ const emotionColors: Record<Emotion, string> = {
   ANGRY: '#EFF3F8',
 };
 
-export default function MonthlyLogs() {
-  const { data: session } = useSession();
-  const userId = session?.user?.id;
+interface MonthlyLogsProps {
+  moodData: Record<string, Emotion>;
+  currentMonth: Date;
+  setCurrentMonth: React.Dispatch<React.SetStateAction<Date>>;
+}
 
-  const { data: moodData = {}, currentMonth, setCurrentMonth } = useEmotionLogsMonthly(userId);
-
+export default function MonthlyLogs({ moodData, currentMonth, setCurrentMonth }: MonthlyLogsProps) {
   const emotionCounts = Object.values(moodData).reduce(
     (acc, emotion) => {
       acc[emotion] = (acc[emotion] || 0) + 1;
