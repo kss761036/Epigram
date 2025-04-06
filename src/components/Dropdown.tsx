@@ -207,7 +207,7 @@ export function DropdownItem({
   };
 
   return (
-    <li onClick={handleClick} {...props}>
+    <li onClick={handleClick} role='menuitem' {...props}>
       {children}
     </li>
   );
