@@ -65,7 +65,7 @@ export default function Chart({
   const selectedData = chartData.find((item) => item.selected === true) || chartData[0];
 
   return (
-    <ChartContainer>
+    <ChartContainer isEmpty={chartData.length === 0}>
       <ChartCavnas>
         <Doughnut
           data={{
@@ -102,10 +102,14 @@ export default function Chart({
   );
 }
 
-function ChartContainer({ children }: PropsWithChildren) {
+function ChartContainer({ isEmpty, children }: PropsWithChildren<{ isEmpty: boolean }>) {
   return (
     <div className='flex items-center justify-evenly gap-6 rounded-lg border border-blue-200 p-6'>
-      {children}
+      {isEmpty ? (
+        <span className='text-md px-4 py-14 lg:text-lg'>조회된 감정 데이터가 없습니다</span>
+      ) : (
+        children
+      )}
     </div>
   );
 }
