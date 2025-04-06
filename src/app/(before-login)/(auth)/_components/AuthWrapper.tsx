@@ -53,9 +53,11 @@ function AuthFooter() {
       <SocialHeader>{socialMessage}</SocialHeader>
       <SocialList>
         <SocialButton onClick={handleGoogleLogin} data-oauth-id='google'>
+          <span className='sr-only'>구글 로그인/회원가입</span>
           <Image src={IconGoogle} alt='구글 로그인/회원가입' fill />
         </SocialButton>
         <SocialButton onClick={handleKakaoLogin} data-oauth-id='kakao'>
+          <span className='sr-only'>카카오 로그인/회원가입</span>
           <Image src={IconKakao} alt='카카오 로그인/회원가입' fill />
         </SocialButton>
       </SocialList>
