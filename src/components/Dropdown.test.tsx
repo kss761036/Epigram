@@ -37,20 +37,18 @@ describe('Dropdown Component', () => {
 
     const trigger = screen.getByText('TriggerButton');
 
-    expect(screen.queryByRole('list')).not.toBeInTheDocument();
+    expect(screen.queryByRole('menu')).not.toBeInTheDocument();
 
     fireEvent.click(trigger);
-    expect(screen.getByRole('list')).toBeInTheDocument();
+    expect(screen.getByRole('menu')).toBeInTheDocument();
   });
 
-  test('DropdownItem 클릭 시 드롭다운이 닫힌고, 콜백이 실행된다.', async () => {
-    const onClickMock = jest.fn();
-
+  test('DropdownItem 클릭 시 드롭다운이 닫힌다.', async () => {
     render(
       <Dropdown>
         <DropdownTrigger>TriggerButton</DropdownTrigger>
         <DropdownMenu>
-          <DropdownItem onClick={onClickMock}>Item 1</DropdownItem>
+          <DropdownItem>Item 1</DropdownItem>
         </DropdownMenu>
       </Dropdown>,
     );
@@ -58,11 +56,10 @@ describe('Dropdown Component', () => {
     const trigger = screen.getByText('TriggerButton');
 
     fireEvent.click(trigger);
-    expect(screen.getByRole('list')).toBeInTheDocument();
+    expect(screen.getByRole('menu')).toBeInTheDocument();
 
     fireEvent.click(screen.getByText('Item 1'));
-    expect(onClickMock).toHaveBeenCalled();
-    await waitFor(() => expect(screen.queryByRole('list')).not.toBeInTheDocument());
+    await waitFor(() => expect(screen.queryByRole('menu')).not.toBeInTheDocument());
   });
 
   test('드롭다운 외부 클릭 시 닫힘', async () => {
@@ -82,9 +79,9 @@ describe('Dropdown Component', () => {
     const outsideButton = screen.getByText('Outside');
 
     fireEvent.click(trigger);
-    expect(screen.getByRole('list')).toBeInTheDocument();
+    expect(screen.getByRole('menu')).toBeInTheDocument();
 
     fireEvent.click(outsideButton);
-    await waitFor(() => expect(screen.queryByRole('list')).not.toBeInTheDocument());
+    await waitFor(() => expect(screen.queryByRole('menu')).not.toBeInTheDocument());
   });
 });

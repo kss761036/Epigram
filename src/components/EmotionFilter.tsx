@@ -20,7 +20,7 @@ export default function EmotionFilter({
   offset = 20,
 }: EmotionFilterProps) {
   const triggerClassName = cn(
-    'bg-bg border-bg flex h-[30px] items-center justify-center gap-2 rounded-lg border-[2px] lg:pl-3 lg:pr-1 pl-2 pr-1.5 py-2 text-xs font-semibold group-aria-[expanded="true"]:border-black lg:h-[52px] lg:text-xl',
+    'bg-bg border-bg flex h-[30px] items-center justify-center gap-2 rounded-lg border-[2px] lg:pl-3 lg:pr-1 pl-2 pr-1.5 py-2 text-xs font-semibold lg:h-[52px] lg:text-xl',
     !value && 'text-gray-200',
   );
   const menuClassName =
@@ -38,7 +38,7 @@ export default function EmotionFilter({
           필터: {currentLabel} <Icon name='arrowDown' className='w-4 lg:w-8' />
         </div>
       </DropdownTrigger>
-      <DropdownMenu className={menuClassName} style={menuOffeset}>
+      <DropdownMenu className={menuClassName} style={menuOffeset} direction='horizontal'>
         {EMOTIONS.map((item) => (
           <DropdownItem key={item} className='flex-1'>
             <EmojiButton
