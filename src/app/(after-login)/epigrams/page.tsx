@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useSession } from 'next-auth/react';
 import { useCreateEmotionLog, useEmotionLogToday } from '@/apis/emotion/emotion.queries';
@@ -16,23 +15,15 @@ export default function Page() {
   const { data: session } = useSession();
   const userId = session?.user.id;
 
-  const [showTodayMood, setShowTodayMood] = useState(false);
   const { data: emotion, isLoading } = useEmotionLogToday(userId);
   const { isPending, mutate: createEmotion } = useCreateEmotionLog(userId);
-
-  useEffect(() => {
-    if (!isLoading) {
-      setShowTodayMood(!emotion?.emotion);
-    }
-  }, [emotion, isLoading]);
+  const showTodayMood = userId && !isLoading && !emotion;
 
   const handleEmotionClick = (emotion: Emotion) => {
     if (isPending) return;
 
     createEmotion({ emotion });
   };
-
-  if (isLoading) return <div className='bg-bg h-screen w-screen'></div>;
 
   return (
     <div className='bg-bg flex h-full w-full justify-center'>
