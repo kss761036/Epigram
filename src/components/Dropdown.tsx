@@ -64,9 +64,8 @@ export function Dropdown({
     function handleKeyDown(e: KeyboardEvent) {
       if (!isOpen) return;
 
-      e.preventDefault();
-
       if (e.key === 'Tab' || e.key === 'Escape') {
+        e.preventDefault();
         setIsOpen(false);
       }
     }
