@@ -45,10 +45,6 @@ const meta: Meta<typeof Input> = {
       description:
         'label 부분의 className을 추가 합니다.(우선 순위 최우선, 기존 className과 충돌 시 이 부분의 className을 사용합니다)',
     },
-    onSearch: {
-      control: 'text',
-      description: 'search 기능 핸들러 함수를 프롭으로 내려주시면 됩니다.',
-    },
   },
 };
 
