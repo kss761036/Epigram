@@ -19,16 +19,8 @@ export default function MyEmotions() {
   const { data: moodData = {}, currentMonth, setCurrentMonth } = useEmotionLogsMonthly(userId);
 
   const handleEmotionClick = (emotion: Emotion) => {
-    if (isPending) return Promise.resolve();
-    return new Promise<void>((resolve, reject) => {
-      createEmotion(
-        { emotion },
-        {
-          onSuccess: () => resolve(),
-          onError: () => reject(),
-        },
-      );
-    });
+    if (isPending) return;
+    createEmotion({ emotion });
   };
 
   return (
@@ -38,6 +30,7 @@ export default function MyEmotions() {
         onEmotionClick={handleEmotionClick}
         label='오늘의 감정'
         showDate
+        isLoading={isPending}
       />
       <MonthlyLogs
         moodData={moodData}

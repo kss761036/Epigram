@@ -15,16 +15,8 @@ export default function TodayEmotion() {
   const showTodayMood = userId && !isLoading && !emotion;
 
   const handleEmotionClick = (emotion: Emotion) => {
-    if (isPending) return Promise.resolve();
-    return new Promise<void>((resolve, reject) => {
-      createEmotion(
-        { emotion },
-        {
-          onSuccess: () => resolve(),
-          onError: () => reject(),
-        },
-      );
-    });
+    if (isPending) return;
+    createEmotion({ emotion });
   };
 
   return (
@@ -40,6 +32,7 @@ export default function TodayEmotion() {
             emotion={emotion}
             onEmotionClick={handleEmotionClick}
             label='오늘의 감정을 선택해 주세요'
+            isLoading={isPending}
           />
         </motion.div>
       )}

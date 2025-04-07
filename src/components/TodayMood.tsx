@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { format } from 'date-fns';
 import { EmotionLog } from '@/apis/emotion/emotion.type';
 import { EMOTION, Emotion } from '@/types/common';
@@ -14,7 +13,8 @@ interface TodayMoodProps {
   labelClassName?: string;
   showDate?: boolean;
   emotion?: EmotionLog | null;
-  onEmotionClick: (emotion: Emotion) => Promise<void>;
+  onEmotionClick: (emotion: Emotion) => void | Promise<void>;
+  isLoading?: boolean;
 }
 
 export default function TodayMood({
@@ -24,20 +24,10 @@ export default function TodayMood({
   showDate = false,
   emotion,
   onEmotionClick,
+  isLoading = false,
 }: TodayMoodProps) {
-  const [isLoading, setIsLoading] = useState(false);
-
   const selectedEmotion = emotion?.emotion || null;
   const today = format(new Date(), 'yyyy.MM.dd');
-
-  const handleEmotionClick = async (emotion: Emotion) => {
-    setIsLoading(true);
-    try {
-      await onEmotionClick(emotion);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   return (
     <>
@@ -58,7 +48,7 @@ export default function TodayMood({
             <EmojiButton
               key={emotion}
               name={emotion}
-              onClick={() => handleEmotionClick(emotion)}
+              onClick={() => onEmotionClick(emotion)}
               selected={selectedEmotion === emotion}
             />
           ))}
