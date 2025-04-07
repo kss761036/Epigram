@@ -5,7 +5,6 @@ import { EmotionLog } from '@/apis/emotion/emotion.type';
 import { EMOTION, Emotion } from '@/types/common';
 import { cn } from '@/utils/helper';
 import EmojiButton from './EmojiButton';
-import Spinner from './Spinner';
 
 interface TodayMoodProps {
   label?: string;
@@ -53,15 +52,6 @@ export default function TodayMood({
             />
           ))}
         </div>
-
-        {isLoading && (
-          <div className='absolute inset-0 z-10 flex items-center justify-center rounded-[12px] backdrop-blur-sm'>
-            <div className='flex flex-col items-center justify-center gap-4 p-4 text-center text-blue-400'>
-              <Spinner />
-              감정을 저장하고 있습니다.
-            </div>
-          </div>
-        )}
       </div>
     </>
   );

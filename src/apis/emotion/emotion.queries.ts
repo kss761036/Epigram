@@ -7,11 +7,12 @@ import {
   createEmotionLogToday,
   getEmotionLogsMonthly,
 } from './emotion.service';
+import { EmotionLog } from './emotion.type';
 
 export const useEmotionLogToday = (userId: number | null) => {
   return useQuery({
     queryKey: ['emotion', 'today', userId],
-    queryFn: () => (userId ? getEmotionLogToday({ userId }) : Promise.resolve(null)),
+    queryFn: () => getEmotionLogToday({ userId: userId! }),
     enabled: userId !== null,
     retryOnMount: false,
   });
@@ -21,10 +22,28 @@ export const useCreateEmotionLog = (userId: number | null) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data: { emotion: Emotion }) => createEmotionLogToday(data),
-    onSuccess: async () => {
-      if (userId !== null) {
-        await queryClient.refetchQueries({ queryKey: ['emotion'] });
+    onMutate: async (data: { emotion: Emotion }) => {
+      if (userId === null) return;
+
+      await queryClient.cancelQueries({ queryKey: ['emotion', 'today', userId] });
+      const previousData = queryClient.getQueryData<EmotionLog>(['emotion', 'today', userId]);
+
+      if (previousData) {
+        queryClient.setQueryData<EmotionLog>(['emotion', 'today', userId], {
+          ...previousData,
+          emotion: data.emotion,
+        });
       }
+
+      return { previousData };
+    },
+    onError: (_, __, context) => {
+      if (context?.previousData) {
+        queryClient.setQueryData<EmotionLog>(['emotion', 'today', userId], context.previousData);
+      }
+    },
+    onSuccess: async () => {
+      queryClient.invalidateQueries({ queryKey: ['emotion'] });
     },
   });
 };
