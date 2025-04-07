@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 import { Epigram } from '@/apis/epigram/epigram.type';
 import formatTime from '@/utils/formatTime';
 import { cn } from '@/utils/helper';
@@ -20,6 +20,7 @@ interface CommentProps {
   handleEdit?: () => void;
   handleDelete?: () => void;
   isOwnComment?: boolean;
+  href?: string;
 }
 
 export default function Comment({
@@ -31,20 +32,13 @@ export default function Comment({
   handleEdit,
   handleDelete,
   isOwnComment = true,
+  href,
 }: CommentProps) {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
-  const pathname = usePathname();
-  const isDetailPage = pathname.startsWith('/epigrams/');
-
-  const handleCommentClick = () => {
-    if (isDetailPage) return;
-    window.location.href = `/epigrams/${epigramId}`;
-  };
 
   const classes = {
     commentWrapper: cn(
       'border-line-200 flex items-start border-t px-6 py-4 text-left md:py-6 lg:py-9',
-      !isDetailPage && 'cursor-pointer',
       className,
     ),
     commentBox: 'ml-4 flex-1',
@@ -56,52 +50,64 @@ export default function Comment({
       'text-black-700 mt-2 text-[14px] leading-[1.7] break-keep md:mt-3 md:text-[16px] md:leading-relaxed lg:mt-4 lg:text-[20px]',
   };
 
+  const CommentBody = () => (
+    <>
+      <div
+        onClick={(e) => {
+          e.stopPropagation();
+          setIsProfileModalOpen(true);
+        }}
+        className='cursor-pointer'
+      >
+        <Avatar src={writer.image} alt={writer.nickname} />
+      </div>
+      <div className={classes.commentBox}>
+        <div className={classes.commentInfo}>
+          <div className={classes.commentInfoText}>{writer.nickname}</div>
+          <div className={cn(classes.commentInfoText, 'ml-2')}>{formatTime(updatedAt)}</div>
+          {isOwnComment && (
+            <ul className={classes.commentInfoBtns}>
+              <li>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleEdit?.();
+                  }}
+                  className={cn(classes.commentInfoBtn, 'text-black-600 decoration-black-600')}
+                >
+                  수정
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDelete?.();
+                  }}
+                  className={cn(classes.commentInfoBtn, 'text-red decoration-red')}
+                >
+                  삭제
+                </button>
+              </li>
+            </ul>
+          )}
+        </div>
+        <div className={classes.commentContent}>{content}</div>
+      </div>
+    </>
+  );
+
   return (
     <>
-      <div onClick={handleCommentClick} className={classes.commentWrapper}>
-        <div
-          onClick={(e) => {
-            e.stopPropagation();
-            setIsProfileModalOpen(true);
-          }}
-          className='cursor-pointer'
-        >
-          <Avatar src={writer.image} alt={writer.nickname} />
+      {href ? (
+        <Link href={href + epigramId} className={classes.commentWrapper}>
+          <CommentBody />
+        </Link>
+      ) : (
+        <div className={classes.commentWrapper}>
+          <CommentBody />
         </div>
-        <div className={classes.commentBox}>
-          <div className={classes.commentInfo}>
-            <div className={classes.commentInfoText}>{writer.nickname}</div>
-            <div className={cn(classes.commentInfoText, 'ml-2')}>{formatTime(updatedAt)}</div>
-            {isOwnComment && (
-              <ul className={classes.commentInfoBtns}>
-                <li>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleEdit?.();
-                    }}
-                    className={cn(classes.commentInfoBtn, 'text-black-600 decoration-black-600')}
-                  >
-                    수정
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleDelete?.();
-                    }}
-                    className={cn(classes.commentInfoBtn, 'text-red decoration-red')}
-                  >
-                    삭제
-                  </button>
-                </li>
-              </ul>
-            )}
-          </div>
-          <div className={classes.commentContent}>{content}</div>
-        </div>
-      </div>
+      )}
 
       <ProfileModal
         isOpen={isProfileModalOpen}

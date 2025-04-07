@@ -21,6 +21,7 @@ import Spinner from '@/components/Spinner';
 import type { FieldErrors } from 'react-hook-form';
 
 interface CommentListProps {
+  href?: string;
   comments: CommentType[];
   isFetching: boolean;
   hasNextPage: boolean;
@@ -29,6 +30,7 @@ interface CommentListProps {
 }
 
 export default function CommentList({
+  href,
   comments,
   isFetching,
   hasNextPage,
@@ -134,6 +136,7 @@ export default function CommentList({
             ) : (
               <Comment
                 {...comment}
+                href={href}
                 handleEdit={() => handleEdit(comment)}
                 handleDelete={() => handleDeleteConfirm(comment.id)}
                 isOwnComment={comment.writer.id === session?.user.id}

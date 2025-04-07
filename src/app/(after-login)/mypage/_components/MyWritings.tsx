@@ -35,6 +35,8 @@ export default function MyWritings() {
   const comments = commentData?.pages.flatMap((page) => page.list) ?? [];
   const CommentListCount = commentData?.pages?.[0]?.totalCount ?? 0;
 
+  console.log('comments', comments);
+  console.log('epigrams', epigrams);
   return (
     <Tabs>
       <TabList>
@@ -66,6 +68,7 @@ export default function MyWritings() {
         </TabItem>
         <TabItem tabIndex={1} activeTab={activeTab}>
           <CommentList
+            href='/epigrams/'
             comments={comments}
             isFetching={isFetchingComments}
             hasNextPage={hasNextCommentPage}
