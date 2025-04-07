@@ -65,7 +65,7 @@ export default function TodayMood({
         </div>
 
         {isLoading && (
-          <div className='bg-bg/60 absolute inset-0 z-10 flex items-center justify-center rounded-[12px] backdrop-blur-sm'>
+          <div className='absolute inset-0 z-10 flex items-center justify-center rounded-[12px] backdrop-blur-sm'>
             <div className='flex flex-col items-center justify-center gap-4 p-4 text-center text-blue-400'>
               <Spinner />
               감정을 저장하고 있습니다.
