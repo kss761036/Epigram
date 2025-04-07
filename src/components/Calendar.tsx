@@ -42,12 +42,14 @@ export default function Calendar({ moodData, currentMonth, setCurrentMonth }: Ca
             onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
             className='cursor-pointer rounded-[3px] hover:bg-blue-200'
           >
+            <span className='sr-only'>이전월</span>
             <Icon name='arrowLeft' className='w-5 lg:w-9' />
           </button>
           <button
             onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}
             className='cursor-pointer rounded-[3px] hover:bg-blue-200'
           >
+            <span className='sr-only'>다음월</span>
             <Icon name='arrowRight' className='w-5 lg:w-9' />
           </button>
         </div>

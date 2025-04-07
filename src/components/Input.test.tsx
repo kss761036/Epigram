@@ -38,19 +38,10 @@ describe('Input 컴포넌트', () => {
     expect(inputElement).toHaveAttribute('type', 'text');
   });
 
-  it('search 타입일 때 Enter 키 및 아이콘 클릭 시 onSearch 핸들러가 호출된다', () => {
-    const onSearchMock = jest.fn();
-    render(<Input type='search' placeholder='검색' onSearch={onSearchMock} />);
-    const inputElement = screen.getByPlaceholderText('검색');
+  it('search 타입일 때 돋보기 아이콘 버튼이 렌더링된다', () => {
+    render(<Input type='search' />);
 
-    fireEvent.keyDown(inputElement, { key: 'Enter', code: 'Enter' });
-    expect(onSearchMock).toHaveBeenCalledTimes(1);
-
-    const iconElement = document.querySelector('svg');
-    expect(iconElement).toBeInTheDocument();
-    if (iconElement) {
-      fireEvent.click(iconElement);
-    }
-    expect(onSearchMock).toHaveBeenCalledTimes(2);
+    const searchButton = screen.getByRole('button', { name: '검색' });
+    expect(searchButton).toBeInTheDocument();
   });
 });

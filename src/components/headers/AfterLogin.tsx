@@ -36,6 +36,7 @@ export default function AfterLoginHeader() {
       <header className='border-line-100 fixed top-0 left-0 z-50 h-13 w-full border-b bg-white md:h-15.5 lg:h-20'>
         <div className='flex h-full items-center px-6 md:px-19'>
           <button onClick={() => setIsOpen(true)} className='cursor-pointer md:hidden'>
+            <span className='sr-only'>메뉴열기</span>
             <Icon name='menu' size={24} color='#C4C4C4' />
           </button>
 
@@ -98,6 +99,7 @@ export default function AfterLoginHeader() {
             >
               <div className='border-line-100 flex h-13 items-center border-b px-4'>
                 <button className='ml-auto' onClick={() => setIsOpen(false)}>
+                  <span className='sr-only'>메뉴닫기</span>
                   <Icon name='close' size={24} />
                 </button>
               </div>

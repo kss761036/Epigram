@@ -29,16 +29,22 @@ export default function IconButton({ variant, className, ...props }: IconButtonP
   return (
     <button className={cn(iconButtonVariants({ variant }), className)} {...props}>
       {variant === 'arrowUp' && (
-        <Icon
-          name='arrowDown'
-          className='w-6 rotate-180 text-blue-100 transition-transform duration-300 group-hover:scale-115 lg:w-[30px]'
-        />
+        <>
+          <span className='sr-only'>상단으로</span>
+          <Icon
+            name='arrowDown'
+            className='w-6 rotate-180 text-blue-100 transition-transform duration-300 group-hover:scale-115 lg:w-[30px]'
+          />
+        </>
       )}
       {variant === 'camera' && (
-        <Icon
-          name='camera'
-          className='w-6 text-blue-100 transition-transform duration-300 group-hover:scale-110 md:w-9 lg:w-12'
-        />
+        <>
+          <span className='sr-only'>프로필사진 변경</span>
+          <Icon
+            name='camera'
+            className='w-6 text-blue-100 transition-transform duration-300 group-hover:scale-110 md:w-9 lg:w-12'
+          />
+        </>
       )}
     </button>
   );

@@ -40,7 +40,6 @@ interface InputProps
   variant?: 'filled' | 'outlined' | 'underlined';
   label?: string;
   labelClassName?: string;
-  onSearch?: () => void;
 }
 interface PasswordState {
   type: 'password' | 'text';
@@ -55,7 +54,6 @@ export default function Input({
   variant,
   label,
   labelClassName,
-  onSearch,
   ...props
 }: InputProps) {
   const [passwordState, setPasswordState] = useState<PasswordState>({
@@ -98,28 +96,28 @@ export default function Input({
           type={inputType}
           placeholder={placeholder}
           className={cn(variantClassName, className)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' && type === 'search' && onSearch) {
-              onSearch();
-            }
-          }}
           {...props}
         />
         {type === 'password' && (
-          <Icon
-            name={passwordState.type === 'password' ? 'eyeOff' : 'eyeOn'}
-            size={24}
+          <button
+            type='button'
             onClick={togglePasswordVisibility}
             className='absolute top-1/2 right-4 -translate-y-1/2 cursor-pointer text-gray-200'
-          />
+          >
+            <span className='sr-only'>
+              {passwordState.type === 'password' ? '비밀번호 보이기' : '비밀번호 숨기기'}
+            </span>
+            <Icon name={passwordState.type === 'password' ? 'eyeOff' : 'eyeOn'} size={24} />
+          </button>
         )}
         {type === 'search' && (
-          <Icon
-            name='search'
-            size={20}
+          <button
+            type='submit'
             className='absolute top-1/2 right-0 -translate-y-1/2 cursor-pointer lg:w-[36px]'
-            onClick={onSearch}
-          />
+          >
+            <span className='sr-only'>검색</span>
+            <Icon name='search' size={20} />
+          </button>
         )}
       </div>
       {error && (
