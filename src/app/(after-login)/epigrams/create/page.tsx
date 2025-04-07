@@ -1,9 +1,8 @@
 'use client';
 
-import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
-import { createEpigram } from '@/apis/epigram/epigram.service';
+import { useCreateEpigram } from '@/apis/epigram/epigram.queries';
 import { CreateEpigramFormType } from '@/apis/epigram/epigram.type';
 import Inner from '@/components/Inner';
 import { Section } from '@/components/Section';
@@ -11,9 +10,8 @@ import EpigramForm from '../_components/EpigramForm';
 
 export default function Page() {
   const router = useRouter();
-  const { mutateAsync, isPending } = useMutation({
-    mutationFn: createEpigram,
-  });
+  const { mutateAsync, isPending } = useCreateEpigram();
+
   return (
     <Inner className='p-6 lg:py-8'>
       <Section>에피그램 만들기</Section>

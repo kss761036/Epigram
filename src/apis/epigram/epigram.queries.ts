@@ -15,8 +15,10 @@ import {
   disLikeEpigram,
   getTodayEpigram,
   getEpigramComments,
+  createEpigram,
+  updateEpigram,
 } from './epigram.service';
-import { Epigram, EpigramDetail } from './epigram.type';
+import { CreateEpigramFormType, Epigram, EpigramDetail } from './epigram.type';
 
 export const useEpigramSearchInfiniteQuery = (params: Omit<SearchableQueryParams, 'cursor'>) => {
   return useInfiniteQuery({
@@ -144,5 +146,27 @@ export const useFeedCommentsInFiniteQuery = (
       getEpigramComments(epigramId, { ...params, cursor: pageParam }),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => lastPage.nextCursor || undefined,
+  });
+};
+
+export const useCreateEpigram = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: CreateEpigramFormType) => createEpigram(data),
+    onSuccess: (result) => {
+      queryClient.invalidateQueries({ queryKey: ['epigrams', result.id] });
+    },
+  });
+};
+
+export const useUpdateEpigram = (epigramId: number) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: CreateEpigramFormType) => updateEpigram(epigramId, data),
+    onSuccess: (result) => {
+      queryClient.setQueryData(['epigrams', epigramId], result);
+    },
   });
 };
