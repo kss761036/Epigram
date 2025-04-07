@@ -17,7 +17,7 @@ const meta: Meta<typeof SearchHeader> = {
   },
   args: {
     keyword: '테스트 검색어',
-    onSaveRecentKeyword: (keyword) => console.log('검색어 저장:', keyword),
+    onSubmit: (keyword) => console.log('검색어 저장:', keyword),
   },
 };
 

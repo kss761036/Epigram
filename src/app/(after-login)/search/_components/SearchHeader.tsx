@@ -1,30 +1,21 @@
 'use client';
 
 import { FormEvent, useEffect, useRef } from 'react';
-import { useRouter } from 'next/navigation';
 import Input from '@/components/Input';
 
 interface SearchHeaderProps {
   keyword?: string;
-  onSaveRecentKeyword: (keyword: string) => void;
+  onSubmit: (keyword: string | undefined) => void;
 }
 
-export default function SearchHeader({ keyword, onSaveRecentKeyword }: SearchHeaderProps) {
-  const router = useRouter();
+export default function SearchHeader({ keyword, onSubmit }: SearchHeaderProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
     const keyword = inputRef.current?.value.trim();
-    const searchParams = new URLSearchParams();
-
-    if (keyword) {
-      onSaveRecentKeyword(keyword);
-      searchParams.append('keyword', keyword);
-    }
-
-    router.replace(`/search?${searchParams.toString()}`);
+    onSubmit(keyword);
   };
 
   useEffect(() => {
