@@ -19,9 +19,16 @@ export default function MyEmotions() {
   const { data: moodData = {}, currentMonth, setCurrentMonth } = useEmotionLogsMonthly(userId);
 
   const handleEmotionClick = (emotion: Emotion) => {
-    if (isPending) return;
-
-    createEmotion({ emotion });
+    if (isPending) return Promise.resolve();
+    return new Promise<void>((resolve, reject) => {
+      createEmotion(
+        { emotion },
+        {
+          onSuccess: () => resolve(),
+          onError: () => reject(),
+        },
+      );
+    });
   };
 
   return (
