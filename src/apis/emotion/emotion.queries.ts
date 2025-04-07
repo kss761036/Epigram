@@ -21,9 +21,9 @@ export const useCreateEmotionLog = (userId: number | null) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data: { emotion: Emotion }) => createEmotionLogToday(data),
-    onSuccess: () => {
+    onSuccess: async () => {
       if (userId !== null) {
-        queryClient.invalidateQueries({ queryKey: ['emotion'] });
+        await queryClient.invalidateQueries({ queryKey: ['emotion'] });
       }
     },
   });
