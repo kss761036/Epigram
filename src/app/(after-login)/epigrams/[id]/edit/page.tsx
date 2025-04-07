@@ -1,12 +1,10 @@
 'use client';
 
 import { use } from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSession } from 'next-auth/react';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
-import { useEpigram } from '@/apis/epigram/epigram.queries';
-import { updateEpigram } from '@/apis/epigram/epigram.service';
+import { useEpigram, useUpdateEpigram } from '@/apis/epigram/epigram.queries';
 import { CreateEpigramFormType } from '@/apis/epigram/epigram.type';
 import ErrorPage from '@/app/error';
 import Inner from '@/components/Inner';
@@ -23,7 +21,6 @@ export default function EditEpigramPage({ params }: EditEpigramPageProps) {
   const { id } = use(params);
   const { data: session } = useSession();
   const sessionUserId = session?.user?.id;
-  const queryClient = useQueryClient();
   const epigramId = Number(id);
 
   const { details } = useEpigram(epigramId);
@@ -31,12 +28,7 @@ export default function EditEpigramPage({ params }: EditEpigramPageProps) {
   const isLoading = details.isLoading;
   const isError = details.isError;
 
-  const { mutateAsync, isPending } = useMutation({
-    mutationFn: (data: CreateEpigramFormType) => updateEpigram(epigramId, data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['epigrams'] });
-    },
-  });
+  const { mutateAsync, isPending } = useUpdateEpigram(epigramId);
 
   const handleUpdate = async (formData: CreateEpigramFormType) => {
     try {
