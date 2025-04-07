@@ -1,46 +1,16 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
-import { useSession } from 'next-auth/react';
-import { useEmotionLogToday } from '@/apis/emotion/emotion.queries';
 import Inner from '@/components/Inner';
-import TodayMood from '@/components/TodayMood';
 import FloatingButtons from '../_components/FloatingButtons';
 import RecentComment from './_components/RecentComment';
 import RecentEpigram from './_components/RecentEpigram';
+import TodayEmotion from './_components/TodayEmotion';
 import TodayEpigram from './_components/TodayEpigram';
 
 export default function Page() {
-  const { data: session } = useSession();
-  const userId = session?.user.id;
-  const { data: emotion, isLoading } = useEmotionLogToday(userId);
-  const [showTodayMood, setShowTodayMood] = useState(false);
-
-  useEffect(() => {
-    if (!isLoading) {
-      setShowTodayMood(!emotion?.emotion);
-    }
-  }, [emotion, isLoading]);
-
-  if (isLoading) return <div className='bg-bg h-screen w-screen'></div>;
-
   return (
     <div className='bg-bg flex h-full w-full justify-center'>
       <Inner className='mt-[32px] h-full lg:mt-[120px]'>
         <TodayEpigram />
-        <AnimatePresence>
-          {showTodayMood && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0, transition: { duration: 0.5 } }}
-              className='mt-[56px] lg:mt-[140px]'
-            >
-              <TodayMood label='오늘의 감정을 선택해 주세요' />
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <TodayEmotion />
         <RecentEpigram />
         <RecentComment />
       </Inner>

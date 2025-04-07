@@ -14,7 +14,7 @@ describe('마이페이지', () => {
 
     it('초기 렌더링 시 로그아웃 버튼, 오늘의 감정, 감정 달력, 감정 차트, 내 에피그램, 내 댓글이 렌더링된다.', () => {
       cy.contains('button', '로그아웃').should('exist');
-      cy.contains('p', '오늘의 감정').should('exist');
+      cy.contains('div', '오늘의 감정').should('exist');
       cy.contains('span', /[0-9]{4}년 [0-9]{1,2}월/).should('exist');
       cy.contains('p', '감정 차트').should('exist');
       cy.contains('button', '내 에피그램').should('exist');
