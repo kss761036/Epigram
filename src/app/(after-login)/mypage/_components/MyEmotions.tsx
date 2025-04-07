@@ -20,7 +20,6 @@ export default function MyEmotions() {
 
   const handleEmotionClick = (emotion: Emotion) => {
     if (isPending) return;
-
     createEmotion({ emotion });
   };
 
@@ -31,6 +30,7 @@ export default function MyEmotions() {
         onEmotionClick={handleEmotionClick}
         label='오늘의 감정'
         showDate
+        isLoading={isPending}
       />
       <MonthlyLogs
         moodData={moodData}
