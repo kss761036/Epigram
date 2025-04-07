@@ -23,7 +23,7 @@ export const useCreateEmotionLog = (userId: number | null) => {
     mutationFn: (data: { emotion: Emotion }) => createEmotionLogToday(data),
     onSuccess: async () => {
       if (userId !== null) {
-        await queryClient.invalidateQueries({ queryKey: ['emotion'] });
+        await queryClient.refetchQueries({ queryKey: ['emotion'] });
       }
     },
   });
