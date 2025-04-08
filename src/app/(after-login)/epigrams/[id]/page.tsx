@@ -70,7 +70,7 @@ export default function Page() {
           onEdit={handleEdit}
           onRemove={handleRemoveConfirm}
         />
-        <DetailContent content={content} author={author} />
+        <DetailContent content={content} author={author} writerId={writerId} />
         <DeatailFooter
           referenceTitle={referenceTitle}
           referenceUrl={referenceUrl}
