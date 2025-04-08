@@ -20,8 +20,12 @@ export default function ProfileModal({ isOpen, writer, onClose }: ProfileModalPr
       isOpen={isOpen}
       onClose={onClose}
       className='max-w-[300px] px-6 pt-4 pb-6 md:max-w-[328px] lg:max-w-[360px] lg:px-10 lg:pt-6 lg:pb-8'
+      titleId='profile-modal-title'
     >
       <div className='flex justify-end'>
+        <h2 id='profile-modal-title' className='sr-only'>
+          프로필
+        </h2>
         <button onClick={onClose} className='cursor-pointer'>
           <Icon name='close' size={20} />
         </button>

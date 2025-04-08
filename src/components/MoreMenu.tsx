@@ -1,6 +1,6 @@
 'use client';
 
-import { HTMLAttributes, PropsWithChildren } from 'react';
+import { HTMLAttributes, MouseEvent, PropsWithChildren } from 'react';
 import { cn } from '@/utils/helper';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from './Dropdown';
 import Icon from './Icon';
@@ -23,7 +23,7 @@ export function MoreMenuItem({
   children,
   onClick,
   ...props
-}: PropsWithChildren<HTMLAttributes<HTMLLIElement> & { onClick: () => void }>) {
+}: PropsWithChildren<HTMLAttributes<HTMLLIElement> & { onClick: (e: MouseEvent) => void }>) {
   const ItemClassName = cn(
     'text-md lg:text-2lg cursor-pointer px-6 py-2 lg:px-8 lg:py-3 whitespace-nowrap hover:bg-blue-200 rounded-xl',
     className,

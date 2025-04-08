@@ -14,6 +14,7 @@ import {
   useState,
 } from 'react';
 import { AnimatePresence, HTMLMotionProps, motion } from 'motion/react';
+import { focusTrapWithArrow } from '@/utils/focusTrap';
 import { cn } from '@/utils/helper';
 
 const DropdownStateContext = createContext<{
@@ -61,6 +62,9 @@ export function Dropdown({
   }, []);
 
   useEffect(() => {
+    const currentDropdown = dropdownRef.current;
+    if (!currentDropdown) return;
+
     function handleKeyDown(e: KeyboardEvent) {
       if (!isOpen) return;
 
@@ -70,10 +74,10 @@ export function Dropdown({
       }
     }
 
-    document.addEventListener('keydown', handleKeyDown);
+    currentDropdown.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      currentDropdown.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen]);
 
@@ -121,7 +125,7 @@ export function DropdownMenu({
   const menuRef = useRef<HTMLUListElement>(null);
 
   const focusFirstElement = () => {
-    if (menuRef.current) {
+    if (menuRef.current && isOpen) {
       const focusable = menuRef.current.querySelector<HTMLElement>(
         'button, [href], [tabindex]:not([tabindex="-1"])',
       );
@@ -135,43 +139,11 @@ export function DropdownMenu({
 
   useEffect(() => {
     if (!isOpen || !menuRef.current) return;
-
     const menu = menuRef.current;
 
-    function handleKeyDown(e: KeyboardEvent) {
-      const focusable = Array.from(
-        menu.querySelectorAll<HTMLElement>('button, [href], [tabindex]:not([tabindex="-1"])'),
-      );
-      const currentIndex = focusable.findIndex((el) => el === document.activeElement);
-
-      if (currentIndex === -1) return;
-
-      const isForward =
-        (direction === 'vertical' && e.key === 'ArrowDown') ||
-        (direction === 'horizontal' && e.key === 'ArrowRight');
-
-      const isBackward =
-        (direction === 'vertical' && e.key === 'ArrowUp') ||
-        (direction === 'horizontal' && e.key === 'ArrowLeft');
-
-      const focusableLength = focusable.length;
-      let targetIndex: number | null = null;
-
-      if (isForward) {
-        targetIndex = currentIndex + 1 < focusableLength ? currentIndex + 1 : 0;
-      } else if (isBackward) {
-        targetIndex = currentIndex - 1 >= 0 ? currentIndex - 1 : focusableLength - 1;
-      }
-
-      if (targetIndex !== null) {
-        e.preventDefault();
-        focusable[targetIndex]?.focus();
-      }
-    }
-
-    menu.addEventListener('keydown', handleKeyDown);
+    menu.addEventListener('keydown', (e) => focusTrapWithArrow(e, direction));
     return () => {
-      menu.removeEventListener('keydown', handleKeyDown);
+      menu.removeEventListener('keydown', (e) => focusTrapWithArrow(e, direction));
     };
   }, [isOpen, direction]);
 
@@ -186,7 +158,7 @@ export function DropdownMenu({
           transition={{ duration: 0.1 }}
           className={className}
           role='menu'
-          onAnimationComplete={focusFirstElement}
+          onAnimationStart={focusFirstElement}
           {...props}
         >
           {children}

@@ -23,7 +23,14 @@ export function DetailHeader({ tags, isOwner, onEdit, onRemove }: DetailHeaderPr
         <div className='ml-auto flex-none'>
           <MoreMenu>
             <MoreMenuItem onClick={onEdit}>수정하기</MoreMenuItem>
-            <MoreMenuItem onClick={onRemove}>삭제하기</MoreMenuItem>
+            <MoreMenuItem
+              onClick={(e) => {
+                e.stopPropagation();
+                onRemove();
+              }}
+            >
+              삭제하기
+            </MoreMenuItem>
           </MoreMenu>
         </div>
       )}
