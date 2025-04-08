@@ -9,7 +9,7 @@ export function DetailContent({ content, author, writerId }: DetailContent) {
 
   return (
     <>
-      <h2 className='font-iropke mb-4 text-2xl leading-relaxed break-keep md:mb-6 lg:mb-8 lg:text-3xl'>
+      <h2 className='font-iropke mb-4 text-2xl leading-relaxed break-keep whitespace-pre-wrap md:mb-6 lg:mb-8 lg:text-3xl'>
         {content}
       </h2>
       <div className='mb-8 flex justify-end lg:mb-9'>
