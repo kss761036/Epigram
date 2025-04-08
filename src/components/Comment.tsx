@@ -9,6 +9,8 @@ import Avatar from './Avatar';
 import ProfileModal from './ProfileModal';
 
 interface CommentProps {
+  linkToEpigram?: boolean;
+  baseUrl?: string;
   epigramId: Epigram['id'];
   content: string;
   writer: {
@@ -20,10 +22,11 @@ interface CommentProps {
   handleEdit?: () => void;
   handleDelete?: () => void;
   isOwnComment?: boolean;
-  href?: string;
 }
 
 export default function Comment({
+  linkToEpigram,
+  baseUrl,
   epigramId,
   content,
   writer,
@@ -32,7 +35,6 @@ export default function Comment({
   handleEdit,
   handleDelete,
   isOwnComment = true,
-  href,
 }: CommentProps) {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
@@ -99,8 +101,8 @@ export default function Comment({
 
   return (
     <>
-      {href ? (
-        <Link href={href + epigramId} className={classes.commentWrapper}>
+      {linkToEpigram && baseUrl ? (
+        <Link href={baseUrl + epigramId} className={classes.commentWrapper}>
           <CommentBody />
         </Link>
       ) : (

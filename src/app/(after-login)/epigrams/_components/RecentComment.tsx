@@ -127,6 +127,8 @@ export default function RecentComment() {
               ) : (
                 <Comment
                   {...comment}
+                  linkToEpigram={true}
+                  baseUrl='/epigrams/'
                   isOwnComment={isOwnComment}
                   handleEdit={() => isOwnComment && handleEdit(comment)}
                   handleDelete={() => isOwnComment && handleDeleteConfirm(comment.id)}

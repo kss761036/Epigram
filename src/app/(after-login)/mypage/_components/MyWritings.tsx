@@ -68,7 +68,7 @@ export default function MyWritings() {
         </TabItem>
         <TabItem tabIndex={1} activeTab={activeTab}>
           <CommentList
-            href='/epigrams/'
+            linkToEpigram={true}
             comments={comments}
             isFetching={isFetchingComments}
             hasNextPage={hasNextCommentPage}

@@ -21,7 +21,7 @@ import Spinner from '@/components/Spinner';
 import type { FieldErrors } from 'react-hook-form';
 
 interface CommentListProps {
-  href?: string;
+  linkToEpigram?: boolean;
   comments: CommentType[];
   isFetching: boolean;
   hasNextPage: boolean;
@@ -30,7 +30,7 @@ interface CommentListProps {
 }
 
 export default function CommentList({
-  href,
+  linkToEpigram = false,
   comments,
   isFetching,
   hasNextPage,
@@ -136,7 +136,8 @@ export default function CommentList({
             ) : (
               <Comment
                 {...comment}
-                href={href}
+                linkToEpigram={linkToEpigram}
+                baseUrl='/epigrams/'
                 handleEdit={() => handleEdit(comment)}
                 handleDelete={() => handleDeleteConfirm(comment.id)}
                 isOwnComment={comment.writer.id === session?.user.id}
