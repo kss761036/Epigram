@@ -22,8 +22,16 @@ export default function DeleteModal({
   isSubmitting = false,
 }: DeleteModalProps) {
   return (
-    <ModalBase isOpen={isOpen} onClose={onClose} className='px-4 py-6 md:px-[38px] md:py-8'>
+    <ModalBase
+      isOpen={isOpen}
+      onClose={onClose}
+      className='px-4 py-6 md:px-[38px] md:py-8'
+      titleId='delete-modal-title'
+    >
       <div className='flex justify-center'>
+        <h2 id='delete-modal-title' className='sr-only'>
+          {type === 'comment' ? '댓글 삭제' : '게시물 삭제'}
+        </h2>
         <Image
           src={noticeIcon}
           alt='삭제 경고 아이콘'
@@ -48,13 +56,13 @@ export default function DeleteModal({
       <div className='flex flex-row gap-2 lg:gap-4'>
         <Button
           onClick={onClose}
-          className='text-black-700 bg-blue-200 font-medium hover:bg-blue-200 focus:ring-0 focus:ring-offset-0 active:border-blue-200 active:bg-blue-200'
+          className='text-black-700 bg-blue-200 font-medium hover:bg-blue-200 active:border-blue-200 active:bg-blue-200'
         >
           취소
         </Button>
         <Button
           onClick={onDelete}
-          className='bg-blue-900 hover:bg-blue-950 active:bg-blue-950'
+          className='bg-blue-900 hover:bg-blue-950 focus:ring-black active:bg-blue-950'
           disabled={isSubmitting}
         >
           삭제하기

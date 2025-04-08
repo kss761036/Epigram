@@ -75,11 +75,15 @@ export default function ProfileEditModal() {
   if (!isOpen || type !== 'ProfileEdit') return null;
 
   return (
-    <ModalBase>
+    <ModalBase titleId='profile-edit-modal-title'>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className='mt-2 flex w-full flex-col justify-center gap-6'
       >
+        <h2 id='profile-edit-modal-title' className='sr-only'>
+          프로필 수정
+        </h2>
+
         <Controller
           name='image'
           control={control}
@@ -107,14 +111,14 @@ export default function ProfileEditModal() {
           <Button
             type='button'
             onClick={close}
-            className='text-black-700 w-full bg-blue-200 font-medium hover:bg-blue-200 focus:ring-0 focus:ring-offset-0 active:border-blue-200 active:bg-blue-200'
+            className='text-black-700 w-full bg-blue-200 font-medium hover:bg-blue-200 active:border-blue-200 active:bg-blue-200'
           >
             취소
           </Button>
           <Button
             type='submit'
             disabled={isSubmitting || !isDirty || !isValid}
-            className='w-full bg-blue-900 hover:bg-blue-950 active:bg-blue-950'
+            className='w-full bg-blue-900 hover:bg-blue-950 focus:ring-black active:bg-blue-950'
           >
             저장
           </Button>
