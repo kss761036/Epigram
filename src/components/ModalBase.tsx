@@ -75,11 +75,9 @@ export default function ModalBase({
         onClick={(e) => e.stopPropagation()}
         onKeyDown={(e) => focusTrap(e, modalRef.current)}
       >
-        <div ref={initialFocusRef} tabIndex={-1} className='sr-only'>
-          포커스용
+        <div ref={initialFocusRef} tabIndex={-1}>
+          {children}
         </div>
-
-        {children}
       </div>
     </div>,
     portalRoot,
