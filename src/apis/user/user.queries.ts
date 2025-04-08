@@ -1,5 +1,5 @@
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import { getUserById, getUserCommentsById } from '@/apis/user/user.service';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { getUserCommentsById } from '@/apis/user/user.service';
 import { PaginationQueryParams } from '@/types/common';
 
 export const useUserCommentsByIdInFiniteQuery = (
@@ -11,13 +11,5 @@ export const useUserCommentsByIdInFiniteQuery = (
       getUserCommentsById(params.userId, { ...params, cursor: pageParam }),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => lastPage.nextCursor || undefined,
-  });
-};
-
-export const useUserByNicknameQuery = (params: { userId: number }) => {
-  return useQuery({
-    queryKey: ['user', params.userId],
-    queryFn: () => getUserById(params.userId),
-    enabled: !!params.userId,
   });
 };
