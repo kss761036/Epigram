@@ -61,6 +61,9 @@ export function Dropdown({
   }, []);
 
   useEffect(() => {
+    const currentDropdown = dropdownRef.current;
+    if (!currentDropdown) return;
+
     function handleKeyDown(e: KeyboardEvent) {
       if (!isOpen) return;
 
@@ -70,10 +73,10 @@ export function Dropdown({
       }
     }
 
-    document.addEventListener('keydown', handleKeyDown);
+    currentDropdown.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      currentDropdown.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen]);
 
@@ -121,7 +124,7 @@ export function DropdownMenu({
   const menuRef = useRef<HTMLUListElement>(null);
 
   const focusFirstElement = () => {
-    if (menuRef.current) {
+    if (menuRef.current && isOpen) {
       const focusable = menuRef.current.querySelector<HTMLElement>(
         'button, [href], [tabindex]:not([tabindex="-1"])',
       );
@@ -186,7 +189,7 @@ export function DropdownMenu({
           transition={{ duration: 0.1 }}
           className={className}
           role='menu'
-          onAnimationComplete={focusFirstElement}
+          onAnimationStart={focusFirstElement}
           {...props}
         >
           {children}
