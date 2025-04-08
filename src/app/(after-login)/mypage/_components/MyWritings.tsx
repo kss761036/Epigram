@@ -37,9 +37,9 @@ export default function MyWritings() {
 
   return (
     <Tabs>
-      <TabList>
+      <TabList activeTab={activeTab} setActiveTab={setActiveTab}>
         <TabBtn
-          tabIndex={0}
+          index={0}
           className='text-lg lg:text-2xl'
           activeTab={activeTab}
           setActiveTab={setActiveTab}
@@ -47,7 +47,7 @@ export default function MyWritings() {
           내 에피그램({myEpigramsCount})
         </TabBtn>
         <TabBtn
-          tabIndex={1}
+          index={1}
           className='text-lg lg:text-2xl'
           activeTab={activeTab}
           setActiveTab={setActiveTab}
@@ -56,7 +56,7 @@ export default function MyWritings() {
         </TabBtn>
       </TabList>
       <TabItemsContainer>
-        <TabItem tabIndex={0} activeTab={activeTab}>
+        <TabItem index={0} activeTab={activeTab}>
           <MyEpigrams
             epigrams={epigrams}
             isFetching={isFetchingEpigrams}
@@ -64,7 +64,7 @@ export default function MyWritings() {
             fetchNextPage={fetchNextEpigramPage}
           />
         </TabItem>
-        <TabItem tabIndex={1} activeTab={activeTab}>
+        <TabItem index={1} activeTab={activeTab}>
           <CommentList
             linkToEpigram={true}
             comments={comments}
