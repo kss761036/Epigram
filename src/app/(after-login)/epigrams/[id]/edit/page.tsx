@@ -62,6 +62,7 @@ export default function EditEpigramPage({ params }: EditEpigramPageProps) {
         }}
         isSubmitting={isPending}
         onSubmit={handleUpdate}
+        myNickname={session?.user?.nickname || ''}
       />
     </Inner>
   );

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useSession } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import {
@@ -23,6 +24,7 @@ interface EpigramFormProps {
   initValues?: Partial<CreateEpigramFormType>;
   onSubmit: (data: CreateEpigramFormType) => void;
   isSubmitting?: boolean;
+  myNickname?: string;
 }
 
 const singleTagSchema = z
@@ -39,6 +41,9 @@ export default function EpigramForm({
   onSubmit,
   isSubmitting = false,
 }: EpigramFormProps) {
+  const { data: session } = useSession();
+  const myNickname = session?.user?.nickname || '';
+
   const {
     reset,
     register,
@@ -51,14 +56,16 @@ export default function EpigramForm({
     resolver: zodResolver(createEpigramFormSchema),
     defaultValues: {
       content: initValues?.content || '',
-      selectedAuthor: (initValues?.author && ['본인', '알 수 없음'].includes(initValues.author)
-        ? initValues.author
-        : '직접 입력') as '직접 입력' | '본인' | '알 수 없음',
+      selectedAuthor:
+        initValues?.author === myNickname
+          ? '본인'
+          : initValues?.author && ['본인', '알 수 없음'].includes(initValues.author)
+            ? (initValues.author as '본인' | '알 수 없음')
+            : '직접 입력',
       author:
         initValues?.author && !['본인', '알 수 없음'].includes(initValues.author)
           ? initValues.author
           : null,
-
       referenceUrl: initValues?.referenceUrl ?? null,
       referenceTitle: initValues?.referenceTitle ?? null,
       tags: initValues?.tags || [],
@@ -77,7 +84,11 @@ export default function EpigramForm({
 
   const handleFormSubmit = (data: CreateEpigramFormType) => {
     const finalAuthor =
-      data.selectedAuthor === '직접 입력' ? data.author?.trim() || '' : data.selectedAuthor;
+      data.selectedAuthor === '본인'
+        ? myNickname
+        : data.selectedAuthor === '직접 입력'
+          ? data.author?.trim() || ''
+          : data.selectedAuthor;
 
     const payload: CreateEpigramFormType = {
       ...data,
