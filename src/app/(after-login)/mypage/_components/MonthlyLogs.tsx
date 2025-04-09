@@ -8,13 +8,7 @@ import Emoji from '@/components/Emoji';
 import { Emotion, EMOTION_LABEL } from '@/types/common';
 import { getPercentage } from '@/utils/getPercentage';
 
-const emotionColors: Record<Emotion, string> = {
-  MOVED: '#48BB98',
-  HAPPY: '#FBC85B',
-  WORRIED: '#C7D1E0',
-  SAD: '#E3E9F1',
-  ANGRY: '#EFF3F8',
-};
+const emotionChartColors: string[] = ['#48BB98', '#FBC85B', '#C7D1E0', '#E3E9F1', '#EFF3F8'];
 
 interface MonthlyLogsProps {
   moodData: Record<string, Emotion>;
@@ -33,7 +27,7 @@ export default function MonthlyLogs({ moodData, currentMonth, setCurrentMonth }:
 
   const chartValues = Object.values(emotionCounts);
   const chartLabels = Object.keys(emotionCounts) as Emotion[];
-  const chartColors = chartLabels.map((emotion) => emotionColors[emotion]);
+  const chartColors = emotionChartColors;
 
   return (
     <>
