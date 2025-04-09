@@ -55,9 +55,9 @@ export const Default: Story = {
     const [activeTab, setActiveTab] = useState(0);
     return (
       <Tabs>
-        <TabList className={args.TabList}>
+        <TabList className={args.TabList} activeTab={activeTab} setActiveTab={setActiveTab}>
           <TabBtn
-            tabIndex={0}
+            index={0}
             className={args.TabBtn}
             activeClass={args.TabBtnActive}
             activeTab={activeTab}
@@ -66,7 +66,7 @@ export const Default: Story = {
             내 에피그램(10)
           </TabBtn>
           <TabBtn
-            tabIndex={1}
+            index={1}
             className={args.TabBtn}
             activeClass={args.TabBtnActive}
             activeTab={activeTab}
@@ -77,7 +77,7 @@ export const Default: Story = {
         </TabList>
         <TabItemsContainer className={args.TabItemsContainer}>
           <TabItem
-            tabIndex={0}
+            index={0}
             className={args.TabItem}
             animation={args.TabItemAnimation}
             activeTab={activeTab}
@@ -85,7 +85,7 @@ export const Default: Story = {
             에피그램 리스트
           </TabItem>
           <TabItem
-            tabIndex={1}
+            index={1}
             className={args.TabItem}
             animation={args.TabItemAnimation}
             activeTab={activeTab}

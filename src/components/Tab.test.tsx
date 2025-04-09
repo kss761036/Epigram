@@ -8,11 +8,11 @@ describe('Tab 컴포넌트 테스트', () => {
       const [activeTab, setActiveTab] = useState(0);
       return (
         <Tabs>
-          <TabList>
-            <TabBtn tabIndex={0} activeTab={activeTab} setActiveTab={setActiveTab}>
+          <TabList activeTab={activeTab} setActiveTab={setActiveTab}>
+            <TabBtn index={0} activeTab={activeTab} setActiveTab={setActiveTab}>
               탭 1
             </TabBtn>
-            <TabBtn tabIndex={1} activeTab={activeTab} setActiveTab={setActiveTab}>
+            <TabBtn index={1} activeTab={activeTab} setActiveTab={setActiveTab}>
               탭 2
             </TabBtn>
           </TabList>
@@ -34,10 +34,10 @@ describe('Tab 컴포넌트 테스트', () => {
       return (
         <Tabs>
           <TabItemsContainer>
-            <TabItem tabIndex={0} activeTab={activeTab}>
+            <TabItem index={0} activeTab={activeTab}>
               내용 1
             </TabItem>
-            <TabItem tabIndex={1} activeTab={activeTab}>
+            <TabItem index={1} activeTab={activeTab}>
               내용 2
             </TabItem>
           </TabItemsContainer>

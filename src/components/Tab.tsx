@@ -7,13 +7,15 @@ import { cn } from '@/utils/helper';
 interface TabListProps {
   children: React.ReactNode;
   className?: string;
+  activeTab: number;
+  setActiveTab: (tab: number) => void;
 }
 
 interface TabBtnProps {
   children: React.ReactNode;
   className?: string;
   activeClass?: string;
-  tabIndex: number;
+  index: number;
   activeTab: number;
   setActiveTab: (tab: number) => void;
 }
@@ -26,7 +28,7 @@ interface TabItemsContainerProps {
 interface TabItemProps {
   children: React.ReactNode;
   className?: string;
-  tabIndex: number;
+  index: number;
   activeTab: number;
   animation?: {
     enabled?: boolean;
@@ -53,9 +55,31 @@ export function Tabs({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function TabList({ children, className }: TabListProps) {
+export function TabList({ children, className, activeTab, setActiveTab }: TabListProps) {
+  const tabs = React.Children.toArray(children);
+  const totalTabs = tabs.length;
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      const nextTab = (activeTab + 1) % totalTabs;
+      setActiveTab(nextTab);
+      (document.querySelectorAll('[role="tab"]')[nextTab] as HTMLButtonElement)?.focus();
+    }
+
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      const prevTab = (activeTab - 1 + totalTabs) % totalTabs;
+      setActiveTab(prevTab);
+      (document.querySelectorAll('[role="tab"]')[prevTab] as HTMLButtonElement)?.focus();
+    }
+  };
   return (
-    <ul className={cn('md:gap:6 mb-6 flex flex-wrap gap-4 md:mb-8 lg:mb-12', className)}>
+    <ul
+      className={cn('md:gap:6 mb-6 flex flex-wrap gap-4 md:mb-8 lg:mb-12', className)}
+      role='tablist'
+      onKeyDown={handleKeyDown}
+    >
       {children}
     </ul>
   );
@@ -65,24 +89,27 @@ export function TabBtn({
   children,
   activeClass,
   className,
-  tabIndex,
+  index,
   activeTab,
   setActiveTab,
 }: TabBtnProps) {
   const active = 'text-black-600 font-semibold';
-  const isActive = activeTab === tabIndex;
+  const isActive = activeTab === index;
 
   return (
     <li>
       <button
-        tabIndex={tabIndex}
+        role='tab'
+        aria-selected={isActive}
+        tabIndex={isActive ? 0 : -1}
         className={cn(
           'cursor-pointer leading-5 font-medium text-gray-300 transition-all duration-100',
           isActive && active,
           isActive && activeClass,
           className,
         )}
-        onClick={() => setActiveTab(tabIndex)}
+        onClick={() => setActiveTab(index)}
+        onFocus={() => setActiveTab(index)}
       >
         {children}
       </button>
@@ -94,8 +121,8 @@ export function TabItemsContainer({ children, className }: TabItemsContainerProp
   return <ul className={className}>{children}</ul>;
 }
 
-export function TabItem({ children, className, tabIndex, activeTab, animation }: TabItemProps) {
-  const isActive = activeTab === tabIndex;
+export function TabItem({ children, className, index, activeTab, animation }: TabItemProps) {
+  const isActive = activeTab === index;
   const { enabled = true, direction = 'y', directionValue = 20, duration = 0.25 } = animation || {};
 
   const [isFirstRender, setIsFirstRender] = useState(true);
