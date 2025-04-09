@@ -2,7 +2,6 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient } from '@tanstack/react-query';
-import { useSession } from 'next-auth/react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { useCreateComment } from '@/apis/comment/comment.queries';
@@ -14,9 +13,15 @@ import type { FieldErrors } from 'react-hook-form';
 
 interface EpigramCommentsProps {
   id: Epigram['id'];
+  session?: {
+    user: {
+      nickname: string;
+      image: string;
+    };
+  };
 }
 
-export default function EpigramComments({ id }: EpigramCommentsProps) {
+export default function EpigramComments({ id, session }: EpigramCommentsProps) {
   const methods = useForm<CommentFormValues>({
     resolver: zodResolver(commentSchema),
     defaultValues: {
@@ -27,7 +32,6 @@ export default function EpigramComments({ id }: EpigramCommentsProps) {
 
   const queryClient = useQueryClient();
   const commentQueryParams = { limit: 4 };
-  const { data: session } = useSession();
 
   const {
     data: commentData,
@@ -78,16 +82,14 @@ export default function EpigramComments({ id }: EpigramCommentsProps) {
           onSubmit={methods.handleSubmit(handleCreateComment, handleCreateError)}
           className='border-t-0 px-0 !pt-0'
         >
-          <CommentForm
-            writer={
-              session?.user
-                ? { nickname: session.user.nickname, image: session.user.image }
-                : { nickname: '', image: '' }
-            }
-            isUpdatePending={isCreatePending}
-            handleSaveEdit={() => {}}
-            handleCancelEdit={() => methods.reset()}
-          />
+          {session?.user && (
+            <CommentForm
+              writer={{ nickname: session.user.nickname, image: session.user.image }}
+              isUpdatePending={isCreatePending}
+              handleSaveEdit={() => {}}
+              handleCancelEdit={() => methods.reset()}
+            />
+          )}
         </form>
       </FormProvider>
 
