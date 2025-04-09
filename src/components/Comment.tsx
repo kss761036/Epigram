@@ -49,7 +49,7 @@ export default function Comment({
     commentInfoBtns: 'ml-auto flex gap-x-4',
     commentInfoBtn: 'cursor-pointer leading-normal underline underline-offset-3',
     commentContent:
-      'text-black-700 mt-2 text-[14px] leading-[1.7] break-keep md:mt-3 md:text-[16px] md:leading-relaxed lg:mt-4 lg:text-[20px]',
+      'text-black-700 mt-2 text-[14px] leading-[1.7] break-all md:mt-3 md:text-[16px] md:leading-relaxed lg:mt-4 lg:text-[20px]',
   };
 
   const CommentBody = () => (

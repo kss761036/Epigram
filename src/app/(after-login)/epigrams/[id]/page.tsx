@@ -89,7 +89,7 @@ export default function Page() {
 
       {session ? (
         <Inner>
-          <EpigramComments id={id} />
+          <EpigramComments id={id} session={session} />
         </Inner>
       ) : (
         <div className='text-black-600 flex flex-col items-center justify-center gap-8 py-16'>
