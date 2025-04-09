@@ -56,7 +56,7 @@ export default function Comment({
     <>
       <div
         onClick={(e) => {
-          e.stopPropagation();
+          e.preventDefault();
           setIsProfileModalOpen(true);
         }}
         className='cursor-pointer'
