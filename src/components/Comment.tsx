@@ -72,7 +72,7 @@ export default function Comment({
               <li>
                 <button
                   onClick={(e) => {
-                    e.stopPropagation();
+                    e.preventDefault();
                     handleEdit?.();
                   }}
                   className={cn(classes.commentInfoBtn, 'text-black-600 decoration-black-600')}
@@ -83,7 +83,7 @@ export default function Comment({
               <li>
                 <button
                   onClick={(e) => {
-                    e.stopPropagation();
+                    e.preventDefault();
                     handleDelete?.();
                   }}
                   className={cn(classes.commentInfoBtn, 'text-red decoration-red')}
