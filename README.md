@@ -16,6 +16,12 @@
 </h4>   
 
 ---
+## Demo Video
+> 에피그램 프로젝트 시연영상  
+
+https://github.com/user-attachments/assets/35e50d5c-75a8-4481-b4cb-94e9654636bf
+
+---
 
 ## Introduce
 > 에피그램은 감동적인 명언을 통해 사람들의 감정을 공유하고, 서로의 경험을 나누는 소통 플랫폼입니다.
@@ -224,13 +230,6 @@ $ nvm use 22.14.0
 $ npm install
 $ npm run dev
 ```
----
-
-## Demo Video
-> 에피그램 프로젝트 시연영상  
-
-https://github.com/user-attachments/assets/35e50d5c-75a8-4481-b4cb-94e9654636bf
-
 ---
 ## Browers supports
 
