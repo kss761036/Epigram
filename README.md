@@ -40,13 +40,109 @@
 ## Screenshots
 > 에피그램 프로젝트 스크린샷   
 
-(작성대기)
+<div style="overflow-x: auto; white-space: nowrap;">
+  <img src="https://github.com/user-attachments/assets/76b838bc-b5f4-4ecd-81e3-731c2c37ff59" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
+  <img src="https://github.com/user-attachments/assets/bcea43ec-58f6-47b8-828b-c2ed7c232e65" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
+  <img src="https://github.com/user-attachments/assets/8b8410dc-04ca-4051-88fa-7b1ee3fda286" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
+  <img src="https://github.com/user-attachments/assets/78a40a5f-3418-4bc1-876d-9f84d9604e2e" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
+  <img src="https://github.com/user-attachments/assets/a1eb1a8e-1d84-4e01-ba38-78f2192fe7c3" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
+  <img src="https://github.com/user-attachments/assets/f182adcf-dad7-4d87-884d-b508844cdf62" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
+  <img src="https://github.com/user-attachments/assets/050efa96-e069-4d89-8d75-2ec1b52bed5d" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
+  <img src="https://github.com/user-attachments/assets/ccae5c9a-1402-4d49-84fc-7b39c9e579c7" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
+  <img src="https://github.com/user-attachments/assets/5c4a4ffa-4af7-4fdd-a422-0b8c959e1bf0" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
+  <img src="https://github.com/user-attachments/assets/6cfd3617-50c9-4c9e-b7e7-6b8127586b0c" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
+  <img src="https://github.com/user-attachments/assets/a6baa408-adec-4462-b558-680a6ed86f4b" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
+  <img src="https://github.com/user-attachments/assets/e174c1bf-67cd-42df-b6ef-2b473453337f" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
+  <img src="https://github.com/user-attachments/assets/67d3a7d5-24d1-436a-8885-644d51f8b520" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
+</div>
+
 
 ---
 ## Tech Stack
 > 사용된 기술 스택
 
-(작성대기)
+#### 프레임워크 및 라이브러리
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/c8f0d564-04f4-483c-82ff-2056c976c463" width="80px" height="80px" />
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/3fe41586-07ea-4e97-bda8-31aca1b215b7" width="80px" height="80px" />
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/38fcfe8d-5af7-4b39-9c83-1f25b5aa565e" width="80px" height="80px" />
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/69916325-537b-4385-8b7a-12930f314f48" width="80px" height="80px" />
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/846d36e7-f0ee-49c5-841b-b2966b7e57a8" width="80px" height="80px" />
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/ac212b62-3b28-47ad-9780-88393c91d33e" width="80px" height="80px" />
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/9ac8510b-4621-4cfb-b5bb-361b916c1b69" width="80px" height="80px" />
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/e99b403b-0bf4-4b19-8abe-7d79a798c89e" width="80px" height="80px" />
+    </td>
+  </tr>
+  <tr>
+    <td align="center"><b>Next.js</b></td>
+    <td align="center"><b>TypeScript</b></td>
+    <td align="center"><b>Tailwind</b></td>
+    <td align="center"><b>NextAuth</b></td>
+    <td align="center"><b>React Hook Form</b></td>
+    <td align="center"><b>Zod</b></td>
+    <td align="center"><b>Chart.js</b></td>
+    <td align="center"><b>Tanstack Query</b></td>
+  </tr>
+</table>
+
+#### UI 컴포넌트 문서화 및 테스트 도구
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/6a819d5a-900f-4844-9721-d88841702065" width="80px" height="80px" />
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/b344db9b-8612-4fde-a286-d5bb5d32a652" width="80px" height="80px" />
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/0a5af2c4-cf70-4010-945d-24d7b3f2ee84" width="80px" height="80px" />
+    </td>
+  </tr>
+  <tr>
+    <td align="center"><b>Storybook</b></td>
+    <td align="center"><b>Jest</b></td>
+    <td align="center"><b>Cypress</b></td>
+  </tr>
+</table>
+
+#### 협업
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/3c38f477-858a-4082-9b37-b794ec7c848c" width="80px" height="80px" />
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/30245993-a523-4c4d-9e1f-053217db50ed" width="80px" height="80px" />
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/10ce3745-fad6-4186-b2d9-110bd9dffbea" width="80px" height="80px" />
+    </td>
+  </tr>
+  <tr>
+    <td align="center"><b>Figma</b></td>
+    <td align="center"><b>Notion</b></td>
+    <td align="center"><b>Discord</b></td>
+  </tr>
+</table>
 
 
 ---
@@ -81,10 +177,10 @@ $ npm run dev
 ```
 ---
 
-## Screenshots
-> 에피그램 프로젝트 스크린샷   
+## Demo Video
+> 에피그램 프로젝트 시연영상  
 
-(작성대기)
+https://github.com/user-attachments/assets/35e50d5c-75a8-4481-b4cb-94e9654636bf
 
 ---
 ## Browers supports
