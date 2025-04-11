@@ -12,7 +12,7 @@
   <a href="https://epigram-gilv.vercel.app">Epigram Site</a> |
   <a href="https://epigram-storybook.vercel.app/">Storybook</a> |
   <a href="https://honeysuckle-watchmaker-42a.notion.site/4-4-1ac38e8296f280a8a659e481aac6d9aa?pvs=4 ">Team Notion</a> |
-  <a href="#">Project Presentation</a>
+  <a href="https://www.slideshare.net/slideshow/12-4-ppt-12-4-ppt-12-4-ppt/277795857">Project Presentation</a>
 </h4>   
 
 ---
@@ -40,20 +40,63 @@
 ## Screenshots
 > 에피그램 프로젝트 스크린샷   
 
-<div style="overflow-x: auto; white-space: nowrap;">
-  <img src="https://github.com/user-attachments/assets/76b838bc-b5f4-4ecd-81e3-731c2c37ff59" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
-  <img src="https://github.com/user-attachments/assets/bcea43ec-58f6-47b8-828b-c2ed7c232e65" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
-  <img src="https://github.com/user-attachments/assets/8b8410dc-04ca-4051-88fa-7b1ee3fda286" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
-  <img src="https://github.com/user-attachments/assets/78a40a5f-3418-4bc1-876d-9f84d9604e2e" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
-  <img src="https://github.com/user-attachments/assets/a1eb1a8e-1d84-4e01-ba38-78f2192fe7c3" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
-  <img src="https://github.com/user-attachments/assets/f182adcf-dad7-4d87-884d-b508844cdf62" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
-  <img src="https://github.com/user-attachments/assets/050efa96-e069-4d89-8d75-2ec1b52bed5d" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
-  <img src="https://github.com/user-attachments/assets/ccae5c9a-1402-4d49-84fc-7b39c9e579c7" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
-  <img src="https://github.com/user-attachments/assets/5c4a4ffa-4af7-4fdd-a422-0b8c959e1bf0" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
-  <img src="https://github.com/user-attachments/assets/6cfd3617-50c9-4c9e-b7e7-6b8127586b0c" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
-  <img src="https://github.com/user-attachments/assets/a6baa408-adec-4462-b558-680a6ed86f4b" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
-  <img src="https://github.com/user-attachments/assets/e174c1bf-67cd-42df-b6ef-2b473453337f" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
-  <img src="https://github.com/user-attachments/assets/67d3a7d5-24d1-436a-8885-644d51f8b520" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
+<div style="overflow-x: auto;">
+  <table style="white-space: nowrap;">
+    <tr>
+      <td align="center" valign="top">
+        <strong>렌딩페이지</strong><br/><br/>
+        <img src="https://github.com/user-attachments/assets/76b838bc-b5f4-4ecd-81e3-731c2c37ff59" style="width: 200px; min-width: 200px;" />
+      </td>
+      <td align="center" valign="top">
+        <strong>마이페이지</strong><br/><br/>
+        <img src="https://github.com/user-attachments/assets/bcea43ec-58f6-47b8-828b-c2ed7c232e65" style="width: 200px; min-width: 200px;" />
+      </td>
+      <td align="center" valign="top">
+        <strong>네비게이션</strong><br/><br/>
+        <img src="https://github.com/user-attachments/assets/8b8410dc-04ca-4051-88fa-7b1ee3fda286" style="width: 200px; min-width: 200px;" />
+      </td>
+      <td align="center" valign="top">
+        <strong>피드-1</strong><br/><br/>
+        <img src="https://github.com/user-attachments/assets/f182adcf-dad7-4d87-884d-b508844cdf62" style="width: 200px; min-width: 200px;" />
+      </td>
+      <td align="center" valign="top">
+        <strong>피드-2</strong><br/><br/>
+        <img src="https://github.com/user-attachments/assets/050efa96-e069-4d89-8d75-2ec1b52bed5d" style="width: 200px; min-width: 200px;" />
+      </td>
+      <td align="center" valign="top">
+        <strong>검색 결과</strong><br/><br/>
+        <img src="https://github.com/user-attachments/assets/a1eb1a8e-1d84-4e01-ba38-78f2192fe7c3" style="width: 200px; min-width: 200px;" />
+      </td>
+      <td align="center" valign="top">
+        <strong>에피그램 상세</strong><br/><br/>
+        <img src="https://github.com/user-attachments/assets/ccae5c9a-1402-4d49-84fc-7b39c9e579c7" style="width: 200px; min-width: 200px;" />
+      </td>
+      <td align="center" valign="top">
+        <strong>에피그램 작성</strong><br/><br/>
+        <img src="https://github.com/user-attachments/assets/5c4a4ffa-4af7-4fdd-a422-0b8c959e1bf0" style="width: 200px; min-width: 200px;" />
+      </td>
+      <td align="center" valign="top">
+        <strong>로그인</strong><br/><br/>
+        <img src="https://github.com/user-attachments/assets/6cfd3617-50c9-4c9e-b7e7-6b8127586b0c" style="width: 200px; min-width: 200px;" />
+      </td>
+      <td align="center" valign="top">
+        <strong>회원가입</strong><br/><br/>
+        <img src="https://github.com/user-attachments/assets/a6baa408-adec-4462-b558-680a6ed86f4b" style="width: 200px; min-width: 200px;" />
+      </td>
+      <td align="center" valign="top">
+        <strong>메인</strong><br/><br/>
+        <img src="https://github.com/user-attachments/assets/78a40a5f-3418-4bc1-876d-9f84d9604e2e" style="width: 200px; min-width: 200px;" />
+      </td>
+      <td align="center" valign="top">
+        <strong>삭제하기 모달</strong><br/><br/>
+        <img src="https://github.com/user-attachments/assets/e174c1bf-67cd-42df-b6ef-2b473453337f" style="width: 200px; min-width: 200px;" />
+      </td>
+      <td align="center" valign="top">
+        <strong>프로필수정 모달</strong><br/><br/>
+        <img src="https://github.com/user-attachments/assets/67d3a7d5-24d1-436a-8885-644d51f8b520" style="width: 200px; min-width: 200px;" />
+      </td>
+    </tr>
+  </table>
 </div>
 
 
@@ -77,6 +120,16 @@
     <td align="center">
       <img src="https://github.com/user-attachments/assets/69916325-537b-4385-8b7a-12930f314f48" width="80px" height="80px" />
     </td>
+  </tr>
+  <tr>
+    <td align="center"><b>Next.js</b></td>
+    <td align="center"><b>TypeScript</b></td>
+    <td align="center"><b>Tailwind</b></td>
+    <td align="center"><b>NextAuth</b></td>
+  </tr>
+</table>
+<table>
+  <tr>
     <td align="center">
       <img src="https://github.com/user-attachments/assets/846d36e7-f0ee-49c5-841b-b2966b7e57a8" width="80px" height="80px" />
     </td>
@@ -91,10 +144,6 @@
     </td>
   </tr>
   <tr>
-    <td align="center"><b>Next.js</b></td>
-    <td align="center"><b>TypeScript</b></td>
-    <td align="center"><b>Tailwind</b></td>
-    <td align="center"><b>NextAuth</b></td>
     <td align="center"><b>React Hook Form</b></td>
     <td align="center"><b>Zod</b></td>
     <td align="center"><b>Chart.js</b></td>
