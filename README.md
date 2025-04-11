@@ -311,3 +311,13 @@ $ npm run dev
 > 이석찬
 - 프로젝트 팀원
 - 공용 컴포넌트 작업
+
+---
+### Trouble Shooting & Docs
+- [NextAuth Credentials Provider와 Postman 연동하기: 로그인부터 API 요청까지](https://honeysuckle-watchmaker-42a.notion.site/NextAuth-Credentials-Provider-Postman-API-1b938e8296f280538d10ee7fd106e38d)
+- [메인페이지 useEmotionLogToday 무한 마운트](https://honeysuckle-watchmaker-42a.notion.site/useEmotionLogToday-1c438e8296f280cd84d9c848bc001da2)
+- [Next.js에서 Open Graph 이미지 생성하기](https://honeysuckle-watchmaker-42a.notion.site/Next-js-Open-Graph-1c938e8296f280fb946adac75f2d813a)
+- [NextAuth에서 OAuth 로그인 흐름을 직접 제어하기](https://honeysuckle-watchmaker-42a.notion.site/NextAuth-OAuth-1cb38e8296f2804ca1fec317ed350d80)
+- [모달 제어의 본질 – 사이드 이펙트 없는 명확한 흐름 만들기 (feat.명령형 모달)](https://honeysuckle-watchmaker-42a.notion.site/feat-1ca38e8296f2806082b4ebbfefc283d6)
+- [모달 구조 통일 – 하나의 컴포넌트로 더 나은 사용자 경험 만들기](https://honeysuckle-watchmaker-42a.notion.site/1cd38e8296f280b0bad2e95959ad83df)
+- [모달 접근성 개선 - 사용자 중심의 경험을 위한 고민](https://honeysuckle-watchmaker-42a.notion.site/1cf38e8296f280868c30fcfdec289408)
