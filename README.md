@@ -12,8 +12,14 @@
   <a href="https://epigram-gilv.vercel.app">Epigram Site</a> |
   <a href="https://epigram-storybook.vercel.app/">Storybook</a> |
   <a href="https://honeysuckle-watchmaker-42a.notion.site/4-4-1ac38e8296f280a8a659e481aac6d9aa?pvs=4 ">Team Notion</a> |
-  <a href="#">Project Presentation</a>
+  <a href="https://www.slideshare.net/slideshow/12-4-ppt-12-4-ppt-12-4-ppt/277795857">Project Presentation</a>
 </h4>   
+
+---
+## Demo Video
+> 에피그램 프로젝트 시연영상  
+
+https://github.com/user-attachments/assets/35e50d5c-75a8-4481-b4cb-94e9654636bf
 
 ---
 
@@ -40,21 +46,45 @@
 ## Screenshots
 > 에피그램 프로젝트 스크린샷   
 
-<div style="overflow-x: auto; white-space: nowrap;">
-  <img src="https://github.com/user-attachments/assets/76b838bc-b5f4-4ecd-81e3-731c2c37ff59" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
-  <img src="https://github.com/user-attachments/assets/bcea43ec-58f6-47b8-828b-c2ed7c232e65" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
-  <img src="https://github.com/user-attachments/assets/8b8410dc-04ca-4051-88fa-7b1ee3fda286" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
-  <img src="https://github.com/user-attachments/assets/78a40a5f-3418-4bc1-876d-9f84d9604e2e" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
-  <img src="https://github.com/user-attachments/assets/a1eb1a8e-1d84-4e01-ba38-78f2192fe7c3" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
-  <img src="https://github.com/user-attachments/assets/f182adcf-dad7-4d87-884d-b508844cdf62" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
-  <img src="https://github.com/user-attachments/assets/050efa96-e069-4d89-8d75-2ec1b52bed5d" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
-  <img src="https://github.com/user-attachments/assets/ccae5c9a-1402-4d49-84fc-7b39c9e579c7" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
-  <img src="https://github.com/user-attachments/assets/5c4a4ffa-4af7-4fdd-a422-0b8c959e1bf0" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
-  <img src="https://github.com/user-attachments/assets/6cfd3617-50c9-4c9e-b7e7-6b8127586b0c" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
-  <img src="https://github.com/user-attachments/assets/a6baa408-adec-4462-b558-680a6ed86f4b" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
-  <img src="https://github.com/user-attachments/assets/e174c1bf-67cd-42df-b6ef-2b473453337f" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
-  <img src="https://github.com/user-attachments/assets/67d3a7d5-24d1-436a-8885-644d51f8b520" width="200" style="display: inline-block; margin-right: 8px; vertical-align: top;" />
-</div>
+<table>
+  <tr>
+    <td align="center" valign="top"><strong>렌딩페이지</strong></td>
+    <td align="center" valign="top"><strong>메인</strong></td>
+    <td align="center" valign="top"><strong>네비게이션</strong></td>
+    <td align="center" valign="top"><strong>검색 결과</strong></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><img src="https://github.com/user-attachments/assets/76b838bc-b5f4-4ecd-81e3-731c2c37ff59" width="200"/></td>
+    <td align="center" valign="top"><img src="https://github.com/user-attachments/assets/78a40a5f-3418-4bc1-876d-9f84d9604e2e" width="200"/></td>
+    <td align="center" valign="top"><img src="https://github.com/user-attachments/assets/8b8410dc-04ca-4051-88fa-7b1ee3fda286" width="200"/></td>
+    <td align="center" valign="top"><img src="https://github.com/user-attachments/assets/a1eb1a8e-1d84-4e01-ba38-78f2192fe7c3" width="200"/></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><strong>피드</strong></td>
+    <td align="center" valign="top"><strong>에피그램 상세</strong></td>
+    <td align="center" valign="top"><strong>에피그램 작성</strong></td>
+    <td align="center" valign="top"><strong>삭제하기 모달</strong></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><img src="https://github.com/user-attachments/assets/f182adcf-dad7-4d87-884d-b508844cdf62" width="200"/></td>
+    <td align="center" valign="top"><img src="https://github.com/user-attachments/assets/ccae5c9a-1402-4d49-84fc-7b39c9e579c7" width="200"/></td>
+    <td align="center" valign="top"><img src="https://github.com/user-attachments/assets/5c4a4ffa-4af7-4fdd-a422-0b8c959e1bf0" width="200"/></td>
+    <td align="center" valign="top"><img src="https://github.com/user-attachments/assets/e174c1bf-67cd-42df-b6ef-2b473453337f" width="200"/></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><strong>로그인</strong></td>
+    <td align="center" valign="top"><strong>회원가입</strong></td>
+    <td align="center" valign="top"><strong>마이페이지</strong></td>
+    <td align="center" valign="top"><strong>프로필수정 모달</strong></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><img src="https://github.com/user-attachments/assets/6cfd3617-50c9-4c9e-b7e7-6b8127586b0c" width="200"/></td>
+    <td align="center" valign="top"><img src="https://github.com/user-attachments/assets/a6baa408-adec-4462-b558-680a6ed86f4b" width="200"/></td>
+    <td align="center" valign="top"><img src="https://github.com/user-attachments/assets/bcea43ec-58f6-47b8-828b-c2ed7c232e65" width="200"/></td>
+    <td align="center" valign="top"><img src="https://github.com/user-attachments/assets/67d3a7d5-24d1-436a-8885-644d51f8b520" width="200"/></td>
+  </tr>
+</table>
+
 
 
 ---
@@ -77,6 +107,16 @@
     <td align="center">
       <img src="https://github.com/user-attachments/assets/69916325-537b-4385-8b7a-12930f314f48" width="80px" height="80px" />
     </td>
+  </tr>
+  <tr>
+    <td align="center"><b>Next.js</b></td>
+    <td align="center"><b>TypeScript</b></td>
+    <td align="center"><b>Tailwind</b></td>
+    <td align="center"><b>NextAuth</b></td>
+  </tr>
+</table>
+<table>
+  <tr>
     <td align="center">
       <img src="https://github.com/user-attachments/assets/846d36e7-f0ee-49c5-841b-b2966b7e57a8" width="80px" height="80px" />
     </td>
@@ -91,10 +131,6 @@
     </td>
   </tr>
   <tr>
-    <td align="center"><b>Next.js</b></td>
-    <td align="center"><b>TypeScript</b></td>
-    <td align="center"><b>Tailwind</b></td>
-    <td align="center"><b>NextAuth</b></td>
     <td align="center"><b>React Hook Form</b></td>
     <td align="center"><b>Zod</b></td>
     <td align="center"><b>Chart.js</b></td>
@@ -176,13 +212,6 @@ $ npm install
 $ npm run dev
 ```
 ---
-
-## Demo Video
-> 에피그램 프로젝트 시연영상  
-
-https://github.com/user-attachments/assets/35e50d5c-75a8-4481-b4cb-94e9654636bf
-
----
 ## Browers supports
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari-ios/safari-ios_48x48.png" alt="iOS Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>iOS Safari |
@@ -263,3 +292,13 @@ https://github.com/user-attachments/assets/35e50d5c-75a8-4481-b4cb-94e9654636bf
 > 이석찬
 - 프로젝트 팀원
 - 공용 컴포넌트 작업
+
+---
+### Trouble Shooting & Docs
+- [NextAuth Credentials Provider와 Postman 연동하기: 로그인부터 API 요청까지](https://honeysuckle-watchmaker-42a.notion.site/NextAuth-Credentials-Provider-Postman-API-1b938e8296f280538d10ee7fd106e38d)
+- [메인페이지 useEmotionLogToday 무한 마운트](https://honeysuckle-watchmaker-42a.notion.site/useEmotionLogToday-1c438e8296f280cd84d9c848bc001da2)
+- [Next.js에서 Open Graph 이미지 생성하기](https://honeysuckle-watchmaker-42a.notion.site/Next-js-Open-Graph-1c938e8296f280fb946adac75f2d813a)
+- [NextAuth에서 OAuth 로그인 흐름을 직접 제어하기](https://honeysuckle-watchmaker-42a.notion.site/NextAuth-OAuth-1cb38e8296f2804ca1fec317ed350d80)
+- [모달 제어의 본질 – 사이드 이펙트 없는 명확한 흐름 만들기 (feat.명령형 모달)](https://honeysuckle-watchmaker-42a.notion.site/feat-1ca38e8296f2806082b4ebbfefc283d6)
+- [모달 구조 통일 – 하나의 컴포넌트로 더 나은 사용자 경험 만들기](https://honeysuckle-watchmaker-42a.notion.site/1cd38e8296f280b0bad2e95959ad83df)
+- [모달 접근성 개선 - 사용자 중심의 경험을 위한 고민](https://honeysuckle-watchmaker-42a.notion.site/1cf38e8296f280868c30fcfdec289408)
