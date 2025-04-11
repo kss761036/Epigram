@@ -180,7 +180,7 @@ $ npm run dev
 ## Demo Video
 > 에피그램 프로젝트 시연영상  
 
-<img style="width:600px; max-width:100%" src="https://github.com/user-attachments/assets/95d76b17-e184-4817-8c2c-130c2eaed43b" alt="demo video">
+https://github.com/user-attachments/assets/35e50d5c-75a8-4481-b4cb-94e9654636bf
 
 ---
 ## Browers supports
