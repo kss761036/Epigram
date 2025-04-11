@@ -51,55 +51,55 @@ https://github.com/user-attachments/assets/35e50d5c-75a8-4481-b4cb-94e9654636bf
     <tr>
       <td align="center" valign="top">
         <strong>렌딩페이지</strong><br/><br/>
-        <img src="https://github.com/user-attachments/assets/76b838bc-b5f4-4ecd-81e3-731c2c37ff59" style="width: 200px; min-width: 200px;" />
+        <img src="https://github.com/user-attachments/assets/dd3fb8af-4b5d-4057-a76a-b5c8f91133d6" width=200/>
       </td>
       <td align="center" valign="top">
         <strong>마이페이지</strong><br/><br/>
-        <img src="https://github.com/user-attachments/assets/bcea43ec-58f6-47b8-828b-c2ed7c232e65" style="width: 200px; min-width: 200px;" />
+        <img src="https://github.com/user-attachments/assets/dd574661-a618-4c93-9e7b-626a285b4bb6" width=200/>
       </td>
       <td align="center" valign="top">
         <strong>네비게이션</strong><br/><br/>
-        <img src="https://github.com/user-attachments/assets/8b8410dc-04ca-4051-88fa-7b1ee3fda286" style="width: 200px; min-width: 200px;" />
+        <img src="https://github.com/user-attachments/assets/e93570a9-fcbf-4840-bc39-d10cb5e057ce" width=200/>
       </td>
       <td align="center" valign="top">
         <strong>피드-1</strong><br/><br/>
-        <img src="https://github.com/user-attachments/assets/f182adcf-dad7-4d87-884d-b508844cdf62" style="width: 200px; min-width: 200px;" />
+        <img src="https://github.com/user-attachments/assets/208301c4-85ff-4bcf-9438-a01074d06fd2" width=200/>
       </td>
       <td align="center" valign="top">
         <strong>피드-2</strong><br/><br/>
-        <img src="https://github.com/user-attachments/assets/050efa96-e069-4d89-8d75-2ec1b52bed5d" style="width: 200px; min-width: 200px;" />
+        <img src="https://github.com/user-attachments/assets/69eba9ce-42ee-4951-addb-d7be2a80f421" width=200/>
       </td>
       <td align="center" valign="top">
         <strong>검색 결과</strong><br/><br/>
-        <img src="https://github.com/user-attachments/assets/a1eb1a8e-1d84-4e01-ba38-78f2192fe7c3" style="width: 200px; min-width: 200px;" />
+        <img src="https://github.com/user-attachments/assets/f9e8f529-fc14-442b-9f9e-bf954bba28fe" width=200/>
       </td>
       <td align="center" valign="top">
         <strong>에피그램 상세</strong><br/><br/>
-        <img src="https://github.com/user-attachments/assets/ccae5c9a-1402-4d49-84fc-7b39c9e579c7" style="width: 200px; min-width: 200px;" />
+        <img src="https://github.com/user-attachments/assets/5cd3aca7-1d96-429d-ad01-af627efec536" width=200/>
       </td>
       <td align="center" valign="top">
         <strong>에피그램 작성</strong><br/><br/>
-        <img src="https://github.com/user-attachments/assets/5c4a4ffa-4af7-4fdd-a422-0b8c959e1bf0" style="width: 200px; min-width: 200px;" />
+        <img src="https://github.com/user-attachments/assets/0825a974-251c-4a03-bd51-bc90f1d2b7ea" width=200/>
       </td>
       <td align="center" valign="top">
         <strong>로그인</strong><br/><br/>
-        <img src="https://github.com/user-attachments/assets/6cfd3617-50c9-4c9e-b7e7-6b8127586b0c" style="width: 200px; min-width: 200px;" />
+        <img src="https://github.com/user-attachments/assets/72944519-c3ee-479c-980c-c7c4bb6f12ab" width=200/>
       </td>
       <td align="center" valign="top">
         <strong>회원가입</strong><br/><br/>
-        <img src="https://github.com/user-attachments/assets/a6baa408-adec-4462-b558-680a6ed86f4b" style="width: 200px; min-width: 200px;" />
+        <img src="https://github.com/user-attachments/assets/596c5596-6773-4fe9-8de6-c04aab7b71c9" width=200/>
       </td>
       <td align="center" valign="top">
         <strong>메인</strong><br/><br/>
-        <img src="https://github.com/user-attachments/assets/78a40a5f-3418-4bc1-876d-9f84d9604e2e" style="width: 200px; min-width: 200px;" />
+        <img src="https://github.com/user-attachments/assets/7f78c6f0-15e4-4d0c-aca3-28705cb5792c" width=200/>
       </td>
       <td align="center" valign="top">
         <strong>삭제하기 모달</strong><br/><br/>
-        <img src="https://github.com/user-attachments/assets/e174c1bf-67cd-42df-b6ef-2b473453337f" style="width: 200px; min-width: 200px;" />
+        <img src="https://github.com/user-attachments/assets/34b9a62b-5f76-41d8-8682-fb99fc88ecaa" width=200/>
       </td>
       <td align="center" valign="top">
         <strong>프로필수정 모달</strong><br/><br/>
-        <img src="https://github.com/user-attachments/assets/67d3a7d5-24d1-436a-8885-644d51f8b520" style="width: 200px; min-width: 200px;" />
+        <img src="https://github.com/user-attachments/assets/8539440e-5aee-4c41-940e-ef183c995cc6" width=200/>
       </td>
     </tr>
   </table>
