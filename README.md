@@ -12,7 +12,7 @@
   <a href="https://epigram-gilv.vercel.app">Epigram Site</a> |
   <a href="https://epigram-storybook.vercel.app/">Storybook</a> |
   <a href="https://honeysuckle-watchmaker-42a.notion.site/4-4-1ac38e8296f280a8a659e481aac6d9aa?pvs=4 ">Team Notion</a> |
-  <a href="https://www.slideshare.net/slideshow/12-4-ppt-12-4-ppt-12-4-ppt/277795857">Project Presentation</a>
+  <a href="https://drive.google.com/file/d/1spzRpKBr1Ivcq7xbBBZ0qroUHkJaXiLt/view?usp=drive_link">Project Presentation</a>
 </h4>   
 
 ---
